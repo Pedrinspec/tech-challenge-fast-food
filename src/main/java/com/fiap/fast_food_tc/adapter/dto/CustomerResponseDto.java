@@ -9,14 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRequestDto {
+public class CustomerResponseDto {
 
-    private String cpf;
-
-    private String name;
-
+    private Long customerId;
+    private String documentNumber;
+    private String firstName;
+    private String lastName;
     private String email;
-
-    private String password;
 
 }
