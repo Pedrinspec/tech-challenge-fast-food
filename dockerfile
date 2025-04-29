@@ -8,7 +8,7 @@ WORKDIR /app
 COPY build/libs/*.jar app.jar
   
   # Expõe a porta 8080 (opcional, apenas para documentação)
-EXPOSE 8080
+EXPOSE 3000
   
   # Comando para rodar sua aplicação
 ENTRYPOINT ["java", "-jar", "app.jar"]

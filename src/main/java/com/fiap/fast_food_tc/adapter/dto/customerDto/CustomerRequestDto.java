@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.adapter.dto;
+package com.fiap.fast_food_tc.adapter.dto.customerDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

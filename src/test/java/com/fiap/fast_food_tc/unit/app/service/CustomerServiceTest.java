@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.unit.app.service;
 
-import com.fiap.fast_food_tc.adapter.dto.CustomerRequestDto;
-import com.fiap.fast_food_tc.adapter.dto.CustomerResponseDto;
+import com.fiap.fast_food_tc.adapter.dto.customerDto.CustomerRequestDto;
+import com.fiap.fast_food_tc.adapter.dto.customerDto.CustomerResponseDto;
 import com.fiap.fast_food_tc.app.service.CustomerService;
 import com.fiap.fast_food_tc.cross.CustomerMapper;
 import com.fiap.fast_food_tc.domain.entity.ECustomer;
@@ -47,7 +47,7 @@ class CustomerServiceTest {
     @Test
     void shouldGetByDocumentNumberSuccess() {
         var userSalvo = new ECustomer(1L, "111111", "João", "silva", "joao@email.com", List.of());
-        var requestDto = new CustomerResponseDto(1L, "111111", "João", "silva","joao@email.com");
+        var requestDto = new CustomerResponseDto(1L, "111111", "João", "silva","joao@email.com", List.of());
 
         when(customerUseCase.getByDocumentNumber(any())).thenReturn(userSalvo);
         when(customerMapper.entityToMessage(any())).thenReturn(requestDto);

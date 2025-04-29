@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.adapter.controller;
 
-import com.fiap.fast_food_tc.adapter.dto.CustomerRequestDto;
-import com.fiap.fast_food_tc.adapter.dto.CustomerResponseDto;
+import com.fiap.fast_food_tc.adapter.dto.customerDto.CustomerRequestDto;
+import com.fiap.fast_food_tc.adapter.dto.customerDto.CustomerResponseDto;
 import com.fiap.fast_food_tc.app.service.CustomerService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +23,9 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomerResponseDto> createCustomer(@RequestBody CustomerRequestDto user) {
-        var userCreated = customerService.create(user);
-        return ResponseEntity.created(URI.create("/user/" + userCreated.getCustomerId())).body(userCreated);
+    public ResponseEntity<CustomerResponseDto> createCustomer(@RequestBody CustomerRequestDto customer) {
+        var customerCreated = customerService.create(customer);
+        return ResponseEntity.created(URI.create("/customer/" + customerCreated.getCustomerId())).body(customerCreated);
     }
 
     @GetMapping("/{documentNumber}")

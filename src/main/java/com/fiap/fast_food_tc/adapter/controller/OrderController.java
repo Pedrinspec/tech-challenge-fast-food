@@ -1,13 +1,14 @@
 package com.fiap.fast_food_tc.adapter.controller;
 
-import com.fiap.fast_food_tc.adapter.dto.OrderResponseDto;
-import com.fiap.fast_food_tc.app.service.OrderService;
+import com.fiap.fast_food_tc.adapter.dto.ordersDto.OrdersRequestDto;
+import com.fiap.fast_food_tc.adapter.dto.ordersDto.OrdersResponseDto;
+import com.fiap.fast_food_tc.app.service.OrdersService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,16 +17,23 @@ import java.util.List;
 @RequestMapping("orders")
 public class OrderController {
 
-    private final OrderService orderService;
+    private final OrdersService ordersService;
 
     @Autowired
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
+    public OrderController(OrdersService ordersService) {
+        this.ordersService = ordersService;
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<OrderResponseDto>> getAllOrders() {
-        return null;
+    public ResponseEntity<List<OrdersResponseDto>> getAllOrders() {
+        var response = ordersService.getAllOrders();
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping
+    public ResponseEntity<OrdersResponseDto> createCustomer(@RequestBody @Valid OrdersRequestDto order) {
+        var ordersCreated = ordersService.create(order);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ordersCreated);
     }
 
 

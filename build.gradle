@@ -47,6 +47,10 @@ dependencies {
 
 	testImplementation("org.mockito:mockito-core")
 	testImplementation("org.mockito:mockito-junit-jupiter")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework:spring-test")
+	testImplementation("com.fasterxml.jackson.core:jackson-databind")
 }
 
 tasks.test {
