@@ -1,12 +1,13 @@
 package com.fiap.fast_food_tc.domain.entity;
 
-import com.fiap.fast_food_tc.adapter.db.model.Order;
+import com.fiap.fast_food_tc.adapter.db.model.Orders;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
 
 @Builder
 @Data
@@ -19,6 +20,6 @@ public class ECustomer {
     private String firstName;
     private String lastName;
     private String email;
-    private List<Order> orders;
+    private List<Orders> orders;
 
 }
