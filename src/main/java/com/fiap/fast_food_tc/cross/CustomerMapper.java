@@ -12,11 +12,12 @@ public interface CustomerMapper {
 
     ECustomer toEntity(Customer eCustomer);
 
-    Customer toDomain(ECustomer user);
+    Customer toDomain(ECustomer customer);
 
     @Mapping(target = "customerId", ignore = true)
-    ECustomer messageToEntity(CustomerRequestDto user);
+    @Mapping(target = "orders", ignore = true)
+    ECustomer messageToEntity(CustomerRequestDto customer);
 
-    CustomerResponseDto entityToMessage(ECustomer user);
+    CustomerResponseDto entityToMessage(ECustomer customer);
 
 }

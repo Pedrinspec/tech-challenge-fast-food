@@ -7,10 +7,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Builder
 @Data
 @Entity
-@Table(name = "users")
+@Table(name = "customer")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer {
@@ -31,5 +33,8 @@ public class Customer {
 
     @Column(name = "email", nullable = false, unique = true, length = 45)
     private String email;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Order> orders;
 
 }
