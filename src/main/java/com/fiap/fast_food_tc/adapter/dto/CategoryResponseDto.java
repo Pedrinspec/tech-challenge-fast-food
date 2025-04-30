@@ -1,0 +1,17 @@
+package com.fiap.fast_food_tc.adapter.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class CategoryResponseDto {
+
+
+    private Long categoryId;
+    private String name;
+}
