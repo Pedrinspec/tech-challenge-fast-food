@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @Tag(name = "Product", description = "Products Endpoints")
 @RestController
@@ -39,6 +40,12 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping()
+    public List<ProductResponseDto> getByCategory(@RequestParam long categoryId) {
+       List<ProductResponseDto> responseDtoList = productService.getByCategoryId(categoryId) ;
+
+        return responseDtoList;
+    }
 
 
 }

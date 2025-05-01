@@ -8,6 +8,9 @@ import com.fiap.fast_food_tc.domain.usecase.ProductUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ProductService {
 
@@ -22,7 +25,8 @@ public class ProductService {
     }
 
     public ProductResponseDto create(ProductRequestDto product) {
-        return productMapper.entityToMessage(productUseCase.create(productMapper.messageToEntity(product)));
+        EProduct product1 = productUseCase.create(productMapper.messageToEntity(product));
+        return productMapper.entityToMessage(product1);
     }
 
 
@@ -34,5 +38,16 @@ public class ProductService {
 
     public void delete(long id) {
         productUseCase.delete(id);
+    }
+
+    public List<ProductResponseDto> getByCategoryId(long categoryId) {
+
+        List<ProductResponseDto> productList = productUseCase.getByCategoryId(categoryId)
+                .stream()
+                .map(user -> productMapper.entityToMessage(user))
+                .collect(Collectors.toList());
+
+
+        return productList;
     }
 }

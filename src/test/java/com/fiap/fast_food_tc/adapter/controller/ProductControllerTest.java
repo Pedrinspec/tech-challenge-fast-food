@@ -1,9 +1,12 @@
 package com.fiap.fast_food_tc.adapter.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fiap.fast_food_tc.adapter.dto.CategoryResponseDto;
 import com.fiap.fast_food_tc.adapter.dto.ProductRequestDto;
 import com.fiap.fast_food_tc.adapter.dto.ProductResponseDto;
 import com.fiap.fast_food_tc.app.service.ProductService;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -14,6 +17,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -63,7 +69,7 @@ class ProductControllerTest {
 
 
     @Test
-    public void updateTest() throws Exception{
+    public void shouldUpdateTest() throws Exception{
         // given - precondition or setup
         ProductResponseDto productResponseDto = ProductResponseDto.builder()
                 .name("p1")
@@ -108,4 +114,19 @@ class ProductControllerTest {
     }
 
 
+    @Test
+    void shouldGetByCategory() throws Exception {
+        ProductResponseDto productResponseDto = ProductResponseDto.builder()
+                .name("p1")
+                .description("P2 description")
+                .imageUrl("image2.url.jpeg")
+                .isAvailable("").productValue("10").quantity("").category(new CategoryResponseDto(1l, "category"))
+                .build();
+        List<ProductResponseDto> list = new ArrayList<>();
+        list.add(productResponseDto);
+        Mockito.when(productService.getByCategoryId(Mockito.anyLong())).thenReturn(list);
+        Assertions.assertThat(list.size()).isGreaterThan(0);
+
+
+    }
 }
