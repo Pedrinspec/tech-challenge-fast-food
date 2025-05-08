@@ -5,6 +5,7 @@ import com.fiap.fast_food_tc.adapter.dto.product.ProductResponse;
 import com.fiap.fast_food_tc.app.service.ProductService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ public class ProductController {
 
     private final ProductService service;
 
+    @Autowired
     public ProductController(ProductService service) {
         this.service = service;
     }

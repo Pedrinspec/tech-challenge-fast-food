@@ -5,6 +5,9 @@ import com.fiap.fast_food_tc.adapter.dto.product.ProductRequest;
 import com.fiap.fast_food_tc.adapter.dto.product.ProductResponse;
 import com.fiap.fast_food_tc.domain.entity.EProduct;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
@@ -15,6 +18,11 @@ public interface ProductMapper {
 
     EProduct toEntity(Product product);
 
+    @Mapping(target = "productId", ignore = true)
     EProduct toEntityCreate(ProductRequest request);
+
+    List<ProductResponse> toResponseList(List<EProduct> list);
+
+    List<EProduct> toEntityList(List<Product> list);
 
 }

@@ -7,6 +7,8 @@ import com.fiap.fast_food_tc.domain.usecase.ProductUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ProductUseCaseImpl implements ProductUseCase {
 
@@ -23,6 +25,11 @@ public class ProductUseCaseImpl implements ProductUseCase {
     @Override
     public EProduct create(EProduct eProduct) {
         return productMapper.toEntity(productGateway.create(productMapper.toModel(eProduct)));
+    }
+
+    @Override
+    public List<EProduct> findAll() {
+        return productMapper.toEntityList(productGateway.findAll());
     }
 
 }

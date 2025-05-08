@@ -6,9 +6,11 @@ import com.fiap.fast_food_tc.cross.ProductMapper;
 import com.fiap.fast_food_tc.domain.usecase.ProductUseCase;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProductService {
 
     private final ProductMapper productMapper;
@@ -39,6 +41,6 @@ public class ProductService {
     }
 
     public List<ProductResponse> findAll() {
-        return List.of();
+        return productMapper.toResponseList(productUseCase.findAll());
     }
 }
