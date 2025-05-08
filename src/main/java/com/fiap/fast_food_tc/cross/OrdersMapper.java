@@ -1,8 +1,8 @@
 package com.fiap.fast_food_tc.cross;
 
 import com.fiap.fast_food_tc.adapter.db.model.Orders;
-import com.fiap.fast_food_tc.adapter.dto.ordersDto.OrdersRequestDto;
-import com.fiap.fast_food_tc.adapter.dto.ordersDto.OrdersResponseDto;
+import com.fiap.fast_food_tc.adapter.dto.orders.OrdersRequestDto;
+import com.fiap.fast_food_tc.adapter.dto.orders.OrdersResponseDto;
 import com.fiap.fast_food_tc.domain.entity.EOrders;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,7 +16,7 @@ public interface OrdersMapper {
     @Mapping(target = "orderCode", ignore = true)
     EOrders toEntityCreate(OrdersRequestDto ordersRequestDto);
 
-    EOrders toEntity(Orders Orders);
+    EOrders toEntity(Orders orders);
 
     Orders toModel(EOrders eOrders);
 

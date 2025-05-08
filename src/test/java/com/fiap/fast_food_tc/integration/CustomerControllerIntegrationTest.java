@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fiap.fast_food_tc.adapter.dto.customerDto.CustomerRequestDto;
+import com.fiap.fast_food_tc.adapter.dto.customer.CustomerRequestDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

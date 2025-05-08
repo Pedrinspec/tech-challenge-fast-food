@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class OrdersDataprovider implements OrdersGateway {
+public class OrdersDataProvider implements OrdersGateway {
 
     private final OrdersRepository repository;
 
     @Autowired
-    public OrdersDataprovider(OrdersRepository repository) {
+    public OrdersDataProvider(OrdersRepository repository) {
         this.repository = repository;
     }
 

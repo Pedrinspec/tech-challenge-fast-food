@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.domain.usecase.impl;
 
-import com.fiap.fast_food_tc.adapter.provider.OrdersDataprovider;
+import com.fiap.fast_food_tc.adapter.provider.OrdersDataProvider;
 import com.fiap.fast_food_tc.cross.OrdersMapper;
 import com.fiap.fast_food_tc.domain.entity.EOrders;
 import com.fiap.fast_food_tc.domain.gateway.OrdersGateway;
@@ -21,7 +21,7 @@ public class OrdersUseCaseImpl implements OrdersUseCase {
     private final RedisTemplate<String, String> redisTemplate;
 
     @Autowired
-    public OrdersUseCaseImpl(OrdersDataprovider dataprovider, OrdersMapper ordersMapper, RedisTemplate<String, String> redisTemplate) {
+    public OrdersUseCaseImpl(OrdersDataProvider dataprovider, OrdersMapper ordersMapper, RedisTemplate<String, String> redisTemplate) {
         this.provider = dataprovider;
         this.ordersMapper = ordersMapper;
         this.redisTemplate = redisTemplate;

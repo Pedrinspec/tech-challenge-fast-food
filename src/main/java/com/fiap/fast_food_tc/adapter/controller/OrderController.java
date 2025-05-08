@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.adapter.controller;
 
-import com.fiap.fast_food_tc.adapter.dto.ordersDto.OrdersRequestDto;
-import com.fiap.fast_food_tc.adapter.dto.ordersDto.OrdersResponseDto;
+import com.fiap.fast_food_tc.adapter.dto.orders.OrdersRequestDto;
+import com.fiap.fast_food_tc.adapter.dto.orders.OrdersResponseDto;
 import com.fiap.fast_food_tc.app.service.OrdersService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

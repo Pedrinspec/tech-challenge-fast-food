@@ -2,16 +2,14 @@ package com.fiap.fast_food_tc.adapter.db.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Builder
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "customer")
 @AllArgsConstructor

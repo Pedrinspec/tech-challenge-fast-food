@@ -1,16 +1,14 @@
 package com.fiap.fast_food_tc.adapter.db.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "employee")
 @AllArgsConstructor
 @Builder
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Employee {
 
