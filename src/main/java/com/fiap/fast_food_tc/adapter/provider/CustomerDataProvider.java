@@ -6,11 +6,11 @@ import com.fiap.fast_food_tc.domain.gateway.CustomerGateway;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomerDataprovider implements CustomerGateway {
+public class CustomerDataProvider implements CustomerGateway {
 
     private final CustomerRepository repository;
 
-    public CustomerDataprovider(CustomerRepository repository) {
+    public CustomerDataProvider(CustomerRepository repository) {
         this.repository = repository;
     }
 

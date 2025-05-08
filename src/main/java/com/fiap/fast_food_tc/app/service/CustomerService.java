@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.app.service;
 
-import com.fiap.fast_food_tc.adapter.dto.CustomerRequestDto;
-import com.fiap.fast_food_tc.adapter.dto.CustomerResponseDto;
+import com.fiap.fast_food_tc.adapter.dto.customer.CustomerRequestDto;
+import com.fiap.fast_food_tc.adapter.dto.customer.CustomerResponseDto;
 import com.fiap.fast_food_tc.cross.CustomerMapper;
 import com.fiap.fast_food_tc.domain.usecase.CustomerUseCase;
 import jakarta.validation.Valid;

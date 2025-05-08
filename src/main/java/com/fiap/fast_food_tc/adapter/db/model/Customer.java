@@ -2,15 +2,16 @@ package com.fiap.fast_food_tc.adapter.db.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name = "users")
+@Table(name = "customer")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer {
@@ -31,5 +32,9 @@ public class Customer {
 
     @Column(name = "email", nullable = false, unique = true, length = 45)
     private String email;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Orders> orders = new ArrayList<>();
 
 }
