@@ -34,7 +34,7 @@ class CustomerServiceTest {
     @Test
     void shouldCreateUserSuccess() {
         var requestDto = new CustomerRequestDto("111111", "João", "silva","joao@email.com");
-        var userSalvo = new ECustomer(1L, "111111", "João", "silva","joao@email.com", List.of());
+        var userSalvo = new ECustomer(1, "111111", "João", "silva","joao@email.com", List.of());
 
         when(customerMapper.messageToEntity(requestDto)).thenReturn(userSalvo);
         when(customerUseCase.create(any(ECustomer.class))).thenReturn(userSalvo);
@@ -46,8 +46,8 @@ class CustomerServiceTest {
 
     @Test
     void shouldGetByDocumentNumberSuccess() {
-        var userSalvo = new ECustomer(1L, "111111", "João", "silva", "joao@email.com", List.of());
-        var requestDto = new CustomerResponseDto(1L, "111111", "João", "silva","joao@email.com", List.of());
+        var userSalvo = new ECustomer(1, "111111", "João", "silva", "joao@email.com", List.of());
+        var requestDto = new CustomerResponseDto(1, "111111", "João", "silva","joao@email.com", List.of());
 
         when(customerUseCase.getByDocumentNumber(any())).thenReturn(userSalvo);
         when(customerMapper.entityToMessage(any())).thenReturn(requestDto);

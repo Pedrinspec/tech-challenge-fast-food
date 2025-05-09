@@ -19,6 +19,6 @@ public class EOrders {
     private Integer statusOrder;
     private Short orderCode;
     private BigDecimal totalAmount;
-    private Long customerId;
+    private Integer customerId;
 
 }

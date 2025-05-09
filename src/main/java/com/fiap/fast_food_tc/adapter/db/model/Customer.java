@@ -19,7 +19,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id", nullable = false, unique = true)
-    private Long customerId;
+    private Integer customerId;
 
     @Column(name = "document_number", nullable = false, unique = true, length = 11)
     private String documentNumber;

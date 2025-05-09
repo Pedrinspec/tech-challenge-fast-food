@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
+public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     @Query("SELECT c FROM Customer c LEFT JOIN FETCH c.orders WHERE c.documentNumber = :documentNumber")
     Optional<Customer> findByDocumentNumber(@Param("documentNumber") String documentNumber);
 

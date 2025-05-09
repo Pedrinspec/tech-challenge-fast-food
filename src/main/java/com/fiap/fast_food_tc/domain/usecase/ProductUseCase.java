@@ -1,12 +1,17 @@
 package com.fiap.fast_food_tc.domain.usecase;
 
 import com.fiap.fast_food_tc.domain.entity.EProduct;
-import jakarta.validation.Valid;
 
 import java.util.List;
 
 public interface ProductUseCase {
-    EProduct create(@Valid EProduct product);
+    EProduct create(EProduct product);
 
     List<EProduct> findAll();
+
+    EProduct updateCustomer(Integer id, EProduct dto);
+
+    void deleteProduct(Integer id);
+
+    EProduct findById(Integer id);
 }
