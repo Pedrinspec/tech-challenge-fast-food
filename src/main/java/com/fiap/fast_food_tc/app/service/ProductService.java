@@ -23,24 +23,26 @@ public class ProductService {
         this.productUseCase = productUseCase;
     }
 
+    public ProductResponse findById(Integer id) {
+        return productMapper.toResponse(productUseCase.findById(id));
+    }
+
+    public List<ProductResponse> findAll() {
+        return productMapper.toResponseList(productUseCase.findAll());
+    }
 
     public ProductResponse create(@Valid ProductRequest productRequest) {
         var product = productMapper.toEntityCreate(productRequest);
         return productMapper.toResponse(productUseCase.create(product));
     }
 
-    public ProductResponse update(Integer id, @Valid ProductRequest dto) {
-        return null;
+    public ProductResponse update(Integer id, ProductRequest dto) {
+        var product = productMapper.toEntityCreate(dto);
+        return productMapper.toResponse(productUseCase.updateCustomer(id, product));
     }
 
     public void delete(Integer id) {
+        productUseCase.deleteProduct(id);
     }
 
-    public ProductResponse findById(Integer id) {
-        return null;
-    }
-
-    public List<ProductResponse> findAll() {
-        return productMapper.toResponseList(productUseCase.findAll());
-    }
 }

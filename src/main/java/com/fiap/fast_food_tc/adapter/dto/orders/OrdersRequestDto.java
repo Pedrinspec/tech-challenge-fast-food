@@ -17,6 +17,6 @@ public class OrdersRequestDto {
     private LocalDateTime orderDatetime;
     private Integer statusOrder;
     private BigDecimal totalAmount;
-    private Long customerId;
+    private Integer customerId;
 
 }

@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CustomerResponseDto {
 
-    private Long customerId;
+    private Integer customerId;
     private String documentNumber;
     private String firstName;
     private String lastName;

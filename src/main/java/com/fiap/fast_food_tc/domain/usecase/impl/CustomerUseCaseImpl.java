@@ -38,12 +38,12 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
 
     }
 
     @Override
-    public ECustomer getById(Long id) {
+    public ECustomer getById(Integer id) {
         return null;
     }
 

@@ -28,8 +28,23 @@ public class ProductUseCaseImpl implements ProductUseCase {
     }
 
     @Override
+    public EProduct findById(Integer id) {
+        return productMapper.toEntity(productGateway.findById(id));
+    }
+
+    @Override
     public List<EProduct> findAll() {
         return productMapper.toEntityList(productGateway.findAll());
+    }
+
+    @Override
+    public EProduct updateCustomer(Integer id, EProduct dto) {
+        return productMapper.toEntity(productGateway.update(productMapper.toModel(dto)));
+    }
+
+    @Override
+    public void deleteProduct(Integer id) {
+        productGateway.delete(id);
     }
 
 }

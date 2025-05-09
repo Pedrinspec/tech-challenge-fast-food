@@ -24,6 +24,16 @@ public class ProductController {
         this.service = service;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponse> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.findById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ProductResponse>> getAll() {
+        return ResponseEntity.ok(service.findAll());
+    }
+
     @PostMapping
     public ResponseEntity<ProductResponse> create(@Valid @RequestBody ProductRequest dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
@@ -40,13 +50,4 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductResponse> getById(@PathVariable Integer id) {
-        return ResponseEntity.ok(service.findById(id));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<ProductResponse>> getAll() {
-        return ResponseEntity.ok(service.findAll());
-    }
 }
