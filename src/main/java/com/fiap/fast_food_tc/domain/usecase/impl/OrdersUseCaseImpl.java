@@ -52,5 +52,10 @@ public class OrdersUseCaseImpl implements OrdersUseCase {
         return ordersMapper.toEntity(provider.create(ordersMapper.toModel(orderEntity)));
     }
 
+    @Override
+    public EOrders getById(Integer id) {
+        return ordersMapper.toEntity(provider.getById(id));
+    }
+
 
 }

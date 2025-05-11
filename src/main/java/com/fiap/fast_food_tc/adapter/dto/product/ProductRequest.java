@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Builder
 @Data
 @AllArgsConstructor
@@ -20,7 +22,7 @@ public class ProductRequest {
     private Integer quantity;
 
     @NotNull
-    private Double productValue;
+    private BigDecimal productValue;
 
     @NotNull
     private Boolean isAvailable;

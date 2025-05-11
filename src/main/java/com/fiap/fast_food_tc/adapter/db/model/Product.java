@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Builder
@@ -36,8 +37,8 @@ public class Product {
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-    @Column(name = "product_value")
-    private Double productValue;
+    @Column(name = "product_value", precision = 20, scale = 2, nullable = false)
+    private BigDecimal productValue;
 
     @Column(name = "available_indicator")
     private Boolean isAvailable;

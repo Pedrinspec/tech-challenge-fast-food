@@ -1,11 +1,12 @@
 package com.fiap.fast_food_tc.adapter.db.model;
 
-import com.fiap.fast_food_tc.adapter.db.model.ids.PaymentPk;
 import com.fiap.fast_food_tc.cross.enums.PaymentMethod;
 import com.fiap.fast_food_tc.cross.enums.PaymentStatus;
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -25,8 +26,10 @@ import java.time.LocalDateTime;
 @Table(name = "payment")
 public class Payment {
 
-    @EmbeddedId
-    private PaymentPk id;
+    @Id
+    @Column(name = "payment_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer paymentId;
 
     @Column(name = "payment_method", nullable = false)
     private PaymentMethod paymentMethod;

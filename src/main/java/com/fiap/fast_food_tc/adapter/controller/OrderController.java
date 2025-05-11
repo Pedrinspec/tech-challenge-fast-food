@@ -3,6 +3,7 @@ package com.fiap.fast_food_tc.adapter.controller;
 import com.fiap.fast_food_tc.adapter.dto.orders.OrdersRequestDto;
 import com.fiap.fast_food_tc.adapter.dto.orders.OrdersResponseDto;
 import com.fiap.fast_food_tc.app.service.OrdersService;
+import com.fiap.fast_food_tc.app.service.impl.OrdersServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class OrderController {
     private final OrdersService ordersService;
 
     @Autowired
-    public OrderController(OrdersService ordersService) {
+    public OrderController(OrdersServiceImpl ordersService) {
         this.ordersService = ordersService;
     }
 

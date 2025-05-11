@@ -39,6 +39,7 @@ dependencies {
 	implementation 'org.mapstruct:mapstruct:1.6.3'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
 	//Tests
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -52,6 +53,12 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework:spring-test")
 	testImplementation("com.fasterxml.jackson.core:jackson-databind")
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:2022.0.5"
+	}
 }
 
 tasks.test {

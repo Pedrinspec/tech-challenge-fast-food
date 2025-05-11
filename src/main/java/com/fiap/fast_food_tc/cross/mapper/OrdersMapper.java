@@ -21,6 +21,7 @@ public interface OrdersMapper {
 
     @Mapping(target = "customer", ignore = true)
     @Mapping(target = "orderProducts", ignore = true)
+    @Mapping(target = "payment", ignore = true)
     Orders toModel(EOrders eOrders);
 
     List<OrdersResponseDto> toResponseList(List<EOrders> eOrders);

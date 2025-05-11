@@ -27,4 +27,9 @@ public class OrdersDataProvider implements OrdersGateway {
     public Orders create(Orders model) {
         return repository.save(model);
     }
+
+    @Override
+    public Orders getById(Integer id) {
+        return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Order not found"));
+    }
 }

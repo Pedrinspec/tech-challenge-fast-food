@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum PaymentMethod {
 
+    MERCADO_PAGO("MERCADO_PAGO", "mercado pago"),
     CREDIT_CARD("CREDIT_CARD", "credit card"),
     DEBIT_CARD("DEBIT_CARD", "debit card"),
     PIX("PIX", "pix"),

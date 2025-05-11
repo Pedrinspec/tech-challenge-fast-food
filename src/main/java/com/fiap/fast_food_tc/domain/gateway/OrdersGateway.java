@@ -8,4 +8,6 @@ public interface OrdersGateway {
     List<Orders> getAllOrders();
 
     Orders create(Orders model);
+
+    Orders getById(Integer id);
 }
