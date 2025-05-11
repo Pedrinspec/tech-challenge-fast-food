@@ -2,7 +2,7 @@ package com.fiap.fast_food_tc.app.service;
 
 import com.fiap.fast_food_tc.adapter.dto.orders.OrdersRequestDto;
 import com.fiap.fast_food_tc.adapter.dto.orders.OrdersResponseDto;
-import com.fiap.fast_food_tc.cross.OrdersMapper;
+import com.fiap.fast_food_tc.cross.mapper.OrdersMapper;
 import com.fiap.fast_food_tc.domain.usecase.OrdersUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.cross;
+package com.fiap.fast_food_tc.cross.mapper;
 
 import com.fiap.fast_food_tc.adapter.db.model.Customer;
 import com.fiap.fast_food_tc.adapter.dto.customer.CustomerRequestDto;

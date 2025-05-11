@@ -2,7 +2,7 @@ package com.fiap.fast_food_tc.app.service;
 
 import com.fiap.fast_food_tc.adapter.dto.product.ProductRequest;
 import com.fiap.fast_food_tc.adapter.dto.product.ProductResponse;
-import com.fiap.fast_food_tc.cross.ProductMapper;
+import com.fiap.fast_food_tc.cross.mapper.ProductMapper;
 import com.fiap.fast_food_tc.domain.usecase.ProductUseCase;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

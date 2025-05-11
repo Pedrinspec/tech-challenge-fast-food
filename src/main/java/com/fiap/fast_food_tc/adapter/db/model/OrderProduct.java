@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 public class OrderProduct {
 
     @EmbeddedId
-    private OrderProductPk id = new OrderProductPk();
+    private OrderProductPk id;
 
     @ManyToOne
     @MapsId("orderId")
