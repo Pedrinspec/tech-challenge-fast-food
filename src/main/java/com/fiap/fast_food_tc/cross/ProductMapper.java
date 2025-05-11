@@ -14,6 +14,7 @@ public interface ProductMapper {
 
     ProductResponse toResponse(EProduct product);
 
+    @Mapping(target = "orderProducts", ignore = true)
     Product toModel(EProduct product);
 
     EProduct toEntity(Product product);
