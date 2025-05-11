@@ -16,8 +16,11 @@ public interface OrdersMapper {
     @Mapping(target = "orderCode", ignore = true)
     EOrders toEntityCreate(OrdersRequestDto ordersRequestDto);
 
+    @Mapping(target = "customerId", ignore = true)
     EOrders toEntity(Orders orders);
 
+    @Mapping(target = "customer", ignore = true)
+    @Mapping(target = "orderProducts", ignore = true)
     Orders toModel(EOrders eOrders);
 
     List<OrdersResponseDto> toResponseList(List<EOrders> eOrders);
