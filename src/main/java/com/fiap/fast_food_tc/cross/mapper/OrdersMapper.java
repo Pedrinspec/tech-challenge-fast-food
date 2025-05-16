@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.cross;
+package com.fiap.fast_food_tc.cross.mapper;
 
 import com.fiap.fast_food_tc.adapter.db.model.Orders;
 import com.fiap.fast_food_tc.adapter.dto.orders.OrdersRequestDto;
@@ -21,6 +21,7 @@ public interface OrdersMapper {
 
     @Mapping(target = "customer", ignore = true)
     @Mapping(target = "orderProducts", ignore = true)
+    @Mapping(target = "payment", ignore = true)
     Orders toModel(EOrders eOrders);
 
     List<OrdersResponseDto> toResponseList(List<EOrders> eOrders);

@@ -10,4 +10,6 @@ public interface OrdersUseCase {
     List<EOrders> getAllOrders();
 
     EOrders create(EOrders orderEntity);
+
+    EOrders getById(Integer id);
 }

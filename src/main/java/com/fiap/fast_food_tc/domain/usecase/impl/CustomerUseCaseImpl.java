@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.domain.usecase.impl;
 
-import com.fiap.fast_food_tc.cross.CustomerMapper;
+import com.fiap.fast_food_tc.cross.mapper.CustomerMapper;
 import com.fiap.fast_food_tc.domain.entity.ECustomer;
 import com.fiap.fast_food_tc.domain.gateway.CustomerGateway;
 import com.fiap.fast_food_tc.domain.usecase.CustomerUseCase;

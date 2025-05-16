@@ -23,3 +23,7 @@ spring:
 
 server:
   port: 8080
+
+mercadopago:
+  access:
+    token: TEST-2693522035727463-051111-593221a6b3646669f028b3794e8b639c-534690741

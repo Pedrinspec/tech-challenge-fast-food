@@ -3,6 +3,7 @@ package com.fiap.fast_food_tc.adapter.controller;
 import com.fiap.fast_food_tc.adapter.dto.product.ProductRequest;
 import com.fiap.fast_food_tc.adapter.dto.product.ProductResponse;
 import com.fiap.fast_food_tc.app.service.ProductService;
+import com.fiap.fast_food_tc.app.service.impl.ProductServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,36 +18,36 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
-    private final ProductService service;
+    private final ProductService productService;
 
     @Autowired
-    public ProductController(ProductService service) {
-        this.service = service;
+    public ProductController(ProductServiceImpl productService) {
+        this.productService = productService;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getById(@PathVariable Integer id) {
-        return ResponseEntity.ok(service.findById(id));
+        return ResponseEntity.ok(productService.findById(id));
     }
 
     @GetMapping
     public ResponseEntity<List<ProductResponse>> getAll() {
-        return ResponseEntity.ok(service.findAll());
+        return ResponseEntity.ok(productService.findAll());
     }
 
     @PostMapping
     public ResponseEntity<ProductResponse> create(@Valid @RequestBody ProductRequest dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.create(dto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponse> update(@PathVariable Integer id, @Valid @RequestBody ProductRequest dto) {
-        return ResponseEntity.ok(service.update(id, dto));
+        return ResponseEntity.ok(productService.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        service.delete(id);
+        productService.delete(id);
         return ResponseEntity.noContent().build();
     }
 

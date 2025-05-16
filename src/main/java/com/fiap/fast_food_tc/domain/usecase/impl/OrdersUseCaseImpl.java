@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.domain.usecase.impl;
 
-import com.fiap.fast_food_tc.cross.OrdersMapper;
+import com.fiap.fast_food_tc.cross.mapper.OrdersMapper;
 import com.fiap.fast_food_tc.domain.entity.EOrders;
 import com.fiap.fast_food_tc.domain.gateway.OrdersGateway;
 import com.fiap.fast_food_tc.domain.usecase.OrdersUseCase;
@@ -50,6 +50,11 @@ public class OrdersUseCaseImpl implements OrdersUseCase {
     @Override
     public EOrders create(EOrders orderEntity) {
         return ordersMapper.toEntity(provider.create(ordersMapper.toModel(orderEntity)));
+    }
+
+    @Override
+    public EOrders getById(Integer id) {
+        return ordersMapper.toEntity(provider.getById(id));
     }
 
 
