@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -43,16 +45,17 @@ public class Product {
     @Column(name = "available_indicator")
     private Boolean isAvailable;
 
-    @Column(name = "category_category_id")
-    private Integer categoryId;
-
-    @Column(name = "description")
+    @Column(name = "description", length = 500)
     private String description;
 
-    @Column(name = "image_path")
+    @Column(name = "image_path", length = 500)
     private String imagePath;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProduct> orderProducts;
+
+    @ManyToOne()
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
 }
