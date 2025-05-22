@@ -10,6 +10,8 @@ public interface ProductService {
 
     ProductResponse findById(Integer id);
 
+    List<ProductResponse> findByCategoryId(Integer categoryId);
+
     List<ProductResponse> findAll();
 
     ProductResponse create(@Valid ProductRequest productRequest);

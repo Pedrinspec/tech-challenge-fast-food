@@ -44,9 +44,9 @@ public class ProductDataProvider implements ProductGateway {
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
     }
 
-//    @Override
-//    public List<Product> findByCategoryId(Integer categoryId) {
-//        return productRepository.findByCategoryId(categoryId);
-//    }
+    @Override
+    public List<Product> findByCategoryId(Integer categoryId) {
+        return productRepository.findByCategoryCategoryId(categoryId);
+    }
 
 }

@@ -28,6 +28,11 @@ public class ProductUseCaseImpl implements ProductUseCase {
     }
 
     @Override
+    public List<EProduct> findByCategoryId(Integer categoryId) {
+        return productMapper.toEntityList(productGateway.findByCategoryId(categoryId));
+    }
+
+    @Override
     public EProduct findById(Integer id) {
         return productMapper.toEntity(productGateway.findById(id));
     }

@@ -13,5 +13,7 @@ public interface ProductUseCase {
 
     void deleteProduct(Integer id);
 
+    List<EProduct> findByCategoryId(Integer categoryId);
+
     EProduct findById(Integer id);
 }

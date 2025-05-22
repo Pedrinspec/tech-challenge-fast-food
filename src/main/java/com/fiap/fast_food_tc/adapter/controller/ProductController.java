@@ -30,6 +30,11 @@ public class ProductController {
         return ResponseEntity.ok(productService.findById(id));
     }
 
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<ProductResponse>> getByCategoryId(@PathVariable Integer categoryId) {
+        return ResponseEntity.ok(productService.findByCategoryId(categoryId));
+    }
+
     @GetMapping
     public ResponseEntity<List<ProductResponse>> getAll() {
         return ResponseEntity.ok(productService.findAll());

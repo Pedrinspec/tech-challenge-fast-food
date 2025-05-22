@@ -14,4 +14,6 @@ public interface ProductGateway {
     void delete(Integer id);
 
     Product findById(Integer id);
+
+    List<Product> findByCategoryId(Integer categoryId);
 }

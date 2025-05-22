@@ -30,6 +30,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductResponse> findByCategoryId(Integer categoryId) {
+        return productMapper.toResponseList(productUseCase.findByCategoryId(categoryId));
+    }
+
+    @Override
     public List<ProductResponse> findAll() {
         return productMapper.toResponseList(productUseCase.findAll());
     }

@@ -42,10 +42,12 @@ public class CheckoutDataProvider implements CheckoutGateway {
         payment.setPaymentStatus(PaymentStatus.PENDING);
         payment.setCreatedAt(LocalDateTime.now());
         payment.setPaymentMethod(PaymentMethod.MERCADO_PAGO);
-        payment.setMercadoPagoId(response.getId()); // preference_id
+        payment.setMercadoPagoId(response.getId());
         paymentDataProvider.save(payment);
 
-        return response.getInitPoint(); // link to payment
+        //TODO implementar metodo para salvar o status do pedido como em preparação apos o pagamento
+
+        return response.getInitPoint();
     }
 
     private PreferenceRequest getPreferenceRequest(Orders order) {
