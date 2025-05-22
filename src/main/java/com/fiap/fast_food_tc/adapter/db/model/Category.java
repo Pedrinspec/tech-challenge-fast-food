@@ -24,8 +24,7 @@ import java.util.List;
 public class Category {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id", nullable = false, unique = true)
+    @Column(name = "category_id", nullable = false, unique = true)
     private Integer categoryId;
 
     @Column(name = "category_name", nullable = false)
