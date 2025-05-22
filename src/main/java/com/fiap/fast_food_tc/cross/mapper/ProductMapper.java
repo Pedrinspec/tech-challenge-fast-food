@@ -17,6 +17,7 @@ public interface ProductMapper {
     @Mapping(target = "orderProducts", ignore = true)
     Product toModel(EProduct product);
 
+    @Mapping(source = "category.categoryId", target = "categoryId")
     EProduct toEntity(Product product);
 
     @Mapping(target = "productId", ignore = true)
