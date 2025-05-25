@@ -56,6 +56,19 @@ dependencies {
 	testImplementation("com.fasterxml.jackson.core:jackson-databind")
 }
 
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required = true
+		html.required = true
+		csv.required = false
+	}
+}
+
+tasks.named('build') {
+	dependsOn 'jacocoTestReport'
+}
+
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:2022.0.5"
