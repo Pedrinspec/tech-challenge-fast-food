@@ -44,6 +44,7 @@ public class ProductUseCaseImpl implements ProductUseCase {
 
     @Override
     public EProduct updateCustomer(Integer id, EProduct dto) {
+        dto.setProductId(id);
         return productMapper.toEntity(productGateway.update(productMapper.toModel(dto)));
     }
 
