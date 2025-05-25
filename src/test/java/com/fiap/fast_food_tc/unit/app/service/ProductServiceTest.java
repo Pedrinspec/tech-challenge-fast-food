@@ -13,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static fixture.ProductFixture.createProductResponse;
+import static fixture.ProductFixture.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
@@ -29,18 +29,74 @@ class ProductServiceTest {
     @InjectMocks
     private ProductServiceImpl productServiceImpl;
 
-    @Test
-    void findAllSuccessTest(){
-        //mockar tudo que é necessário injetar
-        Mockito.when(productMapper.toResponseList(any())).thenReturn(List.of(createProductResponse()));
-        Mockito.when(productUseCase.findAll()).thenReturn(List.of(ProductFixture.createEProduct()));
 
-        //chamar o método da classe a ser testada
+    @Test
+    void findByIdSuccessTest() {
+        Mockito.when(productMapper.toResponse(any())).thenReturn(createProductResponse());
+        Mockito.when(productUseCase.findById(createEProduct().getProductId())).thenReturn(createEProduct());
+
+        var response = productServiceImpl.findById(createEProduct().getProductId());
+
+        assertNotNull(response);
+        assertEquals(createProductResponse().getProductId(), response.getProductId());
+    }
+
+
+
+
+    @Test
+    void findAllSuccessTest() {
+        Mockito.when(productMapper.toResponseList(any())).thenReturn(List.of(createProductResponse()));
+        Mockito.when(productUseCase.findAll()).thenReturn(List.of(createEProduct()));
+
         var response = productServiceImpl.findAll();
 
-        //verificar se o retorno é o esperado
         assertNotNull(response);
         assertEquals(1, response.size());
     }
 
+
+
+
+    @Test
+    void createSuccessTest() {
+        Mockito.when(productMapper.toResponse(any())).thenReturn(createProductResponse());
+        Mockito.when(productMapper.toEntityCreate(ProductFixture.createProductRequest())).thenReturn(ProductFixture.createEProduct());
+        Mockito.when(productUseCase.create(any())).thenReturn(createEProduct());
+
+        var response = productServiceImpl.create(ProductFixture.createProductRequest());
+
+        assertNotNull(response);
+        assertEquals(createProductResponse().getProductId(), response.getProductId());
+        assertEquals(createProductResponse().getName(), response.getName());
+    }
+
+    @Test
+    void updateSuccessTest() {
+        Mockito.when(productMapper.toResponse(any())).thenReturn(ProductFixture.createProductResponse());
+        Mockito.when(productMapper.toEntityCreate(ProductFixture.createProductRequest())).thenReturn(ProductFixture.createEProduct());
+        Mockito.when(productUseCase.updateCustomer(any(), any())).thenReturn(createEProduct());
+
+        var response = productServiceImpl.update(createEProduct().getProductId(), ProductFixture.createProductRequest());
+
+        assertNotNull(response);
+        assertEquals(createProductResponse().getProductId(), response.getProductId());
+        assertEquals(createProductResponse().getName(), response.getName());
+        assertEquals(createProductResponse().getDescription(), response.getDescription());
+        assertEquals(createProductResponse().getImagePath(), response.getImagePath());
+        assertEquals(createProductResponse().getProductValue(), response.getProductValue());
+
+
+    }
+
+    @Test
+    void deleteSuccessTest() {
+
+        Mockito.doNothing().when(productUseCase).deleteProduct(ProductFixture.createEProduct().getProductId());
+
+        productServiceImpl.delete(ProductFixture.createProduct().getProductId());
+
+        Mockito.verify(productUseCase, Mockito.times(1)).deleteProduct(createEProduct().getProductId());
+    }
 }
+
