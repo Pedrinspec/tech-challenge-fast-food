@@ -1,9 +1,9 @@
 package fixture;
 
 import com.fiap.fast_food_tc.adapter.db.model.Product;
+import com.fiap.fast_food_tc.adapter.dto.product.ProductRequest;
 import com.fiap.fast_food_tc.adapter.dto.product.ProductResponse;
 import com.fiap.fast_food_tc.domain.entity.EProduct;
-import com.fiap.fast_food_tc.domain.usecase.ProductUseCase;
 
 import java.math.BigDecimal;
 
@@ -33,6 +33,14 @@ public class ProductFixture {
     public static ProductResponse createProductResponse() {
         return ProductResponse.builder()
                 .productId(1)
+                .name("Hamburguer")
+                .description("Delicious hamburguer")
+                .productValue(BigDecimal.ONE)
+                .build();
+    }
+
+    public static ProductRequest createProductRequest() {
+        return ProductRequest.builder()
                 .name("Hamburguer")
                 .description("Delicious hamburguer")
                 .productValue(BigDecimal.ONE)
