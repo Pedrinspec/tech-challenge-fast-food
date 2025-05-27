@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.4'
+	id 'org.springframework.boot' version '3.2.5'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id 'jacoco'
 }
@@ -63,6 +63,18 @@ jacocoTestReport {
 		html.required = true
 		csv.required = false
 	}
+	classDirectories.setFrom(
+			files(classDirectories.files.collect {
+				fileTree(dir: it, exclude: [
+						'**/adapter/dto/**',
+						'**/domain/entity/**',
+						'**/adapter/db/model/**',
+						'**/adapter/db/model/ids/**',
+						'**/cross/exception/**',
+						'**/cross/enums/**'
+				])
+			})
+	)
 }
 
 tasks.named('build') {
