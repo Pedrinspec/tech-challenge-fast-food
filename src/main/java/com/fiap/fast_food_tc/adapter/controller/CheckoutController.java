@@ -24,12 +24,7 @@ public class CheckoutController {
 
     @PostMapping("/{orderId}")
     public ResponseEntity<String> checkout(@PathVariable Integer orderId) {
-        try {
-            return ResponseEntity.ok(checkoutService.paymentPreferenceProcess(orderId));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error to post checkout: " + e.getMessage());
-        }
+        return ResponseEntity.ok(checkoutService.paymentPreferenceProcess(orderId));
     }
 
 }

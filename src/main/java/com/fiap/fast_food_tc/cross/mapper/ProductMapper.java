@@ -15,6 +15,7 @@ public interface ProductMapper {
     ProductResponse toResponse(EProduct product);
 
     @Mapping(target = "orderProducts", ignore = true)
+    @Mapping(target = "category.categoryId", source = "categoryId")
     Product toModel(EProduct product);
 
     @Mapping(source = "category.categoryId", target = "categoryId")

@@ -35,9 +35,6 @@ class CheckoutControllerTest {
     void checkoutFailure() {
         Mockito.when(checkoutService.paymentPreferenceProcess(1)).thenThrow(new RuntimeException("fail"));
 
-        var response = controller.checkout(1);
-
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertNotNull(response.getBody());
+        assertThrows(RuntimeException.class, () -> controller.checkout(1));
     }
 }
