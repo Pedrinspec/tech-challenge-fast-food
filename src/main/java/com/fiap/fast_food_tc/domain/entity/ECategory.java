@@ -17,13 +17,4 @@ public class ECategory {
     private String categoryName;
     private String categoryDescription;
 
-    @Override
-    public String toString() {
-        return "ECategory{" +
-                "categoryId=" + categoryId +
-                ", categoryName='" + categoryName + '\'' +
-                ", categoryDescription='" + categoryDescription + '\'' +
-                '}';
-    }
-
 }
