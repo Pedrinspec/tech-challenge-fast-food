@@ -10,9 +10,9 @@ public interface CustomerUseCase {
 
     void update(ECustomer user);
 
-    void delete(Long id);
+    void delete(Integer id);
 
-    ECustomer getById(Long id);
+    ECustomer getById(Integer id);
 
     List<ECustomer> getAll();
 

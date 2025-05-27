@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.adapter.dto;
+package com.fiap.fast_food_tc.adapter.dto.customer;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerResponseDto {
+public class CustomerRequestDto {
 
-    private Long customerId;
     private String documentNumber;
     private String firstName;
     private String lastName;

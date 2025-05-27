@@ -1,16 +1,27 @@
 package com.fiap.fast_food_tc.adapter.db.model;
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
 
 @Builder
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name = "users")
+@Table(name = "customer")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer {
@@ -18,7 +29,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id", nullable = false, unique = true)
-    private Long customerId;
+    private Integer customerId;
 
     @Column(name = "document_number", nullable = false, unique = true, length = 11)
     private String documentNumber;
@@ -31,5 +42,8 @@ public class Customer {
 
     @Column(name = "email", nullable = false, unique = true, length = 45)
     private String email;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Orders> orders;
 
 }

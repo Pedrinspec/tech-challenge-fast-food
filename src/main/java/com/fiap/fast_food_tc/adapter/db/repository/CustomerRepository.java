@@ -2,13 +2,16 @@ package com.fiap.fast_food_tc.adapter.db.repository;
 
 import com.fiap.fast_food_tc.adapter.db.model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
-    Optional<Customer> findByDocumentNumber(String documentNumber);
+public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+    @Query("SELECT c FROM Customer c LEFT JOIN FETCH c.orders WHERE c.documentNumber = :documentNumber")
+    Optional<Customer> findByDocumentNumber(@Param("documentNumber") String documentNumber);
 
 //    // query JPQL
 //    @Query("SELECT u FROM User u WHERE u.nome LIKE %:nome%")
