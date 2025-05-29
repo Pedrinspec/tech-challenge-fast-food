@@ -4,6 +4,7 @@ import com.fiap.fast_food_tc.adapter.controller.CustomerController;
 import com.fiap.fast_food_tc.adapter.dto.customer.CustomerRequestDto;
 import com.fiap.fast_food_tc.adapter.dto.customer.CustomerResponseDto;
 import com.fiap.fast_food_tc.app.service.impl.CustomerServiceImpl;
+import fixture.CustomerFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,8 +26,8 @@ class CustomerControllerTest {
 
     @Test
     void createCustomerSuccess() {
-        var request = new CustomerRequestDto("11", "Joao", "Silva", "joao@email.com");
-        var responseDto = new CustomerResponseDto(1, "11", "Joao", "Silva", "joao@email.com", null);
+        var request = CustomerFixture.createCustomerRequestDto();
+        var responseDto = CustomerFixture.createCustomerResponseDto();
         Mockito.when(customerService.create(request)).thenReturn(responseDto);
 
         var response = controller.createCustomer(request);
@@ -37,7 +38,7 @@ class CustomerControllerTest {
 
     @Test
     void getCustomerByIdSuccess() {
-        var responseDto = new CustomerResponseDto(1, "11", "Joao", "Silva", "joao@email.com", null);
+        var responseDto = CustomerFixture.createCustomerResponseDto();
         Mockito.when(customerService.getByDoc("11")).thenReturn(responseDto);
 
         var response = controller.getCustomerById("11");

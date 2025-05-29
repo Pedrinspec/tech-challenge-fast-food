@@ -4,6 +4,7 @@ import com.fiap.fast_food_tc.adapter.db.model.Category;
 import com.fiap.fast_food_tc.adapter.dto.category.CategoryResponseDTO;
 import com.fiap.fast_food_tc.cross.mapper.CategoryMapper;
 import com.fiap.fast_food_tc.domain.entity.ECategory;
+import fixture.CategoryFixture;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -17,11 +18,7 @@ class CategoryMapperTest {
 
     @Test
     void toEntitySuccess() {
-        Category category = Category.builder()
-                .categoryId(1)
-                .categoryName("Burgers")
-                .categoryDescription("Delicious burgers")
-                .build();
+        Category category = CategoryFixture.createCategoryModel();
 
         ECategory result = mapper.toEntity(category);
 
@@ -32,11 +29,7 @@ class CategoryMapperTest {
 
     @Test
     void toEntityListSuccess() {
-        Category category = Category.builder()
-                .categoryId(1)
-                .categoryName("Burgers")
-                .categoryDescription("Delicious burgers")
-                .build();
+        Category category = CategoryFixture.createCategoryModel();
 
         List<ECategory> result = mapper.toEntityList(List.of(category));
 
@@ -46,11 +39,7 @@ class CategoryMapperTest {
 
     @Test
     void toResponseDTOListSuccess() {
-        ECategory eCategory = ECategory.builder()
-                .categoryId(1)
-                .categoryName("Burgers")
-                .categoryDescription("Delicious burgers")
-                .build();
+        ECategory eCategory = CategoryFixture.createECategory();
 
         List<CategoryResponseDTO> result = mapper.toResponseDTOList(List.of(eCategory));
 

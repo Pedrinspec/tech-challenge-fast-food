@@ -3,6 +3,7 @@ package com.fiap.fast_food_tc.unit.adapter.controller;
 import com.fiap.fast_food_tc.adapter.controller.CategoryController;
 import com.fiap.fast_food_tc.adapter.dto.category.CategoryResponseDTO;
 import com.fiap.fast_food_tc.app.service.CategoryService;
+import fixture.CategoryFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,7 +27,7 @@ class CategoryControllerTest {
 
     @Test
     void getAllCategoriesSuccess() {
-        var categories = List.of(new CategoryResponseDTO(1, "Burgers", "Delicious burgers"));
+        var categories = List.of(CategoryFixture.createCategoryDTO());
         Mockito.when(categoryService.getAllCategories()).thenReturn(categories);
 
         var response = controller.getAllCategories();
