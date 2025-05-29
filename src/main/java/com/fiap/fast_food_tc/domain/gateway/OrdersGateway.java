@@ -10,4 +10,6 @@ public interface OrdersGateway {
     Orders create(Orders model);
 
     Orders getById(Integer id);
+
+    Short getLastOrderCode();
 }
