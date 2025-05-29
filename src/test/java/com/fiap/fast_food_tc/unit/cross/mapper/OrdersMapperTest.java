@@ -6,6 +6,8 @@ import com.fiap.fast_food_tc.adapter.dto.orders.OrdersRequestDto;
 import com.fiap.fast_food_tc.adapter.dto.orders.OrdersResponseDto;
 import com.fiap.fast_food_tc.cross.mapper.OrdersMapper;
 import com.fiap.fast_food_tc.domain.entity.EOrders;
+import fixture.CustomerFixture;
+import fixture.OrdersFixture;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -21,12 +23,7 @@ class OrdersMapperTest {
 
     @Test
     void toEntityCreateSuccess() {
-        OrdersRequestDto request = OrdersRequestDto.builder()
-                .orderDatetime(LocalDateTime.now())
-                .statusOrder(1)
-                .totalAmount(BigDecimal.TEN)
-                .customerId(1)
-                .build();
+        OrdersRequestDto request = OrdersFixture.createOrdersRequestDto();
 
         EOrders entity = mapper.toEntityCreate(request);
 
@@ -40,15 +37,8 @@ class OrdersMapperTest {
 
     @Test
     void toEntitySuccess() {
-        Customer customer = Customer.builder().customerId(2).build();
-        Orders model = Orders.builder()
-                .orderId(1)
-                .orderDatetime(LocalDateTime.now())
-                .statusOrder(2)
-                .orderCode((short) 5)
-                .totalAmount(BigDecimal.ONE)
-                .customer(customer)
-                .build();
+        Customer customer = CustomerFixture.createCustomerModel();
+        Orders model = OrdersFixture.createOrders();
 
         EOrders entity = mapper.toEntity(model);
 
@@ -62,14 +52,7 @@ class OrdersMapperTest {
 
     @Test
     void toModelSuccess() {
-        EOrders entity = EOrders.builder()
-                .orderId(1)
-                .orderDatetime(LocalDateTime.now())
-                .statusOrder(2)
-                .orderCode((short) 5)
-                .totalAmount(BigDecimal.ONE)
-                .customerId(3)
-                .build();
+        EOrders entity = OrdersFixture.createEOrders();
 
         Orders model = mapper.toModel(entity);
 
@@ -85,14 +68,7 @@ class OrdersMapperTest {
 
     @Test
     void toResponseListSuccess() {
-        EOrders eOrders = EOrders.builder()
-                .orderId(1)
-                .orderDatetime(LocalDateTime.now())
-                .statusOrder(2)
-                .orderCode((short) 5)
-                .totalAmount(BigDecimal.ONE)
-                .customerId(3)
-                .build();
+        EOrders eOrders = OrdersFixture.createEOrders();
 
         List<OrdersResponseDto> dtos = mapper.toResponseList(List.of(eOrders));
 
@@ -102,13 +78,7 @@ class OrdersMapperTest {
 
     @Test
     void toEntityListSuccess() {
-        Orders orders = Orders.builder()
-                .orderId(1)
-                .orderDatetime(LocalDateTime.now())
-                .statusOrder(2)
-                .orderCode((short) 5)
-                .totalAmount(BigDecimal.ONE)
-                .build();
+        Orders orders = OrdersFixture.createOrders();
 
         List<EOrders> entities = mapper.toEntityList(List.of(orders));
 
@@ -118,14 +88,7 @@ class OrdersMapperTest {
 
     @Test
     void toResponseSuccess() {
-        EOrders entity = EOrders.builder()
-                .orderId(1)
-                .orderDatetime(LocalDateTime.now())
-                .statusOrder(2)
-                .orderCode((short)5)
-                .totalAmount(BigDecimal.ONE)
-                .customerId(3)
-                .build();
+        EOrders entity = OrdersFixture.createEOrders();
 
         OrdersResponseDto dto = mapper.toResponse(entity);
 

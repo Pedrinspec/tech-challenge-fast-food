@@ -5,6 +5,7 @@ import com.fiap.fast_food_tc.adapter.dto.customer.CustomerRequestDto;
 import com.fiap.fast_food_tc.adapter.dto.customer.CustomerResponseDto;
 import com.fiap.fast_food_tc.cross.mapper.CustomerMapper;
 import com.fiap.fast_food_tc.domain.entity.ECustomer;
+import fixture.CustomerFixture;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -18,13 +19,7 @@ class CustomerMapperTest {
 
     @Test
     void toEntitySuccess() {
-        Customer customer = Customer.builder()
-                .customerId(1)
-                .documentNumber("12345678901")
-                .firstName("John")
-                .lastName("Doe")
-                .email("john@example.com")
-                .build();
+        Customer customer = CustomerFixture.createCustomerModel();
 
         ECustomer result = mapper.toEntity(customer);
 
@@ -37,13 +32,7 @@ class CustomerMapperTest {
 
     @Test
     void toDomainSuccess() {
-        ECustomer entity = ECustomer.builder()
-                .customerId(1)
-                .documentNumber("12345678901")
-                .firstName("John")
-                .lastName("Doe")
-                .email("john@example.com")
-                .build();
+        ECustomer entity = CustomerFixture.createECustomer();
 
         Customer result = mapper.toDomain(entity);
 
@@ -56,12 +45,7 @@ class CustomerMapperTest {
 
     @Test
     void messageToEntitySuccess() {
-        CustomerRequestDto request = CustomerRequestDto.builder()
-                .documentNumber("12345678901")
-                .firstName("John")
-                .lastName("Doe")
-                .email("john@example.com")
-                .build();
+        CustomerRequestDto request = CustomerFixture.createCustomerRequestDto();
 
         ECustomer entity = mapper.messageToEntity(request);
 
@@ -75,14 +59,7 @@ class CustomerMapperTest {
 
     @Test
     void entityToMessageSuccess() {
-        ECustomer entity = ECustomer.builder()
-                .customerId(1)
-                .documentNumber("12345678901")
-                .firstName("John")
-                .lastName("Doe")
-                .email("john@example.com")
-                .orders(List.of())
-                .build();
+        ECustomer entity = CustomerFixture.createECustomer();
 
         CustomerResponseDto dto = mapper.entityToMessage(entity);
 

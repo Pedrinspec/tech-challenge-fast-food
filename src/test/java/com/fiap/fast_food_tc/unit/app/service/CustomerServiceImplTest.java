@@ -6,13 +6,13 @@ import com.fiap.fast_food_tc.app.service.impl.CustomerServiceImpl;
 import com.fiap.fast_food_tc.cross.mapper.CustomerMapper;
 import com.fiap.fast_food_tc.domain.entity.ECustomer;
 import com.fiap.fast_food_tc.domain.usecase.CustomerUseCase;
+import fixture.CustomerFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -33,8 +33,8 @@ class CustomerServiceImplTest {
 
     @Test
     void shouldCreateUserSuccess() {
-        var requestDto = new CustomerRequestDto("111111", "João", "silva","joao@email.com");
-        var userSalvo = new ECustomer(1, "111111", "João", "silva","joao@email.com", List.of());
+        CustomerRequestDto requestDto = CustomerFixture.createCustomerRequestDto();
+        ECustomer userSalvo = CustomerFixture.createECustomer();
 
         when(customerMapper.messageToEntity(requestDto)).thenReturn(userSalvo);
         when(customerUseCase.create(any(ECustomer.class))).thenReturn(userSalvo);
@@ -46,8 +46,8 @@ class CustomerServiceImplTest {
 
     @Test
     void shouldGetByDocumentNumberSuccess() {
-        var userSalvo = new ECustomer(1, "111111", "João", "silva", "joao@email.com", List.of());
-        var requestDto = new CustomerResponseDto(1, "111111", "João", "silva","joao@email.com", List.of());
+        ECustomer userSalvo = CustomerFixture.createECustomer();
+        CustomerResponseDto requestDto = CustomerFixture.createCustomerResponseDto();
 
         when(customerUseCase.getByDocumentNumber(any())).thenReturn(userSalvo);
         when(customerMapper.entityToMessage(any())).thenReturn(requestDto);
