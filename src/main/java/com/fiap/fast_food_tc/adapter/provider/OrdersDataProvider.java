@@ -32,4 +32,11 @@ public class OrdersDataProvider implements OrdersGateway {
     public Orders getById(Integer id) {
         return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Order not found"));
     }
+
+    @Override
+    public Short getLastOrderCode() {
+        return repository.findFirstByOrderByOrderCodeDesc()
+                .map(Orders::getOrderCode)
+                .orElse((short) 0);
+    }
 }

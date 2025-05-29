@@ -5,7 +5,6 @@ import com.fiap.fast_food_tc.domain.entity.EOrders;
 import com.fiap.fast_food_tc.domain.gateway.OrdersGateway;
 import com.fiap.fast_food_tc.domain.usecase.OrdersUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,29 +16,25 @@ public class OrdersUseCaseImpl implements OrdersUseCase {
 
     private final OrdersMapper ordersMapper;
 
-    private final RedisTemplate<String, String> redisTemplate;
 
     @Autowired
-    public OrdersUseCaseImpl(OrdersGateway dataProvider, OrdersMapper ordersMapper, RedisTemplate<String, String> redisTemplate) {
+    public OrdersUseCaseImpl(OrdersGateway dataProvider, OrdersMapper ordersMapper) {
         this.provider = dataProvider;
         this.ordersMapper = ordersMapper;
-        this.redisTemplate = redisTemplate;
     }
 
     @Override
     public Short getNextOrderCode() {
 
-        final String ORDER_CODE = "order_code";
-
-        Long nextOrderCode = redisTemplate.opsForValue().increment(ORDER_CODE);
-        if (nextOrderCode == null) {
-            throw new IllegalStateException("Unable to generate order code");
+        Short lastCode = provider.getLastOrderCode();
+        if (lastCode == null) {
+            lastCode = 0;
         }
-        if (nextOrderCode > 999){
-            redisTemplate.opsForValue().set(ORDER_CODE, "1");
-            nextOrderCode = 1L;
+        short next = (short) (lastCode + 1);
+        if (next > 999) {
+            next = 1;
         }
-        return nextOrderCode.shortValue();
+        return next;
     }
 
     @Override
