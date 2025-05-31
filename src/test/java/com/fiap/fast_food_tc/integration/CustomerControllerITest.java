@@ -30,7 +30,7 @@ class CustomerControllerITest {
     @Test
     void shouldCreateCustomerSuccess() throws Exception {
         var request = CustomerRequestDto.builder()
-                .documentNumber("11")
+                .documentNumber("52431129845")
                 .firstName("João")
                 .lastName("Silva")
                 .email("joao@email.com")
@@ -41,7 +41,7 @@ class CustomerControllerITest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.customerId").exists())
-                .andExpect(jsonPath("$.documentNumber").value("11"))
+                .andExpect(jsonPath("$.documentNumber").value("52431129845"))
                 .andExpect(jsonPath("$.firstName").value("João"))
                 .andExpect(jsonPath("$.lastName").value("Silva"))
                 .andExpect(jsonPath("$.email").value("joao@email.com"))
@@ -50,7 +50,7 @@ class CustomerControllerITest {
 
     @Test
     void shouldFindCustomerByDocumentNumber() throws Exception {
-        String documentNumber = "22";
+        String documentNumber = "52431129845";
 
         var request = CustomerRequestDto.builder()
                 .documentNumber(documentNumber)
