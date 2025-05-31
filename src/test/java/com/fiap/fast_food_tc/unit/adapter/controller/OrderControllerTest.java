@@ -4,6 +4,7 @@ import com.fiap.fast_food_tc.adapter.controller.OrderController;
 import com.fiap.fast_food_tc.adapter.dto.orders.OrdersRequestDto;
 import com.fiap.fast_food_tc.adapter.dto.orders.OrdersResponseDto;
 import com.fiap.fast_food_tc.app.service.impl.OrdersServiceImpl;
+import fixture.OrdersFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,8 +13,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,7 +28,7 @@ class OrderControllerTest {
 
     @Test
     void getAllOrdersSuccess() {
-        var orders = List.of(OrdersResponseDto.builder().orderId(1).totalAmount(BigDecimal.ONE).orderDatetime(LocalDateTime.now()).build());
+        var orders = List.of(OrdersFixture.createOrdersResponseDto());
         Mockito.when(ordersService.getAllOrders()).thenReturn(orders);
 
         var response = controller.getAllOrders();
@@ -40,8 +39,9 @@ class OrderControllerTest {
 
     @Test
     void createOrderSuccess() {
-        var request = OrdersRequestDto.builder().totalAmount(BigDecimal.TEN).orderDatetime(LocalDateTime.now()).build();
-        var orderResponse = OrdersResponseDto.builder().orderId(1).totalAmount(BigDecimal.TEN).orderDatetime(request.getOrderDatetime()).build();
+        var request = OrdersFixture.createOrdersRequestDto();
+        var orderResponse = OrdersFixture.createOrdersResponseDto();
+        orderResponse.setOrderDatetime(request.getOrderDatetime());
         Mockito.when(ordersService.create(request)).thenReturn(orderResponse);
 
         var response = controller.createCustomer(request);

@@ -4,6 +4,7 @@ import com.fiap.fast_food_tc.adapter.controller.ProductController;
 import com.fiap.fast_food_tc.adapter.dto.product.ProductRequest;
 import com.fiap.fast_food_tc.adapter.dto.product.ProductResponse;
 import com.fiap.fast_food_tc.app.service.impl.ProductServiceImpl;
+import fixture.ProductFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,7 +29,7 @@ class ProductControllerTest {
 
     @Test
     void getByIdSuccess() {
-        var product = ProductResponse.builder().productId(1).name("Burger").build();
+        var product = ProductFixture.createProductResponse();
         Mockito.when(productService.findById(1)).thenReturn(product);
 
         var response = controller.getById(1);
@@ -39,7 +40,7 @@ class ProductControllerTest {
 
     @Test
     void getByCategoryIdSuccess() {
-        var products = List.of(ProductResponse.builder().productId(1).name("Burger").build());
+        var products = List.of(ProductFixture.createProductResponse());
         Mockito.when(productService.findByCategoryId(2)).thenReturn(products);
 
         var response = controller.getByCategoryId(2);
@@ -50,7 +51,7 @@ class ProductControllerTest {
 
     @Test
     void getAllSuccess() {
-        var products = List.of(ProductResponse.builder().productId(1).name("Burger").build());
+        var products = List.of(ProductFixture.createProductResponse());
         Mockito.when(productService.findAll()).thenReturn(products);
 
         var response = controller.getAll();
@@ -61,8 +62,10 @@ class ProductControllerTest {
 
     @Test
     void createSuccess() {
-        var request = ProductRequest.builder().name("Burger").quantity(1).productValue(BigDecimal.ONE).isAvailable(true).build();
-        var product = ProductResponse.builder().productId(1).name("Burger").build();
+        var request = ProductFixture.createProductRequest();
+        request.setQuantity(1);
+        request.setIsAvailable(true);
+        var product = ProductFixture.createProductResponse();
         Mockito.when(productService.create(request)).thenReturn(product);
 
         var response = controller.create(request);
@@ -73,8 +76,10 @@ class ProductControllerTest {
 
     @Test
     void updateSuccess() {
-        var request = ProductRequest.builder().name("Burger").quantity(1).productValue(BigDecimal.ONE).isAvailable(true).build();
-        var product = ProductResponse.builder().productId(1).name("Burger").build();
+        var request = ProductFixture.createProductRequest();
+        request.setQuantity(1);
+        request.setIsAvailable(true);
+        var product = ProductFixture.createProductResponse();
         Mockito.when(productService.update(1, request)).thenReturn(product);
 
         var response = controller.update(1, request);

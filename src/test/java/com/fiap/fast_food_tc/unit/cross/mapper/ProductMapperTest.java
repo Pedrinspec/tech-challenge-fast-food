@@ -6,6 +6,8 @@ import com.fiap.fast_food_tc.adapter.dto.product.ProductRequest;
 import com.fiap.fast_food_tc.adapter.dto.product.ProductResponse;
 import com.fiap.fast_food_tc.cross.mapper.ProductMapper;
 import com.fiap.fast_food_tc.domain.entity.EProduct;
+import fixture.CategoryFixture;
+import fixture.ProductFixture;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -20,16 +22,12 @@ class ProductMapperTest {
 
     @Test
     void toResponseSuccess() {
-        EProduct eProduct = EProduct.builder()
-                .productId(1)
-                .name("Burger")
-                .quantity(2)
-                .productValue(BigDecimal.ONE)
-                .isAvailable(true)
-                .categoryId(1)
-                .description("test")
-                .imagePath("img")
-                .build();
+        EProduct eProduct = ProductFixture.createEProduct();
+        eProduct.setQuantity(2);
+        eProduct.setIsAvailable(true);
+        eProduct.setCategoryId(1);
+        eProduct.setDescription("test");
+        eProduct.setImagePath("img");
 
         ProductResponse response = mapper.toResponse(eProduct);
 
@@ -45,16 +43,12 @@ class ProductMapperTest {
 
     @Test
     void toModelSuccess() {
-        EProduct eProduct = EProduct.builder()
-                .productId(1)
-                .name("Burger")
-                .quantity(2)
-                .productValue(BigDecimal.ONE)
-                .isAvailable(true)
-                .categoryId(1)
-                .description("test")
-                .imagePath("img")
-                .build();
+        EProduct eProduct = ProductFixture.createEProduct();
+        eProduct.setQuantity(2);
+        eProduct.setIsAvailable(true);
+        eProduct.setCategoryId(1);
+        eProduct.setDescription("test");
+        eProduct.setImagePath("img");
 
         Product model = mapper.toModel(eProduct);
 
@@ -70,17 +64,13 @@ class ProductMapperTest {
 
     @Test
     void toEntitySuccess() {
-        Category category = Category.builder().categoryId(2).build();
-        Product product = Product.builder()
-                .productId(1)
-                .name("Burger")
-                .quantity(2)
-                .productValue(BigDecimal.ONE)
-                .isAvailable(true)
-                .description("test")
-                .imagePath("img")
-                .category(category)
-                .build();
+        Category category = CategoryFixture.createCategoryModel();
+        Product product = ProductFixture.createProduct();
+        product.setQuantity(2);
+        product.setIsAvailable(true);
+        product.setDescription("test");
+        product.setImagePath("img");
+        product.setCategory(category);
 
         EProduct entity = mapper.toEntity(product);
 
@@ -96,15 +86,12 @@ class ProductMapperTest {
 
     @Test
     void toEntityCreateSuccess() {
-        ProductRequest request = ProductRequest.builder()
-                .name("Burger")
-                .quantity(2)
-                .productValue(BigDecimal.ONE)
-                .isAvailable(true)
-                .categoryId(5)
-                .description("test")
-                .imagePath("img")
-                .build();
+        ProductRequest request = ProductFixture.createProductRequest();
+        request.setQuantity(2);
+        request.setIsAvailable(true);
+        request.setCategoryId(5);
+        request.setDescription("test");
+        request.setImagePath("img");
 
         EProduct entity = mapper.toEntityCreate(request);
 
@@ -120,16 +107,12 @@ class ProductMapperTest {
 
     @Test
     void toResponseListSuccess() {
-        EProduct eProduct = EProduct.builder()
-                .productId(1)
-                .name("Burger")
-                .quantity(2)
-                .productValue(BigDecimal.ONE)
-                .isAvailable(true)
-                .categoryId(1)
-                .description("test")
-                .imagePath("img")
-                .build();
+        EProduct eProduct = ProductFixture.createEProduct();
+        eProduct.setQuantity(2);
+        eProduct.setIsAvailable(true);
+        eProduct.setCategoryId(1);
+        eProduct.setDescription("test");
+        eProduct.setImagePath("img");
 
         List<ProductResponse> responses = mapper.toResponseList(List.of(eProduct));
 
@@ -139,15 +122,11 @@ class ProductMapperTest {
 
     @Test
     void toEntityListSuccess() {
-        Product product = Product.builder()
-                .productId(1)
-                .name("Burger")
-                .quantity(2)
-                .productValue(BigDecimal.ONE)
-                .isAvailable(true)
-                .description("test")
-                .imagePath("img")
-                .build();
+        Product product = ProductFixture.createProduct();
+        product.setQuantity(2);
+        product.setIsAvailable(true);
+        product.setDescription("test");
+        product.setImagePath("img");
 
         List<EProduct> entities = mapper.toEntityList(List.of(product));
 

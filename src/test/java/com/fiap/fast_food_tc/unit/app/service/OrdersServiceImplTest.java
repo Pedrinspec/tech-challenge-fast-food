@@ -6,6 +6,7 @@ import com.fiap.fast_food_tc.app.service.impl.OrdersServiceImpl;
 import com.fiap.fast_food_tc.cross.mapper.OrdersMapper;
 import com.fiap.fast_food_tc.domain.entity.EOrders;
 import com.fiap.fast_food_tc.domain.usecase.OrdersUseCase;
+import fixture.OrdersFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,8 +15,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,30 +38,13 @@ class OrdersServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        order = EOrders.builder()
-                .orderId(1)
-                .orderDatetime(LocalDateTime.now())
-                .statusOrder(1)
-                .orderCode((short)1)
-                .totalAmount(BigDecimal.ONE)
-                .customerId(1)
-                .build();
+        order = OrdersFixture.createEOrders();
 
-        responseDto = OrdersResponseDto.builder()
-                .orderId(1)
-                .orderDatetime(order.getOrderDatetime())
-                .statusOrder(1)
-                .orderCode((short)1)
-                .totalAmount(BigDecimal.ONE)
-                .customerId(1)
-                .build();
+        responseDto = OrdersFixture.createOrdersResponseDto();
+        responseDto.setOrderDatetime(order.getOrderDatetime());
 
-        requestDto = OrdersRequestDto.builder()
-                .orderDatetime(order.getOrderDatetime())
-                .statusOrder(1)
-                .totalAmount(BigDecimal.ONE)
-                .customerId(1)
-                .build();
+        requestDto = OrdersFixture.createOrdersRequestDto();
+        requestDto.setOrderDatetime(order.getOrderDatetime());
     }
 
     @Test

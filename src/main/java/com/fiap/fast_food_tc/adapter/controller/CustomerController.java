@@ -5,6 +5,7 @@ import com.fiap.fast_food_tc.adapter.dto.customer.CustomerResponseDto;
 import com.fiap.fast_food_tc.app.service.CustomerService;
 import com.fiap.fast_food_tc.app.service.impl.CustomerServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomerResponseDto> createCustomer(@RequestBody CustomerRequestDto customer) {
+    public ResponseEntity<CustomerResponseDto> createCustomer(@RequestBody @Valid CustomerRequestDto customer) {
         var customerCreated = customerService.create(customer);
         return ResponseEntity.status(HttpStatus.CREATED).body(customerCreated);
     }

@@ -3,14 +3,14 @@ spring:
     name: fast-food-tc
 
   datasource:
-    url: jdbc:mysql://db:3306/fastfoodtc #usado para docker
+    url: jdbc:mysql://localhost:3306/fastfoodtc # usado para ambiente local
     username: root
     password: admin
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: drop-and-create
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
