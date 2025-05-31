@@ -45,8 +45,6 @@ public class CheckoutDataProvider implements CheckoutGateway {
         payment.setMercadoPagoId(response.getId());
         paymentDataProvider.save(payment);
 
-        //TODO implementar metodo para salvar o status do pedido como em preparação apos o pagamento
-
         return response.getInitPoint();
     }
 

@@ -16,7 +16,7 @@ public interface OrdersMapper {
     @Mapping(target = "orderCode", ignore = true)
     EOrders toEntityCreate(OrdersRequestDto ordersRequestDto);
 
-    @Mapping(target = "customerId", ignore = true)
+    @Mapping(target = "customerId", source = "customer.customerId")
     EOrders toEntity(Orders orders);
 
     @Mapping(target = "customer", ignore = true)

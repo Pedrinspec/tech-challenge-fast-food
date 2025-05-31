@@ -15,12 +15,6 @@ services:
       timeout: 5s
       retries: 5
 
-  redis:
-    image: redis:7
-    container_name: redis
-    ports:
-      - "6379:6379"
-
   fastfood-app:
     build: .
     container_name: fastfood-app
@@ -29,11 +23,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      redis:
-        condition: service_started
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/fastfoodtc
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: admin
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
