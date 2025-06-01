@@ -13,7 +13,6 @@ Sistema de autoatendimento para restaurantes fast food, desenvolvido como parte 
 - MySQL
 - Gradle
 - Docker / Docker Compose
-- Mercado Pago SDK
 - Swagger (OpenAPI 3)
 
 ---
@@ -296,7 +295,7 @@ ORDER BY total_vendido DESC;
 
 💳 Integração com Mercado Pago
 
-A funcionalidade de checkout utiliza a API oficial do Mercado Pago para gerar links de pagamento baseados no valor total do pedido. O cliente é redirecionado para a plataforma externa para finalizar a compra de forma segura.
+A funcionalidade de checkout utiliza uma chamada rest para a API do Mercado Pago para gerar links de pagamento baseados no valor total do pedido. O cliente é redirecionado para a plataforma externa para finalizar a compra de forma segura.
 
 ## Testes 🧪
 
