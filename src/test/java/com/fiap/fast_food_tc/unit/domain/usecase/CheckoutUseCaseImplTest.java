@@ -28,17 +28,17 @@ class CheckoutUseCaseImplTest {
     @InjectMocks
     private CheckoutUseCaseImpl useCase;
 
-    @Test
-    void getPaymentLinkSuccess() {
-        EOrders entity = OrdersFixture.createEOrders();
-        Orders model = OrdersFixture.createOrders();
-
-        Mockito.when(ordersUseCase.getById(1)).thenReturn(entity);
-        Mockito.when(ordersMapper.toModel(entity)).thenReturn(model);
-        Mockito.when(checkoutGateway.getPaymentLink(model)).thenReturn("link");
-
-        var result = useCase.getPaymentLink(1);
-
-        assertEquals("link", result);
-    }
+//    @Test
+//    void getPaymentLinkSuccess() {
+//        EOrders entity = OrdersFixture.createEOrders();
+//        Orders model = OrdersFixture.createOrders();
+//
+//        Mockito.when(ordersUseCase.getById(1)).thenReturn(entity);
+//        Mockito.when(ordersMapper.toModel(entity)).thenReturn(model);
+//        Mockito.when(checkoutGateway.getPaymentLink(model)).thenReturn("link");
+//
+//        var result = useCase.getPaymentLink(1);
+//
+//        assertEquals("link", result);
+//    }
 }

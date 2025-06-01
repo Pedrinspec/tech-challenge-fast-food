@@ -1,9 +1,11 @@
 package com.fiap.fast_food_tc.cross.mapper;
 
 import com.fiap.fast_food_tc.adapter.db.model.Category;
+import com.fiap.fast_food_tc.adapter.dto.category.CategoryRequest;
 import com.fiap.fast_food_tc.adapter.dto.category.CategoryResponseDTO;
 import com.fiap.fast_food_tc.domain.entity.ECategory;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -15,4 +17,11 @@ public interface CategoryMapper {
     List<ECategory> toEntityList(List<Category> categories);
 
     List<CategoryResponseDTO> toResponseDTOList(List<ECategory> allCategories);
+
+    Category toModel(ECategory category);
+
+    @Mapping(target = "categoryId", ignore = true)
+    ECategory toEntityCreate(CategoryRequest request);
+
+    CategoryResponseDTO toResponseDTO(ECategory category);
 }

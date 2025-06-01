@@ -25,4 +25,17 @@ public class CategoryUseCaseImpl implements CategoryUseCase {
     public List<ECategory> getAllCategories() {
         return categoryMapper.toEntityList(categoryGateway.findAllCategories());
     }
+
+    @Override
+    public ECategory create(ECategory category) {
+        return categoryMapper.toEntity(
+                categoryGateway.createCategory(categoryMapper.toModel(category)));
+    }
+
+    @Override
+    public ECategory update(Integer id, ECategory category) {
+        category.setCategoryId(id);
+        return categoryMapper.toEntity(
+                categoryGateway.updateCategory(categoryMapper.toModel(category)));
+    }
 }

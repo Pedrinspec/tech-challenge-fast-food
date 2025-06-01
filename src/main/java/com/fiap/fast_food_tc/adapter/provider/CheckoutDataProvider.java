@@ -21,19 +21,21 @@ public class CheckoutDataProvider implements CheckoutGateway {
 
     private final MercadoPagoClient mercadoPagoClient;
     private final PaymentDataProvider paymentDataProvider;
+    private final OrdersDataProvider ordersDataProvider;
 
     @Autowired
-    public CheckoutDataProvider(MercadoPagoClient mercadoPagoClient, PaymentDataProvider paymentDataProvider) {
+    public CheckoutDataProvider(MercadoPagoClient mercadoPagoClient, PaymentDataProvider paymentDataProvider, OrdersDataProvider ordersDataProvider) {
         this.mercadoPagoClient = mercadoPagoClient;
         this.paymentDataProvider = paymentDataProvider;
+        this.ordersDataProvider = ordersDataProvider;
     }
 
 
     @Transactional
     @Override
-    public String getPaymentLink(Orders order) {
+    public String getPaymentLink(Integer orderId) {
 
-
+        var order = ordersDataProvider.getById(orderId);
         PreferenceRequest request = getPreferenceRequest(order);
         PreferenceResponse response = mercadoPagoClient.createPreference(request);
 
