@@ -12,4 +12,8 @@ public interface OrdersUseCase {
     EOrders create(EOrders orderEntity);
 
     EOrders getById(Integer id);
+
+    EOrders update(Integer id, EOrders orderEntity);
+
+    void delete(Integer id);
 }

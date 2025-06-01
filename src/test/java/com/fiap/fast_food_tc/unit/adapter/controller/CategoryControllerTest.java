@@ -1,6 +1,7 @@
 package com.fiap.fast_food_tc.unit.adapter.controller;
 
 import com.fiap.fast_food_tc.adapter.controller.CategoryController;
+import com.fiap.fast_food_tc.adapter.dto.category.CategoryRequest;
 import com.fiap.fast_food_tc.adapter.dto.category.CategoryResponseDTO;
 import com.fiap.fast_food_tc.app.service.CategoryService;
 import fixture.CategoryFixture;
@@ -35,4 +36,29 @@ class CategoryControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(categories, response.getBody());
     }
+
+    @Test
+    void createSuccess() {
+        CategoryRequest request = CategoryFixture.createCategoryRequest();
+        CategoryResponseDTO dto = CategoryFixture.createCategoryDTO();
+        Mockito.when(categoryService.create(request)).thenReturn(dto);
+
+        var response = controller.create(request);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(dto, response.getBody());
+    }
+
+    @Test
+    void updateSuccess() {
+        CategoryRequest request = CategoryFixture.createCategoryRequest();
+        CategoryResponseDTO dto = CategoryFixture.createCategoryDTO();
+        Mockito.when(categoryService.update(1, request)).thenReturn(dto);
+
+        var response = controller.update(1, request);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(dto, response.getBody());
+    }
+
 }

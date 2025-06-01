@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface CategoryUseCase {
     List<ECategory> getAllCategories();
+
+    ECategory create(ECategory category);
+
+    ECategory update(Integer id, ECategory category);
 }

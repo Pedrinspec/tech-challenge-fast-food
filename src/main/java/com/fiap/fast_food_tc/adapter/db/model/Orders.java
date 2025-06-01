@@ -51,7 +51,7 @@ public class Orders {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "orders")
     private List<OrderProduct> orderProducts;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "orders")

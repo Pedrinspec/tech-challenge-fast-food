@@ -21,28 +21,32 @@ public class CheckoutDataProvider implements CheckoutGateway {
 
     private final MercadoPagoClient mercadoPagoClient;
     private final PaymentDataProvider paymentDataProvider;
+    private final OrdersDataProvider ordersDataProvider;
 
     @Autowired
-    public CheckoutDataProvider(MercadoPagoClient mercadoPagoClient, PaymentDataProvider paymentDataProvider) {
+    public CheckoutDataProvider(MercadoPagoClient mercadoPagoClient, PaymentDataProvider paymentDataProvider, OrdersDataProvider ordersDataProvider) {
         this.mercadoPagoClient = mercadoPagoClient;
         this.paymentDataProvider = paymentDataProvider;
+        this.ordersDataProvider = ordersDataProvider;
     }
 
 
     @Transactional
     @Override
-    public String getPaymentLink(Orders order) {
+    public String getPaymentLink(Integer orderId) {
 
-
+        var order = ordersDataProvider.getById(orderId);
         PreferenceRequest request = getPreferenceRequest(order);
         PreferenceResponse response = mercadoPagoClient.createPreference(request);
 
-        Payment payment = new Payment();
-        payment.setOrders(order);
-        payment.setPaymentStatus(PaymentStatus.PENDING);
-        payment.setCreatedAt(LocalDateTime.now());
-        payment.setPaymentMethod(PaymentMethod.MERCADO_PAGO);
-        payment.setMercadoPagoId(response.getId());
+        Payment payment = Payment.builder()
+                .customerId(order.getCustomer().getCustomerId())
+                .paymentValue(order.getTotalAmount())
+                .paymentStatus(PaymentStatus.PENDING)
+                .createdAt(LocalDateTime.now())
+                .paymentMethod(PaymentMethod.MERCADO_PAGO)
+                .mercadoPagoId(response.getId())
+                .build();
         paymentDataProvider.save(payment);
 
         return response.getInitPoint();
