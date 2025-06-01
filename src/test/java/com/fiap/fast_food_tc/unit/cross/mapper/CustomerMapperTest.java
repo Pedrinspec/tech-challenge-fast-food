@@ -50,7 +50,6 @@ class CustomerMapperTest {
         ECustomer entity = mapper.messageToEntity(request);
 
         assertNull(entity.getCustomerId());
-        assertNull(entity.getOrders());
         assertEquals(request.getDocumentNumber(), entity.getDocumentNumber());
         assertEquals(request.getFirstName(), entity.getFirstName());
         assertEquals(request.getLastName(), entity.getLastName());
@@ -68,6 +67,26 @@ class CustomerMapperTest {
         assertEquals(entity.getFirstName(), dto.getFirstName());
         assertEquals(entity.getLastName(), dto.getLastName());
         assertEquals(entity.getEmail(), dto.getEmail());
-        assertNotNull(dto.getOrders());
     }
+
+    @Test
+    void entityToMessageListSuccess() {
+        var entities = List.of(CustomerFixture.createECustomer());
+
+        var result = mapper.entityToMessageList(entities);
+
+        assertEquals(1, result.size());
+        assertEquals(entities.getFirst().getCustomerId(), result.getFirst().getCustomerId());
+    }
+
+    @Test
+    void toEntityListSuccess() {
+        var models = List.of(CustomerFixture.createCustomerModel());
+
+        var result = mapper.toEntityList(models);
+
+        assertEquals(1, result.size());
+        assertEquals(models.getFirst().getCustomerId(), result.getFirst().getCustomerId());
+    }
+
 }

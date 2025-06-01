@@ -1,8 +1,6 @@
 package com.fiap.fast_food_tc.unit.adapter.controller;
 
 import com.fiap.fast_food_tc.adapter.controller.CustomerController;
-import com.fiap.fast_food_tc.adapter.dto.customer.CustomerRequestDto;
-import com.fiap.fast_food_tc.adapter.dto.customer.CustomerResponseDto;
 import com.fiap.fast_food_tc.app.service.impl.CustomerServiceImpl;
 import fixture.CustomerFixture;
 import org.junit.jupiter.api.Test;
@@ -41,9 +39,53 @@ class CustomerControllerTest {
         var responseDto = CustomerFixture.createCustomerResponseDto();
         Mockito.when(customerService.getByDoc("11")).thenReturn(responseDto);
 
-        var response = controller.getCustomerById("11");
+        var response = controller.getCustomerByDocument("11");
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(responseDto, response.getBody());
     }
+
+
+    @Test
+    void getCustomerByIdNumericSuccess() {
+        var responseDto = CustomerFixture.createCustomerResponseDto();
+        Mockito.when(customerService.getById(1)).thenReturn(responseDto);
+
+        var response = controller.getCustomerById(1);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(responseDto, response.getBody());
+    }
+
+    @Test
+    void getAllCustomersSuccess() {
+        var responses = java.util.List.of(CustomerFixture.createCustomerResponseDto());
+        Mockito.when(customerService.getAll()).thenReturn(responses);
+
+        var response = controller.getAllCustomers();
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(responses, response.getBody());
+    }
+
+    @Test
+    void updateCustomerSuccess() {
+        var request = CustomerFixture.createCustomerRequestDto();
+        var responseDto = CustomerFixture.createCustomerResponseDto();
+        Mockito.when(customerService.update(1, request)).thenReturn(responseDto);
+
+        var response = controller.updateCustomer(1, request);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(responseDto, response.getBody());
+    }
+
+    @Test
+    void deleteCustomerSuccess() {
+        var response = controller.deleteCustomer(1);
+
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        Mockito.verify(customerService).delete(1);
+    }
+
 }

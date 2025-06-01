@@ -1,18 +1,14 @@
 package com.fiap.fast_food_tc.unit.cross.mapper;
 
-import com.fiap.fast_food_tc.adapter.db.model.Customer;
 import com.fiap.fast_food_tc.adapter.db.model.Orders;
 import com.fiap.fast_food_tc.adapter.dto.orders.OrdersRequestDto;
 import com.fiap.fast_food_tc.adapter.dto.orders.OrdersResponseDto;
 import com.fiap.fast_food_tc.cross.mapper.OrdersMapper;
 import com.fiap.fast_food_tc.domain.entity.EOrders;
-import fixture.CustomerFixture;
 import fixture.OrdersFixture;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,7 +33,6 @@ class OrdersMapperTest {
 
     @Test
     void toEntitySuccess() {
-        Customer customer = CustomerFixture.createCustomerModel();
         Orders model = OrdersFixture.createOrders();
 
         EOrders entity = mapper.toEntity(model);
@@ -47,7 +42,7 @@ class OrdersMapperTest {
         assertEquals(model.getStatusOrder(), entity.getStatusOrder());
         assertEquals(model.getOrderCode(), entity.getOrderCode());
         assertEquals(model.getTotalAmount(), entity.getTotalAmount());
-        assertNull(entity.getCustomerId());
+        assertEquals(model.getCustomer().getCustomerId(), entity.getCustomerId());
     }
 
     @Test
@@ -73,7 +68,7 @@ class OrdersMapperTest {
         List<OrdersResponseDto> dtos = mapper.toResponseList(List.of(eOrders));
 
         assertEquals(1, dtos.size());
-        assertEquals(eOrders.getOrderId(), dtos.get(0).getOrderId());
+        assertEquals(eOrders.getOrderId(), dtos.getFirst().getOrderId());
     }
 
     @Test
@@ -83,7 +78,7 @@ class OrdersMapperTest {
         List<EOrders> entities = mapper.toEntityList(List.of(orders));
 
         assertEquals(1, entities.size());
-        assertEquals(orders.getOrderId(), entities.get(0).getOrderId());
+        assertEquals(orders.getOrderId(), entities.getFirst().getOrderId());
     }
 
     @Test
