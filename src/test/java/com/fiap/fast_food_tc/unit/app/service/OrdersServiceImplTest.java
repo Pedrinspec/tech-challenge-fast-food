@@ -77,4 +77,25 @@ class OrdersServiceImplTest {
 
         assertEquals(responseDto, result);
     }
+
+    @Test
+    void updateSuccess() {
+        Mockito.when(mapper.toEntityCreate(any())).thenReturn(order);
+        Mockito.when(ordersUseCase.update(any(), any())).thenReturn(order);
+        Mockito.when(mapper.toResponse(any())).thenReturn(responseDto);
+
+        var result = service.update(1, requestDto);
+
+        assertEquals(responseDto, result);
+    }
+
+    @Test
+    void deleteSuccess() {
+        Mockito.doNothing().when(ordersUseCase).delete(1);
+
+        service.delete(1);
+
+        Mockito.verify(ordersUseCase, Mockito.times(1)).delete(1);
+    }
+
 }

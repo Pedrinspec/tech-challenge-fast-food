@@ -12,4 +12,8 @@ public interface OrdersGateway {
     Orders getById(Integer id);
 
     Short getLastOrderCode();
+
+    Orders update(Orders model);
+
+    void delete(Integer id);
 }

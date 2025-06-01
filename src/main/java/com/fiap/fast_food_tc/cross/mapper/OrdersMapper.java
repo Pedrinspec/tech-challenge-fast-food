@@ -19,7 +19,7 @@ public interface OrdersMapper {
     @Mapping(target = "customerId", source = "customer.customerId")
     EOrders toEntity(Orders orders);
 
-    @Mapping(target = "customer", ignore = true)
+    @Mapping(target = "customer.customerId", source = "customerId")
     @Mapping(target = "orderProducts", ignore = true)
     @Mapping(target = "payment", ignore = true)
     Orders toModel(EOrders eOrders);
