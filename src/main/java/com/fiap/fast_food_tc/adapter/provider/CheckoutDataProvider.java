@@ -39,12 +39,14 @@ public class CheckoutDataProvider implements CheckoutGateway {
         PreferenceRequest request = getPreferenceRequest(order);
         PreferenceResponse response = mercadoPagoClient.createPreference(request);
 
-        Payment payment = new Payment();
-        payment.setOrders(order);
-        payment.setPaymentStatus(PaymentStatus.PENDING);
-        payment.setCreatedAt(LocalDateTime.now());
-        payment.setPaymentMethod(PaymentMethod.MERCADO_PAGO);
-        payment.setMercadoPagoId(response.getId());
+        Payment payment = Payment.builder()
+                .customerId(order.getCustomer().getCustomerId())
+                .paymentValue(order.getTotalAmount())
+                .paymentStatus(PaymentStatus.PENDING)
+                .createdAt(LocalDateTime.now())
+                .paymentMethod(PaymentMethod.MERCADO_PAGO)
+                .mercadoPagoId(response.getId())
+                .build();
         paymentDataProvider.save(payment);
 
         return response.getInitPoint();

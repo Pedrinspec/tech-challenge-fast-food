@@ -18,6 +18,7 @@ public interface CategoryMapper {
 
     List<CategoryResponseDTO> toResponseDTOList(List<ECategory> allCategories);
 
+    @Mapping(target = "products", ignore = true)
     Category toModel(ECategory category);
 
     @Mapping(target = "categoryId", ignore = true)

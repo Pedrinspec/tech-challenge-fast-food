@@ -48,8 +48,8 @@ class OrderProductMapperTest {
 
         EOrderProduct entity = mapper.toEntityCreate(request);
 
-        assertNull(entity.getOrderId());
-        assertNull(entity.getProductId());
+        assertEquals(request.getOrderId(), entity.getOrderId());
+        assertEquals(request.getProductId(), entity.getProductId());
         assertEquals(request.getProductQuantity(), entity.getProductQuantity());
         assertEquals(request.getProductTotalAmount(), entity.getProductTotalAmount());
     }

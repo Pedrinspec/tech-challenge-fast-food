@@ -21,8 +21,8 @@ public interface OrderProductMapper {
     @Mapping(target = "productId", source = "product.productId")
     EOrderProduct toEntity(OrderProduct model);
 
-    @Mapping(target = "orderId", ignore = true)
-    @Mapping(target = "productId", ignore = true)
+    @Mapping(target = "orderId", source = "orderId")
+    @Mapping(target = "productId", source = "productId")
     EOrderProduct toEntityCreate(OrderProductRequestDto dto);
 
     OrderProductResponseDto toResponse(EOrderProduct entity);
