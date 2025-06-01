@@ -24,4 +24,25 @@ public class CustomerDataProvider implements CustomerGateway {
         return repository.findByDocumentNumber(documentNumber).orElseThrow(() -> new RuntimeException("Customer not found"));
     }
 
+    @Override
+    public Customer findById(Integer id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+    }
+
+    @Override
+    public Customer update(Customer customer) {
+        return repository.save(customer);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        repository.deleteById(id);
+    }
+
+    @Override
+    public java.util.List<Customer> findAll() {
+        return repository.findAll();
+    }
+
 }

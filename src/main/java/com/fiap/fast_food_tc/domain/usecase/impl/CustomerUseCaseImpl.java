@@ -33,23 +33,23 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
     }
 
     @Override
-    public void update(ECustomer user) {
-        //TODO
+    public ECustomer update(ECustomer user) {
+        return customerMapper.toEntity(customerGateway.update(customerMapper.toDomain(user)));
     }
 
     @Override
     public void delete(Integer id) {
-        //TODO
+        customerGateway.delete(id);
     }
 
     @Override
     public ECustomer getById(Integer id) {
-        return null;
+        return customerMapper.toEntity(customerGateway.findById(id));
     }
 
     @Override
     public List<ECustomer> getAll() {
-        return List.of();
+        return customerMapper.toEntityList(customerGateway.findAll());
     }
 
 

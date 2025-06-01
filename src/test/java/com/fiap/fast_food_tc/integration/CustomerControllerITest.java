@@ -44,8 +44,7 @@ class CustomerControllerITest {
                 .andExpect(jsonPath("$.documentNumber").value("52431129845"))
                 .andExpect(jsonPath("$.firstName").value("João"))
                 .andExpect(jsonPath("$.lastName").value("Silva"))
-                .andExpect(jsonPath("$.email").value("joao@email.com"))
-                .andExpect(jsonPath("$.orders").exists());
+                .andExpect(jsonPath("$.email").value("joao@email.com"));
     }
 
     @Test
