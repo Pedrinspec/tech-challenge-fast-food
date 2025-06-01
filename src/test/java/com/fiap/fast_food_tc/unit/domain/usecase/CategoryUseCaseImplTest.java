@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 class CategoryUseCaseImplTest {
@@ -38,5 +39,34 @@ class CategoryUseCaseImplTest {
         var result = useCase.getAllCategories();
 
         assertEquals(entities, result);
+    }
+
+
+    @Test
+    void createSuccess() {
+        ECategory entity = CategoryFixture.createECategory();
+        Category model = CategoryFixture.createCategoryModel();
+
+        Mockito.when(categoryMapper.toModel(entity)).thenReturn(model);
+        Mockito.when(categoryGateway.createCategory(model)).thenReturn(model);
+        Mockito.when(categoryMapper.toEntity(model)).thenReturn(entity);
+
+        var result = useCase.create(entity);
+
+        assertEquals(entity, result);
+    }
+
+    @Test
+    void updateSuccess() {
+        ECategory entity = CategoryFixture.createECategory();
+        Category model = CategoryFixture.createCategoryModel();
+
+        Mockito.when(categoryMapper.toModel(any())).thenReturn(model);
+        Mockito.when(categoryGateway.updateCategory(model)).thenReturn(model);
+        Mockito.when(categoryMapper.toEntity(model)).thenReturn(entity);
+
+        var result = useCase.update(1, entity);
+
+        assertEquals(entity, result);
     }
 }

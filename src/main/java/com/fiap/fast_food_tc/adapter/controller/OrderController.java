@@ -31,10 +31,27 @@ public class OrderController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<OrdersResponseDto> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(ordersService.getOrderById(id));
+    }
+
     @PostMapping
-    public ResponseEntity<OrdersResponseDto> createCustomer(@RequestBody @Valid OrdersRequestDto order) {
+    public ResponseEntity<OrdersResponseDto> createOrder(@RequestBody @Valid OrdersRequestDto order) {
         var ordersCreated = ordersService.create(order);
         return ResponseEntity.status(HttpStatus.CREATED).body(ordersCreated);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<OrdersResponseDto> update(@PathVariable Integer id, @RequestBody @Valid OrdersRequestDto dto) {
+        var updated = ordersService.update(id, dto);
+        return ResponseEntity.ok(updated);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        ordersService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 

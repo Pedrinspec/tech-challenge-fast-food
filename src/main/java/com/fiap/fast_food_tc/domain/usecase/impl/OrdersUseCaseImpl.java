@@ -52,5 +52,15 @@ public class OrdersUseCaseImpl implements OrdersUseCase {
         return ordersMapper.toEntity(provider.getById(id));
     }
 
+    @Override
+    public EOrders update(Integer id, EOrders orderEntity) {
+        orderEntity.setOrderId(id);
+        return ordersMapper.toEntity(provider.update(ordersMapper.toModel(orderEntity)));
+    }
+
+    @Override
+    public void delete(Integer id) {
+        provider.delete(id);
+    }
 
 }

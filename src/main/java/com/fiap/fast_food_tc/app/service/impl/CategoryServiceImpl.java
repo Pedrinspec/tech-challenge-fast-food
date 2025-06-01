@@ -1,5 +1,6 @@
 package com.fiap.fast_food_tc.app.service.impl;
 
+import com.fiap.fast_food_tc.adapter.dto.category.CategoryRequest;
 import com.fiap.fast_food_tc.adapter.dto.category.CategoryResponseDTO;
 import com.fiap.fast_food_tc.app.service.CategoryService;
 import com.fiap.fast_food_tc.cross.mapper.CategoryMapper;
@@ -25,6 +26,20 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryResponseDTO> getAllCategories() {
         return categoryMapper.toResponseDTOList(categoryUseCase.getAllCategories());
+    }
+
+    @Override
+    public CategoryResponseDTO create(CategoryRequest request) {
+        var entity = categoryMapper.toEntityCreate(request);
+        var created = categoryUseCase.create(entity);
+        return categoryMapper.toResponseDTO(created);
+    }
+
+    @Override
+    public CategoryResponseDTO update(Integer id, CategoryRequest request) {
+        var entity = categoryMapper.toEntityCreate(request);
+        var updated = categoryUseCase.update(id, entity);
+        return categoryMapper.toResponseDTO(updated);
     }
 
 }

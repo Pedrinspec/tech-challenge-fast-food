@@ -34,6 +34,22 @@ public class OrdersDataProvider implements OrdersGateway {
     }
 
     @Override
+    public Orders update(Orders model) {
+        Orders order = repository.findById(model.getOrderId()).orElseThrow(() -> new IllegalArgumentException("Id not found"));
+        order.setOrderDatetime(model.getOrderDatetime() != null ? model.getOrderDatetime() : order.getOrderDatetime());
+        order.setStatusOrder(model.getStatusOrder() != null ? model.getStatusOrder() : order.getStatusOrder());
+        order.setTotalAmount(model.getTotalAmount() != null ? model.getTotalAmount() : order.getTotalAmount());
+        order.setCustomer(model.getCustomer().getCustomerId() != null ? model.getCustomer() : order.getCustomer());
+        return repository.save(order);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        repository.deleteById(id);
+    }
+
+
+    @Override
     public Short getLastOrderCode() {
         return repository.findFirstByOrderByOrderCodeDesc()
                 .map(Orders::getOrderCode)

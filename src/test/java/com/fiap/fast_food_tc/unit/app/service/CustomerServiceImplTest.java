@@ -58,4 +58,55 @@ class CustomerServiceImplTest {
         verify(customerUseCase).getByDocumentNumber(any());
     }
 
+    @Test
+    void shouldGetByIdSuccess() {
+        ECustomer user = CustomerFixture.createECustomer();
+        CustomerResponseDto responseDto = CustomerFixture.createCustomerResponseDto();
+
+        when(customerUseCase.getById(any())).thenReturn(user);
+        when(customerMapper.entityToMessage(any())).thenReturn(responseDto);
+
+        var response = service.getById(1);
+
+        assertNotNull(response);
+        verify(customerUseCase).getById(any());
+    }
+
+    @Test
+    void shouldGetAllSuccess() {
+        var entities = java.util.List.of(CustomerFixture.createECustomer());
+        var dtos = java.util.List.of(CustomerFixture.createCustomerResponseDto());
+
+        when(customerUseCase.getAll()).thenReturn(entities);
+        when(customerMapper.entityToMessageList(entities)).thenReturn(dtos);
+
+        var response = service.getAll();
+
+        assertNotNull(response);
+        verify(customerUseCase).getAll();
+    }
+
+    @Test
+    void shouldUpdateSuccess() {
+        CustomerRequestDto requestDto = CustomerFixture.createCustomerRequestDto();
+        ECustomer entity = CustomerFixture.createECustomer();
+        CustomerResponseDto responseDto = CustomerFixture.createCustomerResponseDto();
+
+        when(customerMapper.messageToEntity(requestDto)).thenReturn(entity);
+        when(customerUseCase.update(any())).thenReturn(entity);
+        when(customerMapper.entityToMessage(entity)).thenReturn(responseDto);
+
+        var response = service.update(1, requestDto);
+
+        assertNotNull(response);
+        verify(customerUseCase).update(any());
+    }
+
+    @Test
+    void shouldDeleteSuccess() {
+        service.delete(1);
+
+        verify(customerUseCase).delete(1);
+    }
+
 }

@@ -13,4 +13,8 @@ public interface OrdersService {
 
     OrdersResponseDto getOrderById(Integer id);
 
+    OrdersResponseDto update(Integer id, OrdersRequestDto dto);
+
+    void delete(Integer id);
+
 }

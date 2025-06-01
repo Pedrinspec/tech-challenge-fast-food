@@ -38,5 +38,29 @@ class CategoryServiceTest {
         assertEquals(1, response.size());
 
     }
+
+    @Test
+    void createSuccessTest() {
+        Mockito.when(categoryMapper.toEntityCreate(any())).thenReturn(CategoryFixture.createECategory());
+        Mockito.when(categoryUseCase.create(any())).thenReturn(CategoryFixture.createECategory());
+        Mockito.when(categoryMapper.toResponseDTO(any())).thenReturn(CategoryFixture.createCategoryDTO());
+
+        var response = categoryServiceImpl.create(CategoryFixture.createCategoryRequest());
+
+        assertNotNull(response);
+        assertEquals(CategoryFixture.createCategoryDTO().getCategoryName(), response.getCategoryName());
+    }
+
+    @Test
+    void updateSuccessTest() {
+        Mockito.when(categoryMapper.toEntityCreate(any())).thenReturn(CategoryFixture.createECategory());
+        Mockito.when(categoryUseCase.update(any(), any())).thenReturn(CategoryFixture.createECategory());
+        Mockito.when(categoryMapper.toResponseDTO(any())).thenReturn(CategoryFixture.createCategoryDTO());
+
+        var response = categoryServiceImpl.update(1, CategoryFixture.createCategoryRequest());
+
+        assertNotNull(response);
+        assertEquals(CategoryFixture.createCategoryDTO().getCategoryDescription(), response.getCategoryDescription());
+    }
 }
 

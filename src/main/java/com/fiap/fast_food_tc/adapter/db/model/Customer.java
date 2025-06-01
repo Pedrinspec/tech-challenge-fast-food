@@ -1,7 +1,6 @@
 package com.fiap.fast_food_tc.adapter.db.model;
 
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,7 +42,7 @@ public class Customer {
     @Column(name = "email", nullable = false, unique = true, length = 45)
     private String email;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "customer")
     private List<Orders> orders;
 
 }

@@ -8,7 +8,7 @@ public interface CustomerUseCase {
 
     ECustomer create(ECustomer user);
 
-    void update(ECustomer user);
+    ECustomer update(ECustomer user);
 
     void delete(Integer id);
 

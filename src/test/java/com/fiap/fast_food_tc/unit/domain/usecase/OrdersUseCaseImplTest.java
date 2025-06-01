@@ -97,4 +97,25 @@ class OrdersUseCaseImplTest {
 
         assertEquals(entity, result);
     }
+
+    @Test
+    void updateSuccess() {
+        EOrders entity = OrdersFixture.createEOrders();
+        Orders model = OrdersFixture.createOrders();
+
+        Mockito.when(ordersMapper.toModel(any())).thenReturn(model);
+        Mockito.when(provider.update(model)).thenReturn(model);
+        Mockito.when(ordersMapper.toEntity(model)).thenReturn(entity);
+
+        var result = useCase.update(1, entity);
+
+        assertEquals(entity, result);
+    }
+
+    @Test
+    void deleteSuccess() {
+        useCase.delete(1);
+
+        verify(provider).delete(1);
+    }
 }

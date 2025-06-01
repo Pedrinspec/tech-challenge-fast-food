@@ -1,8 +1,6 @@
 package com.fiap.fast_food_tc.unit.adapter.controller;
 
 import com.fiap.fast_food_tc.adapter.controller.OrderController;
-import com.fiap.fast_food_tc.adapter.dto.orders.OrdersRequestDto;
-import com.fiap.fast_food_tc.adapter.dto.orders.OrdersResponseDto;
 import com.fiap.fast_food_tc.app.service.impl.OrdersServiceImpl;
 import fixture.OrdersFixture;
 import org.junit.jupiter.api.Test;
@@ -44,9 +42,42 @@ class OrderControllerTest {
         orderResponse.setOrderDatetime(request.getOrderDatetime());
         Mockito.when(ordersService.create(request)).thenReturn(orderResponse);
 
-        var response = controller.createCustomer(request);
+        var response = controller.createOrder(request);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(orderResponse, response.getBody());
     }
+
+    @Test
+    void getByIdSuccess() {
+        var orderResponse = OrdersFixture.createOrdersResponseDto();
+        Mockito.when(ordersService.getOrderById(1)).thenReturn(orderResponse);
+
+        var response = controller.getById(1);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(orderResponse, response.getBody());
+    }
+
+    @Test
+    void updateSuccess() {
+        var request = OrdersFixture.createOrdersRequestDto();
+        var orderResponse = OrdersFixture.createOrdersResponseDto();
+        Mockito.when(ordersService.update(1, request)).thenReturn(orderResponse);
+
+        var response = controller.update(1, request);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(orderResponse, response.getBody());
+    }
+
+    @Test
+    void deleteSuccess() {
+        Mockito.doNothing().when(ordersService).delete(1);
+
+        var response = controller.delete(1);
+
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+    }
+
 }

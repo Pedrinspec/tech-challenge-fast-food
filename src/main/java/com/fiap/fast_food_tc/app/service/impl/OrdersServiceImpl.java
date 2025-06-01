@@ -39,4 +39,15 @@ public class OrdersServiceImpl implements OrdersService {
     public OrdersResponseDto getOrderById(Integer id) {
         return mapper.toResponse(ordersUseCase.getById(id));
     }
+
+    @Override
+    public OrdersResponseDto update(Integer id, OrdersRequestDto dto) {
+        var entity = mapper.toEntityCreate(dto);
+        return mapper.toResponse(ordersUseCase.update(id, entity));
+    }
+
+    @Override
+    public void delete(Integer id) {
+        ordersUseCase.delete(id);
+    }
 }

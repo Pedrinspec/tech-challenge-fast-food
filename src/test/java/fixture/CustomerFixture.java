@@ -27,7 +27,6 @@ public class CustomerFixture {
                 .firstName("Joao")
                 .lastName("Silva")
                 .email("joao@email.com")
-                .orders(List.of())
                 .build();
     }
 
@@ -47,7 +46,6 @@ public class CustomerFixture {
                 .firstName("Joao")
                 .lastName("Silva")
                 .email("joao@email.com")
-                .orders(List.of())
                 .build();
     }
 }
