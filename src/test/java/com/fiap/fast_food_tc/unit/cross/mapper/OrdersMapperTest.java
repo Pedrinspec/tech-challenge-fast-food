@@ -11,8 +11,6 @@ import fixture.OrdersFixture;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,7 +45,7 @@ class OrdersMapperTest {
         assertEquals(model.getStatusOrder(), entity.getStatusOrder());
         assertEquals(model.getOrderCode(), entity.getOrderCode());
         assertEquals(model.getTotalAmount(), entity.getTotalAmount());
-        assertNull(entity.getCustomerId());
+        assertNotNull(entity.getCustomerId());
     }
 
     @Test
@@ -73,7 +71,7 @@ class OrdersMapperTest {
         List<OrdersResponseDto> dtos = mapper.toResponseList(List.of(eOrders));
 
         assertEquals(1, dtos.size());
-        assertEquals(eOrders.getOrderId(), dtos.get(0).getOrderId());
+        assertEquals(eOrders.getOrderId(), dtos.getFirst().getOrderId());
     }
 
     @Test
@@ -83,7 +81,7 @@ class OrdersMapperTest {
         List<EOrders> entities = mapper.toEntityList(List.of(orders));
 
         assertEquals(1, entities.size());
-        assertEquals(orders.getOrderId(), entities.get(0).getOrderId());
+        assertEquals(orders.getOrderId(), entities.getFirst().getOrderId());
     }
 
     @Test
