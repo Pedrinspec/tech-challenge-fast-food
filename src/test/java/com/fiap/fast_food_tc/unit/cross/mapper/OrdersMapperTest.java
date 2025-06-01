@@ -47,7 +47,7 @@ class OrdersMapperTest {
         assertEquals(model.getStatusOrder(), entity.getStatusOrder());
         assertEquals(model.getOrderCode(), entity.getOrderCode());
         assertEquals(model.getTotalAmount(), entity.getTotalAmount());
-        assertNull(entity.getCustomerId());
+        assertNotNull(entity.getCustomerId());
     }
 
     @Test
