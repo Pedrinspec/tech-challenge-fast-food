@@ -39,7 +39,7 @@ class CategoryControllerITest {
 
     @Test
     void shouldGetAllCategories() throws Exception {
-        mockMvc.perform(get("/category").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/categories").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].categoryId").value(1))
                 .andExpect(jsonPath("$[0].categoryName").value("Burgers"));
