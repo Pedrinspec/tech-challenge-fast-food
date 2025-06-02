@@ -15,7 +15,7 @@ import java.util.List;
 
 @Tag(name = "Customer", description = "Endpoints de usuários")
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/customers")
 public class CustomerController {
 
     private final CustomerService customerService;

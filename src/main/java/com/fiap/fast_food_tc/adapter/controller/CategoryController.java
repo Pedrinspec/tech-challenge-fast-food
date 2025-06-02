@@ -20,7 +20,7 @@ import java.util.List;
 
 @Tag(name = "Category", description = "Endpoints de categoria")
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/categories")
 public class CategoryController {
 
     private final CategoryService categoryService;
