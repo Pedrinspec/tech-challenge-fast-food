@@ -102,6 +102,6 @@ class OrdersDataProviderTest {
 
         Short code = provider.getLastOrderCode();
 
-        assertEquals(0, code);
+        assertEquals((short)0, code);
     }
 }
