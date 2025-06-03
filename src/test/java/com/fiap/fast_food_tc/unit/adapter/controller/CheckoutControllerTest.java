@@ -1,7 +1,9 @@
 package com.fiap.fast_food_tc.unit.adapter.controller;
 
 import com.fiap.fast_food_tc.adapter.controller.CheckoutController;
+import com.fiap.fast_food_tc.adapter.dto.checkout.CheckoutOrderRequest;
 import com.fiap.fast_food_tc.app.service.CheckoutService;
+import fixture.CheckoutFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -37,4 +39,16 @@ class CheckoutControllerTest {
 
         assertThrows(RuntimeException.class, () -> controller.checkout(1));
     }
+
+    @Test
+    void checkoutWithProductsSuccess() {
+        CheckoutOrderRequest request = CheckoutFixture.createRequest();
+        Mockito.when(checkoutService.checkoutAndCreateOrder(request)).thenReturn("url");
+
+        var response = controller.checkout(request);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("url", response.getBody());
+    }
+
 }

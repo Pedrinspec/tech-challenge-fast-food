@@ -27,6 +27,11 @@ public class OrderProductDataProvider implements OrderProductGateway {
     }
 
     @Override
+    public List<OrderProduct> findByOrderId(Integer orderId) {
+        return repository.findByOrdersOrderId(orderId);
+    }
+
+    @Override
     public List<OrderProduct> getAll() {
         return repository.findAll();
     }

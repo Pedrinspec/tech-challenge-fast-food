@@ -11,4 +11,5 @@ public interface OrderProductGateway {
     OrderProduct getById(OrderProductPk id);
     OrderProduct update(OrderProduct orderProduct);
     void delete(OrderProductPk id);
+    List<OrderProduct> findByOrderId(Integer orderId);
 }
