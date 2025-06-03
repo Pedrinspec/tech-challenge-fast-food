@@ -1,7 +1,9 @@
 package com.fiap.fast_food_tc.unit.app.service;
 
+import com.fiap.fast_food_tc.adapter.dto.checkout.CheckoutOrderRequest;
 import com.fiap.fast_food_tc.app.service.impl.CheckoutServiceImpl;
 import com.fiap.fast_food_tc.domain.usecase.CheckoutUseCase;
+import fixture.CheckoutFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,4 +30,15 @@ class CheckoutServiceImplTest {
 
         assertEquals("link", result);
     }
+
+    @Test
+    void checkoutAndCreateOrderSuccess() {
+        CheckoutOrderRequest request = CheckoutFixture.createRequest();
+        Mockito.when(checkoutUseCase.checkoutAndCreateOrder(request)).thenReturn("link");
+
+        var result = service.checkoutAndCreateOrder(request);
+
+        assertEquals("link", result);
+    }
+
 }
