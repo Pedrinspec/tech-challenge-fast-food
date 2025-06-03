@@ -22,12 +22,14 @@ public class CheckoutDataProvider implements CheckoutGateway {
     private final MercadoPagoClient mercadoPagoClient;
     private final PaymentDataProvider paymentDataProvider;
     private final OrdersDataProvider ordersDataProvider;
+    private final OrderProductDataProvider orderProductDataProvider;
 
     @Autowired
-    public CheckoutDataProvider(MercadoPagoClient mercadoPagoClient, PaymentDataProvider paymentDataProvider, OrdersDataProvider ordersDataProvider) {
+    public CheckoutDataProvider(MercadoPagoClient mercadoPagoClient, PaymentDataProvider paymentDataProvider, OrdersDataProvider ordersDataProvider, OrderProductDataProvider orderProductDataProvider) {
         this.mercadoPagoClient = mercadoPagoClient;
         this.paymentDataProvider = paymentDataProvider;
         this.ordersDataProvider = ordersDataProvider;
+        this.orderProductDataProvider = orderProductDataProvider;
     }
 
 
@@ -36,6 +38,9 @@ public class CheckoutDataProvider implements CheckoutGateway {
     public String getPaymentLink(Integer orderId) {
 
         var order = ordersDataProvider.getById(orderId);
+        if (order.getOrderProducts() == null) {
+            order.setOrderProducts(orderProductDataProvider.findByOrderId(orderId));
+        }
         PreferenceRequest request = getPreferenceRequest(order);
         PreferenceResponse response = mercadoPagoClient.createPreference(request);
 
