@@ -3,6 +3,8 @@ package com.fiap.fast_food_tc.adapter.db.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -25,6 +27,7 @@ public class Category {
 
     @Id
     @Column(name = "category_id", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer categoryId;
 
     @Column(name = "category_name", nullable = false)

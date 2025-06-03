@@ -36,7 +36,7 @@ class CustomerControllerITest {
                 .email("joao@email.com")
                 .build();
 
-        mockMvc.perform(post("/customer")
+        mockMvc.perform(post("/customers")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
@@ -58,12 +58,12 @@ class CustomerControllerITest {
                 .email("joao@email.com")
                 .build();
 
-        mockMvc.perform(post("/customer")
+        mockMvc.perform(post("/customers")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated());
 
-        mockMvc.perform(get("/customer/{documentNumber}", documentNumber))
+        mockMvc.perform(get("/customers/{documentNumber}", documentNumber))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.customerId").exists())
                 .andExpect(jsonPath("$.documentNumber").value(documentNumber))

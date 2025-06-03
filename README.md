@@ -280,18 +280,18 @@ ORDER BY total_vendido DESC;
 
 📚 Principais Endpoints
 
-| Resource   | Method | Route                | Description                                 |
-| ---------- | ------ | -------------------- | ------------------------------------------- |
-| Customer   | POST   | `/customers`         | Register new customer                       |
-| Customer   | GET    | `/customers/{cpf}`   | Get customer by CPF                         |
-| Product    | POST   | `/products`          | Register new product                        |
-| Product    | GET    | `/products`          | List all products                           |
-| Product    | PUT    | `/products/{id}`     | Update product                              |
-| Product    | DELETE | `/products/{id}`     | Remove product                              |
-| Category   | GET    | `/categories`        | List categories                             |
-| Order      | POST   | `/orders`            | Create new order                            |
-| Order      | GET    | `/orders/{cpf}`      | List orders for a customer                  |
-| Checkout   | POST   | `/checkout`          | Generate Mercado Pago payment link          |
+| Resource   | Method | Route                             | Description                        |
+| ---------- | ------ |-----------------------------------|------------------------------------|
+| Customer   | POST   | `/customers`                      | Register new customer              |
+| Customer   | GET    | `/customers/{documentNumber}`     | Get customer by CPF                |
+| Product    | POST   | `/products`                       | Register new product               |
+| Product    | GET    | `/products`                       | List all products                  |
+| Product    | GET    | `/products/category/{categoryId}` | List all products by category      |
+| Product    | PUT    | `/products/{id}`                  | Update product                     |
+| Product    | DELETE | `/products/{id}`                  | Remove product                     |
+| Category   | GET    | `/categories`                     | List categories                    |
+| Order      | POST   | `/orders`                         | Create new order                   |
+| Checkout   | POST   | `/checkout`                       | Generate Mercado Pago payment link |
 
 💳 Integração com Mercado Pago
 
