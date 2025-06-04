@@ -69,6 +69,17 @@ src/main/java/com/fiap/fast_food_tc/
     - `usecase/`: Casos de uso do domínio.
 ---
 
+## 🧠 Mapa Visual do Projeto
+
+Para facilitar o entendimento da arquitetura, fluxos e ideias principais do projeto, utilizamos um quadro colaborativo no Miro.
+
+Você pode acessá-lo pelo link abaixo:
+
+🔗 [Clique aqui para acessar o board no Miro](https://miro.com/app/board/uXjVI1j49zw=/?share_link_id=474036713451)
+
+> **Observação**: É necessário ter acesso autorizado para visualizar o conteúdo do board. Caso não consiga visualizar, solicite permissão ao responsável pelo projeto.
+
+---
 ## 📦 Funcionalidades
 
 - 👤 Cadastro e consulta de clientes via CPF
