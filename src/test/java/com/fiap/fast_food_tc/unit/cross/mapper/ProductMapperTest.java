@@ -1,9 +1,9 @@
 package com.fiap.fast_food_tc.unit.cross.mapper;
 
-import com.fiap.fast_food_tc.adapter.db.model.Category;
-import com.fiap.fast_food_tc.adapter.db.model.Product;
-import com.fiap.fast_food_tc.adapter.dto.product.ProductRequest;
-import com.fiap.fast_food_tc.adapter.dto.product.ProductResponse;
+import com.fiap.fast_food_tc.infra.db.model.Category;
+import com.fiap.fast_food_tc.infra.db.model.Product;
+import com.fiap.fast_food_tc.app.dto.product.ProductRequest;
+import com.fiap.fast_food_tc.app.dto.product.ProductResponse;
 import com.fiap.fast_food_tc.cross.mapper.ProductMapper;
 import com.fiap.fast_food_tc.domain.entity.EProduct;
 import fixture.CategoryFixture;
@@ -11,7 +11,6 @@ import fixture.ProductFixture;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -117,7 +116,7 @@ class ProductMapperTest {
         List<ProductResponse> responses = mapper.toResponseList(List.of(eProduct));
 
         assertEquals(1, responses.size());
-        assertEquals(eProduct.getProductId(), responses.get(0).getProductId());
+        assertEquals(eProduct.getProductId(), responses.getFirst().getProductId());
     }
 
     @Test
@@ -131,6 +130,6 @@ class ProductMapperTest {
         List<EProduct> entities = mapper.toEntityList(List.of(product));
 
         assertEquals(1, entities.size());
-        assertEquals(product.getProductId(), entities.get(0).getProductId());
+        assertEquals(product.getProductId(), entities.getFirst().getProductId());
     }
 }

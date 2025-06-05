@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.integration;
 
-import com.fiap.fast_food_tc.adapter.dto.customer.CustomerRequestDto;
+import com.fiap.fast_food_tc.app.dto.customer.CustomerRequestDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

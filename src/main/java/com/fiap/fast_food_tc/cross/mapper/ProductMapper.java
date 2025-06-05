@@ -1,8 +1,8 @@
 package com.fiap.fast_food_tc.cross.mapper;
 
-import com.fiap.fast_food_tc.adapter.db.model.Product;
-import com.fiap.fast_food_tc.adapter.dto.product.ProductRequest;
-import com.fiap.fast_food_tc.adapter.dto.product.ProductResponse;
+import com.fiap.fast_food_tc.infra.db.model.Product;
+import com.fiap.fast_food_tc.app.dto.product.ProductRequest;
+import com.fiap.fast_food_tc.app.dto.product.ProductResponse;
 import com.fiap.fast_food_tc.domain.entity.EProduct;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

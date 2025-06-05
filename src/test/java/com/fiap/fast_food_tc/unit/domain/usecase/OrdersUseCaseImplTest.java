@@ -5,7 +5,7 @@ import com.fiap.fast_food_tc.domain.gateway.OrdersGateway;
 import com.fiap.fast_food_tc.domain.usecase.impl.OrdersUseCaseImpl;
 import fixture.OrdersFixture;
 import com.fiap.fast_food_tc.domain.entity.EOrders;
-import com.fiap.fast_food_tc.adapter.db.model.Orders;
+import com.fiap.fast_food_tc.infra.db.model.Orders;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

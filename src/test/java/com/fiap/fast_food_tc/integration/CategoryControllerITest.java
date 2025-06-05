@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.integration;
 
-import com.fiap.fast_food_tc.adapter.db.model.Category;
-import com.fiap.fast_food_tc.adapter.db.repository.CategoryRepository;
+import com.fiap.fast_food_tc.infra.db.model.Category;
+import com.fiap.fast_food_tc.infra.db.repository.CategoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

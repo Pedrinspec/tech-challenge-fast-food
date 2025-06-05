@@ -5,7 +5,7 @@ import com.fiap.fast_food_tc.domain.gateway.CategoryGateway;
 import com.fiap.fast_food_tc.domain.usecase.impl.CategoryUseCaseImpl;
 import fixture.CategoryFixture;
 import com.fiap.fast_food_tc.domain.entity.ECategory;
-import com.fiap.fast_food_tc.adapter.db.model.Category;
+import com.fiap.fast_food_tc.infra.db.model.Category;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

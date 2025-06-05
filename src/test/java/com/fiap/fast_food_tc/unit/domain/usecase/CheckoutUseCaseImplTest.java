@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.unit.domain.usecase;
 
-import com.fiap.fast_food_tc.adapter.dto.checkout.CheckoutOrderRequest;
+import com.fiap.fast_food_tc.app.dto.checkout.CheckoutOrderRequest;
 import com.fiap.fast_food_tc.domain.gateway.CheckoutGateway;
 import com.fiap.fast_food_tc.domain.entity.EOrderProduct;
 import com.fiap.fast_food_tc.domain.entity.EOrders;

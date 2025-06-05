@@ -1,8 +1,8 @@
 package com.fiap.fast_food_tc.unit.cross.mapper;
 
-import com.fiap.fast_food_tc.adapter.db.model.Orders;
-import com.fiap.fast_food_tc.adapter.dto.orders.OrdersRequestDto;
-import com.fiap.fast_food_tc.adapter.dto.orders.OrdersResponseDto;
+import com.fiap.fast_food_tc.infra.db.model.Orders;
+import com.fiap.fast_food_tc.app.dto.orders.OrdersRequestDto;
+import com.fiap.fast_food_tc.app.dto.orders.OrdersResponseDto;
 import com.fiap.fast_food_tc.cross.mapper.OrdersMapper;
 import com.fiap.fast_food_tc.domain.entity.EOrders;
 import fixture.OrdersFixture;

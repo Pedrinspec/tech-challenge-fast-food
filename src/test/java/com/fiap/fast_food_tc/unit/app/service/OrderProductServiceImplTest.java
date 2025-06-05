@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.unit.app.service;
 
-import com.fiap.fast_food_tc.adapter.dto.orderproduct.OrderProductRequestDto;
-import com.fiap.fast_food_tc.adapter.dto.orderproduct.OrderProductResponseDto;
+import com.fiap.fast_food_tc.app.dto.orderproduct.OrderProductRequestDto;
+import com.fiap.fast_food_tc.app.dto.orderproduct.OrderProductResponseDto;
 import com.fiap.fast_food_tc.app.service.impl.OrderProductServiceImpl;
 import com.fiap.fast_food_tc.cross.mapper.OrderProductMapper;
 import com.fiap.fast_food_tc.domain.usecase.OrderProductUseCase;

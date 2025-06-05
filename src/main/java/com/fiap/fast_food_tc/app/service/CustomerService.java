@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.app.service;
 
-import com.fiap.fast_food_tc.adapter.dto.customer.CustomerRequestDto;
-import com.fiap.fast_food_tc.adapter.dto.customer.CustomerResponseDto;
+import com.fiap.fast_food_tc.app.dto.customer.CustomerRequestDto;
+import com.fiap.fast_food_tc.app.dto.customer.CustomerResponseDto;
 import jakarta.validation.Valid;
 
 import java.util.List;

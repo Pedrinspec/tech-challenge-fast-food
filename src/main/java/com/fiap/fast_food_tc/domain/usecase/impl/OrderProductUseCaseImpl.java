@@ -4,7 +4,7 @@ import com.fiap.fast_food_tc.cross.mapper.OrderProductMapper;
 import com.fiap.fast_food_tc.domain.entity.EOrderProduct;
 import com.fiap.fast_food_tc.domain.gateway.OrderProductGateway;
 import com.fiap.fast_food_tc.domain.usecase.OrderProductUseCase;
-import com.fiap.fast_food_tc.adapter.db.model.ids.OrderProductPk;
+import com.fiap.fast_food_tc.infra.db.model.ids.OrderProductPk;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
