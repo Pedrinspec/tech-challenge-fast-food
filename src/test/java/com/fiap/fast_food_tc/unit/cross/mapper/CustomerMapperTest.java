@@ -1,8 +1,8 @@
 package com.fiap.fast_food_tc.unit.cross.mapper;
 
-import com.fiap.fast_food_tc.adapter.db.model.Customer;
-import com.fiap.fast_food_tc.adapter.dto.customer.CustomerRequestDto;
-import com.fiap.fast_food_tc.adapter.dto.customer.CustomerResponseDto;
+import com.fiap.fast_food_tc.infra.db.model.Customer;
+import com.fiap.fast_food_tc.app.dto.customer.CustomerRequestDto;
+import com.fiap.fast_food_tc.app.dto.customer.CustomerResponseDto;
 import com.fiap.fast_food_tc.cross.mapper.CustomerMapper;
 import com.fiap.fast_food_tc.domain.entity.ECustomer;
 import fixture.CustomerFixture;

@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.domain.gateway;
 
-import com.fiap.fast_food_tc.adapter.db.model.Product;
+import com.fiap.fast_food_tc.infra.db.model.Product;
 
 import java.util.List;
 

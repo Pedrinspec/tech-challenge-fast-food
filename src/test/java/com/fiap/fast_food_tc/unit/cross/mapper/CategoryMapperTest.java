@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.unit.cross.mapper;
 
-import com.fiap.fast_food_tc.adapter.db.model.Category;
-import com.fiap.fast_food_tc.adapter.dto.category.CategoryResponseDTO;
+import com.fiap.fast_food_tc.infra.db.model.Category;
+import com.fiap.fast_food_tc.app.dto.category.CategoryResponseDTO;
 import com.fiap.fast_food_tc.cross.mapper.CategoryMapper;
 import com.fiap.fast_food_tc.domain.entity.ECategory;
 import fixture.CategoryFixture;
@@ -34,7 +34,7 @@ class CategoryMapperTest {
         List<ECategory> result = mapper.toEntityList(List.of(category));
 
         assertEquals(1, result.size());
-        assertEquals(category.getCategoryId(), result.get(0).getCategoryId());
+        assertEquals(category.getCategoryId(), result.getFirst().getCategoryId());
     }
 
     @Test
@@ -44,6 +44,6 @@ class CategoryMapperTest {
         List<CategoryResponseDTO> result = mapper.toResponseDTOList(List.of(eCategory));
 
         assertEquals(1, result.size());
-        assertEquals(eCategory.getCategoryId(), result.get(0).getCategoryId());
+        assertEquals(eCategory.getCategoryId(), result.getFirst().getCategoryId());
     }
 }

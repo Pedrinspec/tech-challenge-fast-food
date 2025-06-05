@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.app.service.impl;
 
-import com.fiap.fast_food_tc.adapter.dto.category.CategoryRequest;
-import com.fiap.fast_food_tc.adapter.dto.category.CategoryResponseDTO;
+import com.fiap.fast_food_tc.app.dto.category.CategoryRequest;
+import com.fiap.fast_food_tc.app.dto.category.CategoryResponseDTO;
 import com.fiap.fast_food_tc.app.service.CategoryService;
 import com.fiap.fast_food_tc.cross.mapper.CategoryMapper;
 import com.fiap.fast_food_tc.domain.usecase.CategoryUseCase;
