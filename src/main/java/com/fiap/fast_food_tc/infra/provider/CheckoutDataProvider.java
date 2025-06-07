@@ -83,7 +83,7 @@ public class CheckoutDataProvider implements CheckoutGateway {
 
     private static PreferenceRequest buildRequest(Orders order, List<PreferenceRequest.Item> items) {
         PreferenceRequest.BackUrls urls = new PreferenceRequest.BackUrls();
-        urls.setSuccess("https://seudominio.com/pagamento/sucesso");
+        urls.setSuccess("http://localhost:8080/checkout/webhook/mercadoPago");
         urls.setFailure("https://seudominio.com/pagamento/falha");
         urls.setPending("https://seudominio.com/pagamento/pendente");
 
