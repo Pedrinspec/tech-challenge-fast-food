@@ -6,4 +6,8 @@ public interface PaymentGateway {
 
     Payment save(Payment payment);
 
+    Payment findById(Integer id);
+
+    java.util.List<Payment> findAll();
+
 }
