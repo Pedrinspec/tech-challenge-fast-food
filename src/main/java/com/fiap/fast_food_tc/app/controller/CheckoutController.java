@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @Tag(name = "Checkout", description = "Endpoints de checkout")
 @RestController
 @RequestMapping("/checkout")
@@ -19,7 +21,7 @@ public class CheckoutController {
     private final CheckoutService checkoutService;
 
     @Autowired
-    public CheckoutController( CheckoutService checkoutService) {
+    public CheckoutController(CheckoutService checkoutService) {
         this.checkoutService = checkoutService;
     }
 
@@ -31,6 +33,19 @@ public class CheckoutController {
     @PostMapping
     public ResponseEntity<String> checkout(@RequestBody CheckoutOrderRequest request) {
         return ResponseEntity.ok(checkoutService.checkoutAndCreateOrder(request));
+    }
+
+    @PostMapping("/webhook/mercadoPago")
+    public ResponseEntity<Void> handleWebhook(@RequestBody Map<String, Object> payload) {
+        Map<String, Object> data = (Map<String, Object>) payload.get("data");
+        String tipo = (String) payload.get("type");
+
+        if ("payment".equals(tipo) && data != null) {
+            String paymentId = data.get("id").toString();
+            checkoutService.handleWebhook(paymentId);
+        }
+
+        return ResponseEntity.ok().build();
     }
 
 }

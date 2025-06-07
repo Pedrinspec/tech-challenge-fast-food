@@ -1,5 +1,6 @@
 package com.fiap.fast_food_tc.infra.provider.clients;
 
+import com.fiap.fast_food_tc.app.dto.checkout.MPPaymentResponse;
 import com.fiap.fast_food_tc.app.dto.checkout.PreferenceRequest;
 import com.fiap.fast_food_tc.app.dto.checkout.PreferenceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,15 @@ public class MercadoPagoClient {
                 .bodyValue(request)
                 .retrieve()
                 .bodyToMono(PreferenceResponse.class)
+                .block();
+    }
+
+    public MPPaymentResponse getPayment(String id) {
+        return mercadoPagoWebClient.get()
+                .uri("/v1/payments/{id}", id)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + mercadoPagoToken)
+                .retrieve()
+                .bodyToMono(MPPaymentResponse.class)
                 .block();
     }
 }

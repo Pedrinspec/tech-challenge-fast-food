@@ -1,5 +1,6 @@
 package com.fiap.fast_food_tc.infra.provider;
 
+import com.fiap.fast_food_tc.app.dto.checkout.MPPaymentResponse;
 import com.fiap.fast_food_tc.infra.db.model.Orders;
 import com.fiap.fast_food_tc.infra.db.model.Payment;
 import com.fiap.fast_food_tc.infra.db.model.Product;
@@ -32,6 +33,15 @@ public class CheckoutDataProvider implements CheckoutGateway {
         this.orderProductDataProvider = orderProductDataProvider;
     }
 
+    @Override
+    public void verifyApprovedPayment(String paymentId){
+        MPPaymentResponse response = mercadoPagoClient.getPayment(paymentId);
+        if (response != null && "approved".equalsIgnoreCase(response.getStatus())) {
+            Payment payment = paymentDataProvider.findByMercadoPagoId(paymentId);
+            payment.setPaymentStatus(PaymentStatus.APPROVED);
+            paymentDataProvider.save(payment);
+        }
+    }
 
     @Transactional
     @Override
@@ -73,7 +83,7 @@ public class CheckoutDataProvider implements CheckoutGateway {
 
     private static PreferenceRequest buildRequest(Orders order, List<PreferenceRequest.Item> items) {
         PreferenceRequest.BackUrls urls = new PreferenceRequest.BackUrls();
-        urls.setSuccess("https://seudominio.com/pagamento/sucesso");
+        urls.setSuccess("https://seudominio.com/pagamento/aprovado");
         urls.setFailure("https://seudominio.com/pagamento/falha");
         urls.setPending("https://seudominio.com/pagamento/pendente");
 

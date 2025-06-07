@@ -32,4 +32,9 @@ public class PaymentDataProvider implements PaymentGateway {
         return repository.findAll();
     }
 
+    public Payment findByMercadoPagoId(String id) {
+        return repository.findByMercadoPagoId(id)
+                .orElseThrow(() -> new IllegalArgumentException("Payment not found"));
+    }
+
 }
