@@ -20,4 +20,16 @@ public class PaymentDataProvider implements PaymentGateway {
     public Payment save(Payment payment) {
         return repository.save(payment);
     }
+
+    @Override
+    public Payment findById(Integer id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Payment not found"));
+    }
+
+    @Override
+    public java.util.List<Payment> findAll() {
+        return repository.findAll();
+    }
+
 }
