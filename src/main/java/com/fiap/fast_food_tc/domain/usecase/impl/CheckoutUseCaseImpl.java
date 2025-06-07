@@ -76,4 +76,9 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
         return checkoutGateway.getPaymentLink(order.getOrderId());
     }
 
+    @Override
+    public void handleWebhook(String paymentId) {
+        checkoutGateway.verifyApprovedPayment(paymentId);
+    }
+
 }

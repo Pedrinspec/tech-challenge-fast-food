@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "Checkout", description = "Endpoints de checkout")
@@ -19,7 +20,7 @@ public class CheckoutController {
     private final CheckoutService checkoutService;
 
     @Autowired
-    public CheckoutController( CheckoutService checkoutService) {
+    public CheckoutController(CheckoutService checkoutService) {
         this.checkoutService = checkoutService;
     }
 
@@ -31,6 +32,12 @@ public class CheckoutController {
     @PostMapping
     public ResponseEntity<String> checkout(@RequestBody CheckoutOrderRequest request) {
         return ResponseEntity.ok(checkoutService.checkoutAndCreateOrder(request));
+    }
+
+    @PostMapping("/webhook/mercadoPago")
+    public ResponseEntity<Void> handleWebhook(@RequestParam(name = "id") String paymentId) {
+        checkoutService.handleWebhook(paymentId);
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -8,4 +8,5 @@ public interface CheckoutService {
 
     String checkoutAndCreateOrder(CheckoutOrderRequest request);
 
+    void handleWebhook(String paymentId);
 }

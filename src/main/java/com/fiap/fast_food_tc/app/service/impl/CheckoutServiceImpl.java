@@ -26,4 +26,9 @@ public class CheckoutServiceImpl implements CheckoutService {
     public String checkoutAndCreateOrder(CheckoutOrderRequest request) {
         return checkoutUseCase.checkoutAndCreateOrder(request);
     }
+
+    @Override
+    public void handleWebhook(String paymentId) {
+        checkoutUseCase.handleWebhook(paymentId);
+    }
 }
