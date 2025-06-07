@@ -35,6 +35,7 @@ public class CheckoutController {
         return ResponseEntity.ok(checkoutService.checkoutAndCreateOrder(request));
     }
 
+    @PostMapping("/webhook/mercadoPago")
     public ResponseEntity<Void> handleWebhook(@RequestBody Map<String, Object> payload) {
         Map<String, Object> data = (Map<String, Object>) payload.get("data");
         String tipo = (String) payload.get("type");
