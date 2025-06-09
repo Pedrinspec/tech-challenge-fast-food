@@ -2,8 +2,8 @@ package com.fiap.fast_food_tc.infra.provider;
 
 import com.fiap.fast_food_tc.app.dto.checkout.MPPaymentResponse;
 import com.fiap.fast_food_tc.infra.db.model.Orders;
-import com.fiap.fast_food_tc.infra.db.model.Payment;
 import com.fiap.fast_food_tc.infra.db.model.Product;
+import com.fiap.fast_food_tc.domain.entity.EPayment;
 import com.fiap.fast_food_tc.app.dto.checkout.PreferenceRequest;
 import com.fiap.fast_food_tc.app.dto.checkout.PreferenceResponse;
 import com.fiap.fast_food_tc.infra.provider.clients.MercadoPagoClient;
@@ -37,7 +37,7 @@ public class CheckoutDataProvider implements CheckoutGateway {
     public void verifyApprovedPayment(String paymentId){
         MPPaymentResponse response = mercadoPagoClient.getPayment(paymentId);
         if (response != null && "approved".equalsIgnoreCase(response.getStatus())) {
-            Payment payment = paymentDataProvider.findByMercadoPagoId(paymentId);
+            EPayment payment = paymentDataProvider.findByMercadoPagoId(paymentId);
             payment.setPaymentStatus(PaymentStatus.APPROVED);
             paymentDataProvider.save(payment);
         }
@@ -54,7 +54,7 @@ public class CheckoutDataProvider implements CheckoutGateway {
         PreferenceRequest request = getPreferenceRequest(order);
         PreferenceResponse response = mercadoPagoClient.createPreference(request);
 
-        Payment payment = Payment.builder()
+        EPayment payment = EPayment.builder()
                 .customerId(order.getCustomer().getCustomerId())
                 .paymentValue(order.getTotalAmount())
                 .paymentStatus(PaymentStatus.PENDING)

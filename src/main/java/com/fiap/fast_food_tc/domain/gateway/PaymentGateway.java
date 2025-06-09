@@ -1,13 +1,14 @@
 package com.fiap.fast_food_tc.domain.gateway;
 
-import com.fiap.fast_food_tc.infra.db.model.Payment;
+import com.fiap.fast_food_tc.domain.entity.EPayment;
+import java.util.List;
 
 public interface PaymentGateway {
 
-    Payment save(Payment payment);
+    EPayment save(EPayment payment);
 
-    Payment findById(Integer id);
+    EPayment findById(Integer id);
 
-    java.util.List<Payment> findAll();
+    List<EPayment> findAll();
 
 }
