@@ -2,6 +2,7 @@ package com.fiap.fast_food_tc.app.controller;
 
 import com.fiap.fast_food_tc.app.dto.payment.PaymentRequestDto;
 import com.fiap.fast_food_tc.app.dto.payment.PaymentResponseDto;
+import com.fiap.fast_food_tc.app.dto.payment.PaymentStatusResponseDto;
 import com.fiap.fast_food_tc.app.service.PaymentService;
 import com.fiap.fast_food_tc.app.service.impl.PaymentServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -39,5 +40,10 @@ public class PaymentController {
     @GetMapping("/{id}")
     public ResponseEntity<PaymentResponseDto> findById(@PathVariable Integer id) {
         return ResponseEntity.ok(service.findById(id));
+    }
+
+    @GetMapping("/status/{orderId}")
+    public ResponseEntity<PaymentStatusResponseDto> getStatusByOrder(@PathVariable Integer orderId) {
+        return ResponseEntity.ok(service.getStatusByOrderId(orderId));
     }
 }

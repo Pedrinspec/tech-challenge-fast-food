@@ -10,4 +10,6 @@ public interface PaymentUseCase {
     List<EPayment> findAll();
 
     EPayment findById(Integer id);
+
+    EPayment findByOrderId(Integer orderId);
 }

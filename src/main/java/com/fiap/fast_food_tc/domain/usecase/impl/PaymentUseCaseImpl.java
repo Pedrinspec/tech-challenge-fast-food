@@ -35,4 +35,9 @@ public class PaymentUseCaseImpl implements PaymentUseCase {
     public EPayment findById(Integer id) {
         return mapper.toEntity(gateway.findById(id));
     }
+
+    @Override
+    public EPayment findByOrderId(Integer orderId) {
+        return mapper.toEntity(gateway.findByOrderId(orderId));
+    }
 }

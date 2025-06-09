@@ -61,6 +61,7 @@ public class CheckoutDataProvider implements CheckoutGateway {
                 .createdAt(LocalDateTime.now())
                 .paymentMethod(PaymentMethod.MERCADO_PAGO)
                 .mercadoPagoId(response.getId())
+                .orders(order)
                 .build();
         paymentDataProvider.save(payment);
 
