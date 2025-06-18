@@ -25,6 +25,9 @@ public class PreferenceRequest {
     @JsonProperty("auto_return")
     private String autoReturn;
 
+    @JsonProperty("notification_url")
+    private String notificationUrl;
+
 
     @Builder
     @Data
