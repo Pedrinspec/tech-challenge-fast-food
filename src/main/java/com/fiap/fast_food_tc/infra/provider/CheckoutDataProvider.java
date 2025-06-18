@@ -37,7 +37,7 @@ public class CheckoutDataProvider implements CheckoutGateway {
     public void verifyApprovedPayment(String paymentId){
         MPPaymentResponse response = mercadoPagoClient.getPayment(paymentId);
         if (response != null && "approved".equalsIgnoreCase(response.getStatus())) {
-            Payment payment = paymentDataProvider.findByMercadoPagoId(paymentId);
+            Payment payment = paymentDataProvider.findByMercadoPagoId(response.getExternal_reference());
             payment.setPaymentStatus(PaymentStatus.APPROVED);
             paymentDataProvider.save(payment);
         }
@@ -60,12 +60,12 @@ public class CheckoutDataProvider implements CheckoutGateway {
                 .paymentStatus(PaymentStatus.PENDING)
                 .createdAt(LocalDateTime.now())
                 .paymentMethod(PaymentMethod.MERCADO_PAGO)
-                .mercadoPagoId(response.getId())
+                .mercadoPagoId(response.getExternalReference())
                 .orders(order)
                 .build();
         paymentDataProvider.save(payment);
 
-        return response.getInitPoint();
+        return response.getSandboxInitPoint();
     }
 
     private PreferenceRequest getPreferenceRequest(Orders order) {
@@ -84,15 +84,16 @@ public class CheckoutDataProvider implements CheckoutGateway {
 
     private static PreferenceRequest buildRequest(Orders order, List<PreferenceRequest.Item> items) {
         PreferenceRequest.BackUrls urls = new PreferenceRequest.BackUrls();
-        urls.setSuccess("https://seudominio.com/pagamento/aprovado");
-        urls.setFailure("https://seudominio.com/pagamento/falha");
-        urls.setPending("https://seudominio.com/pagamento/pendente");
+        urls.setSuccess("https://average-dress-81.webhook.cool/pagamento/aprovado");
+        urls.setFailure("https://average-dress-81.webhook.cool/pagamento/falha");
+        urls.setPending("https://average-dress-81.webhook.cool/pagamento/pendente");
 
         PreferenceRequest request = new PreferenceRequest();
         request.setItems(items);
         request.setExternalReference("PEDIDO_" + order.getOrderId());
         request.setBackUrls(urls);
         request.setAutoReturn("approved");
+        request.setNotificationUrl("https://average-dress-81.webhook.cool/pagamento");
         return request;
     }
 }

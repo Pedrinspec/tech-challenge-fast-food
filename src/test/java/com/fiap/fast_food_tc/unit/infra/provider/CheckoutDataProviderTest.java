@@ -46,8 +46,8 @@ class CheckoutDataProviderTest {
     void getPaymentLinkSuccess() {
         Orders order = createOrder();
         PreferenceResponse response = PreferenceResponse.builder()
-                .id("123")
-                .initPoint("http://pay")
+                .externalReference("123")
+                .sandboxInitPoint("http://pay")
                 .build();
 
         when(ordersDataProvider.getById(1)).thenReturn(order);
