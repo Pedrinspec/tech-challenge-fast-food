@@ -1,5 +1,6 @@
 package com.fiap.fast_food_tc.unit.infra.provider;
 
+import com.fiap.fast_food_tc.cross.enums.StatusOrder;
 import com.fiap.fast_food_tc.infra.db.model.Orders;
 import com.fiap.fast_food_tc.infra.db.repository.OrdersRepository;
 import com.fiap.fast_food_tc.infra.provider.OrdersDataProvider;
@@ -68,7 +69,7 @@ class OrdersDataProviderTest {
         Orders update = Orders.builder()
                 .orderId(existing.getOrderId())
                 .orderDatetime(LocalDateTime.now())
-                .statusOrder(3)
+                .statusOrder(StatusOrder.IN_PREPARATION)
                 .totalAmount(BigDecimal.TEN)
                 .customer(CustomerFixture.createCustomerModel())
                 .build();

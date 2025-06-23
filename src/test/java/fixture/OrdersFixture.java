@@ -1,5 +1,6 @@
 package fixture;
 
+import com.fiap.fast_food_tc.cross.enums.StatusOrder;
 import com.fiap.fast_food_tc.infra.db.model.Orders;
 import com.fiap.fast_food_tc.app.dto.orders.OrdersRequestDto;
 import com.fiap.fast_food_tc.app.dto.orders.OrdersResponseDto;
@@ -14,7 +15,7 @@ public class OrdersFixture {
         return EOrders.builder()
                 .orderId(1)
                 .orderDatetime(LocalDateTime.now())
-                .statusOrder(1)
+                .statusOrder(StatusOrder.IN_PREPARATION)
                 .orderCode((short) 1)
                 .totalAmount(BigDecimal.ONE)
                 .customerId(1)
@@ -25,7 +26,7 @@ public class OrdersFixture {
         return Orders.builder()
                 .orderId(1)
                 .orderDatetime(LocalDateTime.now())
-                .statusOrder(2)
+                .statusOrder(StatusOrder.READY_FOR_PICKUP)
                 .orderCode((short) 5)
                 .totalAmount(BigDecimal.ONE)
                 .customer(CustomerFixture.createCustomerModel())
@@ -35,7 +36,7 @@ public class OrdersFixture {
     public static OrdersRequestDto createOrdersRequestDto() {
         return OrdersRequestDto.builder()
                 .orderDatetime(LocalDateTime.now())
-                .statusOrder(1)
+                .statusOrder(StatusOrder.IN_PREPARATION)
                 .totalAmount(BigDecimal.TEN)
                 .customerId(1)
                 .build();
@@ -45,7 +46,7 @@ public class OrdersFixture {
         return OrdersResponseDto.builder()
                 .orderId(1)
                 .orderDatetime(LocalDateTime.now())
-                .statusOrder(2)
+                .statusOrder(StatusOrder.IN_PREPARATION)
                 .orderCode((short) 5)
                 .totalAmount(BigDecimal.ONE)
                 .customerId(1)

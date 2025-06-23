@@ -44,6 +44,7 @@ public class OrdersUseCaseImpl implements OrdersUseCase {
 
     @Override
     public EOrders create(EOrders orderEntity) {
+        orderEntity.setOrderCode(getNextOrderCode());
         return ordersMapper.toEntity(provider.create(ordersMapper.toModel(orderEntity)));
     }
 

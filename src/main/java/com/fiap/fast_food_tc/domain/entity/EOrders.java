@@ -1,5 +1,6 @@
 package com.fiap.fast_food_tc.domain.entity;
 
+import com.fiap.fast_food_tc.cross.enums.StatusOrder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class EOrders {
 
     private Integer orderId;
     private LocalDateTime orderDatetime;
-    private Integer statusOrder;
+    private StatusOrder statusOrder;
     private Short orderCode;
     private BigDecimal totalAmount;
     private Integer customerId;
