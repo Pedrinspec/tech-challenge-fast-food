@@ -1,6 +1,7 @@
 package com.fiap.fast_food_tc.infra.provider;
 
 import com.fiap.fast_food_tc.app.dto.checkout.MPPaymentResponse;
+import com.fiap.fast_food_tc.cross.enums.StatusOrder;
 import com.fiap.fast_food_tc.infra.db.model.Orders;
 import com.fiap.fast_food_tc.infra.db.model.Payment;
 import com.fiap.fast_food_tc.infra.db.model.Product;
@@ -40,6 +41,12 @@ public class CheckoutDataProvider implements CheckoutGateway {
             Payment payment = paymentDataProvider.findByMercadoPagoId(response.getExternal_reference());
             payment.setPaymentStatus(PaymentStatus.APPROVED);
             paymentDataProvider.save(payment);
+
+            Orders order = payment.getOrders();
+            if (order != null) {
+                order.setStatusOrder(StatusOrder.PAYMENT_CONFIRMED);
+                ordersDataProvider.update(order);
+            }
         }
     }
 

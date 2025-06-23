@@ -13,7 +13,6 @@ public class CheckoutServiceImpl implements CheckoutService {
 
     private final CheckoutUseCase checkoutUseCase;
     private final CheckoutMapper checkoutMapper;
-
     @Autowired
     public CheckoutServiceImpl(CheckoutUseCase checkoutUseCase, CheckoutMapper checkoutMapper) {
         this.checkoutUseCase = checkoutUseCase;

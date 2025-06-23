@@ -42,7 +42,7 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
     public ECheckout checkoutAndCreateOrder(ECheckoutOrder request) {
         EOrders order = EOrders.builder()
                 .orderDatetime(java.time.LocalDateTime.now())
-                .statusOrder(StatusOrder.REQUESTED)
+                .statusOrder(StatusOrder.PAYMENT_PENDING)
                 .totalAmount(BigDecimal.ZERO)
                 .customerId(request.getCustomerId())
                 .orderCode(ordersUseCase.getNextOrderCode())

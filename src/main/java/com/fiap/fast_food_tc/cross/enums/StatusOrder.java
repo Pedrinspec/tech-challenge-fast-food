@@ -5,7 +5,8 @@ import lombok.Getter;
 @Getter
 public enum StatusOrder {
 
-    REQUESTED("REQUESTED", "Order has been requested"),
+    PAYMENT_PENDING("PAYMENT_PENDING", "Payment is pending"),
+    PAYMENT_CONFIRMED("PAYMENT_CONFIRMED", "Payment has been confirmed"),
     IN_PREPARATION("IN_PREPARATION", "Order is being prepared"),
     READY_FOR_PICKUP("READY_FOR_PICKUP", "Order is ready for pickup"),
     DELIVERED("DELIVERED", "Order has been delivered"),
