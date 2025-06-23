@@ -2,6 +2,7 @@ package com.fiap.fast_food_tc.unit.app.controller;
 
 import com.fiap.fast_food_tc.app.controller.CheckoutController;
 import com.fiap.fast_food_tc.app.dto.checkout.CheckoutOrderRequest;
+import com.fiap.fast_food_tc.app.dto.checkout.CheckoutResponseDto;
 import com.fiap.fast_food_tc.app.service.CheckoutService;
 import fixture.CheckoutFixture;
 import org.junit.jupiter.api.Test;
@@ -25,30 +26,40 @@ class CheckoutControllerTest {
 
     @Test
     void checkoutSuccess() {
-        Mockito.when(checkoutService.paymentPreferenceProcess(1)).thenReturn("url");
+        CheckoutOrderRequest request = CheckoutFixture.createRequest();
+        CheckoutResponseDto responseDto = CheckoutResponseDto.builder()
+                .orderId(1)
+                .paymentLink("url")
+                .build();
+        Mockito.when(checkoutService.checkoutAndCreateOrder(request)).thenReturn(responseDto);
 
-        var response = controller.checkout(1);
+        var response = controller.checkout(request);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("url", response.getBody());
+        assertEquals(responseDto, response.getBody());
     }
 
     @Test
     void checkoutFailure() {
-        Mockito.when(checkoutService.paymentPreferenceProcess(1)).thenThrow(new RuntimeException("fail"));
+        CheckoutOrderRequest request = CheckoutFixture.createRequest();
+        Mockito.when(checkoutService.checkoutAndCreateOrder(request)).thenThrow(new RuntimeException("fail"));
 
-        assertThrows(RuntimeException.class, () -> controller.checkout(1));
+        assertThrows(RuntimeException.class, () -> controller.checkout(request));
     }
 
     @Test
     void checkoutWithProductsSuccess() {
         CheckoutOrderRequest request = CheckoutFixture.createRequest();
-        Mockito.when(checkoutService.checkoutAndCreateOrder(request)).thenReturn("url");
+        CheckoutResponseDto responseDto = CheckoutResponseDto.builder()
+                .orderId(1)
+                .paymentLink("url")
+                .build();
+        Mockito.when(checkoutService.checkoutAndCreateOrder(request)).thenReturn(responseDto);
 
         var response = controller.checkout(request);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("url", response.getBody());
+        assertEquals(responseDto, response.getBody());
     }
 
 }
