@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.unit.domain.usecase;
 
-import com.fiap.fast_food_tc.app.dto.checkout.CheckoutOrderRequest;
+import com.fiap.fast_food_tc.domain.entity.ECheckoutOrder;
 import com.fiap.fast_food_tc.domain.gateway.CheckoutGateway;
 import com.fiap.fast_food_tc.domain.entity.EOrderProduct;
 import com.fiap.fast_food_tc.domain.entity.EOrders;
@@ -9,7 +9,6 @@ import com.fiap.fast_food_tc.domain.usecase.OrderProductUseCase;
 import com.fiap.fast_food_tc.domain.usecase.OrdersUseCase;
 import com.fiap.fast_food_tc.domain.usecase.ProductUseCase;
 import com.fiap.fast_food_tc.domain.usecase.impl.CheckoutUseCaseImpl;
-import fixture.CheckoutFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -37,17 +36,21 @@ class CheckoutUseCaseImplTest {
 
 
     @Test
-    void getPaymentLinkSuccess() {
-        Mockito.when(checkoutGateway.getPaymentLink(1)).thenReturn("link");
-
-        var result = useCase.getPaymentLink(1);
-
-        assertEquals("link", result);
+    void handleWebhook() {
+        useCase.handleWebhook("123");
+        Mockito.verify(checkoutGateway).verifyApprovedPayment("123");
     }
 
     @Test
     void checkoutAndCreateOrderSuccess() {
-        CheckoutOrderRequest request = CheckoutFixture.createRequest();
+        ECheckoutOrder.Item item = ECheckoutOrder.Item.builder()
+                .productId(1)
+                .quantity(1)
+                .build();
+        ECheckoutOrder request = ECheckoutOrder.builder()
+                .customerId(1)
+                .items(java.util.List.of(item))
+                .build();
 
         Mockito.when(ordersUseCase.getNextOrderCode()).thenReturn((short)1);
         Mockito.when(ordersUseCase.create(Mockito.any(EOrders.class))).thenReturn(EOrders.builder().orderId(1).build());
@@ -58,6 +61,6 @@ class CheckoutUseCaseImplTest {
 
         var result = useCase.checkoutAndCreateOrder(request);
 
-        assertEquals("link", result);
+        assertEquals("link", result.getPaymentLink());
     }
 }

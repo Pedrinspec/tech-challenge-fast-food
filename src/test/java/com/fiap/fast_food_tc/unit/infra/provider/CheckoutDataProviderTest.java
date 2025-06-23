@@ -1,5 +1,6 @@
 package com.fiap.fast_food_tc.unit.infra.provider;
 
+import com.fiap.fast_food_tc.cross.enums.StatusOrder;
 import com.fiap.fast_food_tc.infra.db.model.OrderProduct;
 import com.fiap.fast_food_tc.infra.db.model.Orders;
 import com.fiap.fast_food_tc.infra.db.model.Payment;
@@ -76,7 +77,7 @@ class CheckoutDataProviderTest {
                 .totalAmount(BigDecimal.TEN)
                 .customer(CustomerFixture.createCustomerModel())
                 .orderDatetime(LocalDateTime.now())
-                .statusOrder(1)
+                .statusOrder(StatusOrder.READY_FOR_PICKUP)
                 .build();
 
         Product product = ProductFixture.createProduct();

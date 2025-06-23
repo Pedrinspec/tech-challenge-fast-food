@@ -31,7 +31,6 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public OrdersResponseDto create(OrdersRequestDto order) {
         var orderEntity = mapper.toEntityCreate(order);
-        orderEntity.setOrderCode(ordersUseCase.getNextOrderCode());
         return mapper.toResponse(ordersUseCase.create(orderEntity));
     }
 

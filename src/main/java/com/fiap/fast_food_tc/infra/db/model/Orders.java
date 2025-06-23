@@ -1,5 +1,6 @@
 package com.fiap.fast_food_tc.infra.db.model;
 
+import com.fiap.fast_food_tc.cross.enums.StatusOrder;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,7 +40,7 @@ public class Orders {
     private LocalDateTime orderDatetime;
 
     @Column(name = "status_order")
-    private Integer statusOrder;
+    private StatusOrder statusOrder;
 
     @Column(name = "order_code", precision = 3)
     private Short orderCode;

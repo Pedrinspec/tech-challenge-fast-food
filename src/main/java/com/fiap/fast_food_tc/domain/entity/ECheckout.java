@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.app.dto.orders;
+package com.fiap.fast_food_tc.domain.entity;
 
 import com.fiap.fast_food_tc.cross.enums.StatusOrder;
 import lombok.AllArgsConstructor;
@@ -7,17 +7,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
-@Builder
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrdersRequestDto {
+public class ECheckout {
 
-    private LocalDateTime orderDatetime;
+    private Integer orderId;
+    private String paymentLink;
     private StatusOrder statusOrder;
+    private Short orderCode;
     private BigDecimal totalAmount;
-    private Integer customerId;
-
+    private ECheckoutOrder orderRequest;
 }

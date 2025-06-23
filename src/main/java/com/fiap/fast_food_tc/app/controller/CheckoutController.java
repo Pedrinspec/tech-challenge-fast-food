@@ -1,11 +1,11 @@
 package com.fiap.fast_food_tc.app.controller;
 
 import com.fiap.fast_food_tc.app.dto.checkout.CheckoutOrderRequest;
+import com.fiap.fast_food_tc.app.dto.checkout.CheckoutResponseDto;
 import com.fiap.fast_food_tc.app.service.CheckoutService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,27 +25,21 @@ public class CheckoutController {
         this.checkoutService = checkoutService;
     }
 
-    @PostMapping("/{orderId}")
-    public ResponseEntity<String> checkout(@PathVariable Integer orderId) {
-        return ResponseEntity.ok(checkoutService.paymentPreferenceProcess(orderId));
-    }
-
     @PostMapping
-    public ResponseEntity<String> checkout(@RequestBody CheckoutOrderRequest request) {
+    public ResponseEntity<CheckoutResponseDto> checkout(@RequestBody CheckoutOrderRequest request) {
         return ResponseEntity.ok(checkoutService.checkoutAndCreateOrder(request));
     }
 
     @PostMapping("/webhook/mercadoPago")
     public ResponseEntity<Void> handleWebhook(@RequestBody Map<String, Object> payload) {
         Map<String, Object> data = (Map<String, Object>) payload.get("data");
-        String tipo = (String) payload.get("type");
+        String type = (String) payload.get("type");
 
-        if ("payment".equals(tipo) && data != null) {
+        if ("payment".equals(type) && data != null) {
             String paymentId = data.get("id").toString();
             checkoutService.handleWebhook(paymentId);
         }
-
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 }

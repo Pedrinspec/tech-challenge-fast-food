@@ -1,6 +1,8 @@
 package com.fiap.fast_food_tc.domain.usecase.impl;
 
-import com.fiap.fast_food_tc.app.dto.checkout.CheckoutOrderRequest;
+import com.fiap.fast_food_tc.cross.enums.StatusOrder;
+import com.fiap.fast_food_tc.domain.entity.ECheckout;
+import com.fiap.fast_food_tc.domain.entity.ECheckoutOrder;
 import com.fiap.fast_food_tc.domain.entity.EOrderProduct;
 import com.fiap.fast_food_tc.domain.entity.EOrders;
 import com.fiap.fast_food_tc.domain.entity.EProduct;
@@ -36,17 +38,12 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
 
 
     @Override
-    public String getPaymentLink(Integer orderId) {
-        return checkoutGateway.getPaymentLink(orderId);
-    }
-
-    @Override
     @Transactional
-    public String checkoutAndCreateOrder(CheckoutOrderRequest request) {
+    public ECheckout checkoutAndCreateOrder(ECheckoutOrder request) {
         EOrders order = EOrders.builder()
                 .orderDatetime(java.time.LocalDateTime.now())
-                .statusOrder(1)
-                .totalAmount(java.math.BigDecimal.ZERO)
+                .statusOrder(StatusOrder.PAYMENT_PENDING)
+                .totalAmount(BigDecimal.ZERO)
                 .customerId(request.getCustomerId())
                 .orderCode(ordersUseCase.getNextOrderCode())
                 .build();
@@ -55,7 +52,7 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
 
         BigDecimal total = BigDecimal.ZERO;
 
-        for (CheckoutOrderRequest.Item item : request.getItems()) {
+        for (ECheckoutOrder.Item item : request.getItems()) {
             EProduct product = productUseCase.findById(item.getProductId());
             BigDecimal itemTotal = product.getProductValue()
                     .multiply(BigDecimal.valueOf(item.getQuantity()));
@@ -72,9 +69,21 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
 
         order.setTotalAmount(total);
         ordersUseCase.update(order.getOrderId(), order);
-
-        return checkoutGateway.getPaymentLink(order.getOrderId());
+        String paymentLink = checkoutGateway.getPaymentLink(order.getOrderId());
+        return buildCheckout(total, order, paymentLink, request);
     }
+
+    private ECheckout buildCheckout(BigDecimal total, EOrders order, String paymentLink, ECheckoutOrder request) {
+        return ECheckout.builder()
+                .totalAmount(total)
+                .orderId(order.getOrderId())
+                .orderCode(order.getOrderCode())
+                .orderRequest(request)
+                .paymentLink(paymentLink)
+                .statusOrder(order.getStatusOrder())
+                .build();
+    }
+
 
     @Override
     public void handleWebhook(String paymentId) {
