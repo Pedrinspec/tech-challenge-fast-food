@@ -44,7 +44,7 @@ public class CheckoutDataProvider implements CheckoutGateway {
 
             Orders order = payment.getOrders();
             if (order != null) {
-                order.setStatusOrder(StatusOrder.PAYMENT_CONFIRMED);
+                order.setStatusOrder(StatusOrder.IN_PREPARATION);
                 ordersDataProvider.update(order);
             }
         }

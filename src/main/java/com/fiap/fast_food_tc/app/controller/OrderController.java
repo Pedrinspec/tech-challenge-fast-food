@@ -31,6 +31,12 @@ public class OrderController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/allOrderUnfinished")
+    public ResponseEntity<List<OrdersResponseDto>> getAllOrderUnfinished() {
+        var response = ordersService.getAllOrderUnfinished();
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<OrdersResponseDto> getById(@PathVariable Integer id) {
         return ResponseEntity.ok(ordersService.getOrderById(id));
