@@ -6,7 +6,6 @@ public interface OrdersUseCase {
     
     Short getNextOrderCode();
 
-
     List<EOrders> getAllOrders();
 
     EOrders create(EOrders orderEntity);

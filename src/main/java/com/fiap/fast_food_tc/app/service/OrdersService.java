@@ -9,6 +9,8 @@ public interface OrdersService {
 
     List<OrdersResponseDto> getAllOrders();
 
+    List<OrdersResponseDto> getAllOrderUnfinished();
+
     OrdersResponseDto create(OrdersRequestDto order);
 
     OrdersResponseDto getOrderById(Integer id);

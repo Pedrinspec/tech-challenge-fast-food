@@ -3,11 +3,13 @@ package com.fiap.fast_food_tc.app.service.impl;
 import com.fiap.fast_food_tc.app.dto.orders.OrdersRequestDto;
 import com.fiap.fast_food_tc.app.dto.orders.OrdersResponseDto;
 import com.fiap.fast_food_tc.app.service.OrdersService;
+import com.fiap.fast_food_tc.cross.enums.StatusOrder;
 import com.fiap.fast_food_tc.cross.mapper.OrdersMapper;
 import com.fiap.fast_food_tc.domain.usecase.OrdersUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -26,6 +28,26 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public List<OrdersResponseDto> getAllOrders(){
         return mapper.toResponseList(ordersUseCase.getAllOrders());
+    }
+
+    @Override
+    public List<OrdersResponseDto> getAllOrderUnfinished() {
+       return mapper.toResponseList(ordersUseCase.getAllOrders()).stream()
+                .filter(order -> order.getStatusOrder() != StatusOrder.DELIVERED)
+                .sorted(Comparator.comparingInt((OrdersResponseDto o) -> getPriority(o.getStatusOrder()))
+                        .thenComparing(OrdersResponseDto::getOrderDatetime))
+                .toList();
+    }
+
+    private int getPriority(StatusOrder status) {
+        return switch (status) {
+            case READY_FOR_PICKUP -> 0;
+            case IN_PREPARATION -> 1;
+            case PAYMENT_CONFIRMED -> 2;
+            case PAYMENT_PENDING -> 3;
+            case CANCELED -> 4;
+            case DELIVERED -> 5;
+        };
     }
 
     @Override

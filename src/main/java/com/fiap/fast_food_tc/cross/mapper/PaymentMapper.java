@@ -20,6 +20,7 @@ public interface PaymentMapper {
     EPayment toEntity(Payment model);
 
     @Mapping(target = "orderId", source = "orderId")
+    @Mapping(target = "paymentId", ignore = true)
     EPayment toEntityCreate(PaymentRequestDto dto);
 
     PaymentResponseDto toResponse(EPayment entity);
