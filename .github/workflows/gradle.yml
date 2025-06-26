@@ -30,6 +30,9 @@ jobs:
 
       - name: Build with Gradle Wrapper
         run: ./gradlew build
+
+      - name: Build Scan
+        run: gradle build --scan
         
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@0.28.0
