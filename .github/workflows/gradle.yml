@@ -22,14 +22,9 @@ jobs:
         with:
           scan-type: 'fs'
           ignore-unfixed: true
-          format: 'sarif'
+          format: 'table'
           output: 'trivy-results.sarif'
-          severity: 'CRITICAL'
-
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
