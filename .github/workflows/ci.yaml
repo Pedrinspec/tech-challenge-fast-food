@@ -13,34 +13,19 @@ jobs:
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
-
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
           java-version: '21'
+          distribution: 'temurin'
+          architecture: 'x64'
 
-      - name: Cache do Gradle
-        uses: actions/cache@v4
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v3
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+          gradle-version: '8.4.2'
+          distribution: 'bin'
 
-      - name: Build com Gradle
-        run: ./gradlew build
+      - name: Build with Gradle
+        run: ./gradlew -b ci.gradle build
 
-      - name: Testes
-        run: ./gradlew test
-
-      - name: Build Docker Image
-        run: docker build -t minha-aplicacao .
-
-      # - name: Push para Docker Hub (opcional)
-      #   run: |
-      #     echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-      #     docker tag minha-aplicacao docker.io/seuusuario/minha-aplicacao:latest
-      #     docker push docker.io/seuusuario/minha-aplicacao:latest
