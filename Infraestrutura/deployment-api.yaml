@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastfood-app
+  labels:
+    app: fastfood-app
+spec:
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
+  selector:
+    matchLabels:
+      app: fastfood-app
+  template:
+    metadata:
+      labels:
+        app: fastfood-app
+    spec:
+      containers:
+        - name: fastfood-app
+          image: fastfood-app:latest # Replace with your image repository if pushing to a registry
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
