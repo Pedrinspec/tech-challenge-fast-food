@@ -1,6 +1,7 @@
 package com.fiap.fast_food_tc.unit.domain.usecase;
 
 import com.fiap.fast_food_tc.domain.entity.Orders;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.OrdersMapper;
 import com.fiap.fast_food_tc.application.gateway.OrdersGateway;
 import com.fiap.fast_food_tc.application.usecase.impl.OrdersUseCaseImpl;
@@ -21,7 +22,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-class OrdersUseCaseImplTest {
+class OrdersPersistenceEntityUseCaseImplTest {
 
     @Mock
     private OrdersGateway provider;
@@ -59,7 +60,7 @@ class OrdersUseCaseImplTest {
 
     @Test
     void getAllOrdersSuccess() {
-        List<com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders> models = List.of(OrdersFixture.createOrders());
+        List<OrdersPersistenceEntity> models = List.of(OrdersFixture.createOrders());
         List<Orders> entities = List.of(OrdersFixture.createEOrders());
 
         Mockito.when(provider.getAllOrders()).thenReturn(models);
@@ -73,7 +74,7 @@ class OrdersUseCaseImplTest {
     @Test
     void createSuccess() {
         Orders entity = OrdersFixture.createEOrders();
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders model = OrdersFixture.createOrders();
+        OrdersPersistenceEntity model = OrdersFixture.createOrders();
 
         Mockito.when(ordersMapper.toModel(entity)).thenReturn(model);
         Mockito.when(provider.create(model)).thenReturn(model);
@@ -86,7 +87,7 @@ class OrdersUseCaseImplTest {
 
     @Test
     void getByIdSuccess() {
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders model = OrdersFixture.createOrders();
+        OrdersPersistenceEntity model = OrdersFixture.createOrders();
         Orders entity = OrdersFixture.createEOrders();
 
         Mockito.when(provider.getById(1)).thenReturn(model);
@@ -100,7 +101,7 @@ class OrdersUseCaseImplTest {
     @Test
     void updateSuccess() {
         Orders entity = OrdersFixture.createEOrders();
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders model = OrdersFixture.createOrders();
+        OrdersPersistenceEntity model = OrdersFixture.createOrders();
 
         Mockito.when(ordersMapper.toModel(any())).thenReturn(model);
         Mockito.when(provider.update(model)).thenReturn(model);

@@ -4,6 +4,7 @@ import com.fiap.fast_food_tc.domain.enums.StatusOrder;
 import com.fiap.fast_food_tc.application.dto.orders.OrdersRequestDto;
 import com.fiap.fast_food_tc.application.dto.orders.OrdersResponseDto;
 import com.fiap.fast_food_tc.domain.entity.Orders;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -21,14 +22,14 @@ public class OrdersFixture {
                 .build();
     }
 
-    public static com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders createOrders() {
-        return com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders.builder()
+    public static OrdersPersistenceEntity createOrders() {
+        return OrdersPersistenceEntity.builder()
                 .orderId(1)
                 .orderDatetime(LocalDateTime.now())
                 .statusOrder(StatusOrder.READY_FOR_PICKUP)
                 .orderCode((short) 5)
                 .totalAmount(BigDecimal.ONE)
-                .customer(CustomerFixture.createCustomerModel())
+                .customerPersistenceEntity(CustomerFixture.createCustomerModel())
                 .build();
     }
 

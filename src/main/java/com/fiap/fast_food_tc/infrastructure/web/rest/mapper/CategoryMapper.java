@@ -18,7 +18,7 @@ public interface CategoryMapper {
 
     List<CategoryResponseDTO> toResponseDTOList(List<Category> allCategories);
 
-    @Mapping(target = "products", ignore = true)
+    @Mapping(target = "productPersistenceEntities", ignore = true)
     CategoryPersistenceEntity toModel(Category category);
 
     @Mapping(target = "categoryId", ignore = true)

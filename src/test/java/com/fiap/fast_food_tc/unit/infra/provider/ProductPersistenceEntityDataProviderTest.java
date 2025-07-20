@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.unit.infra.provider;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Product;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.ProductPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.repository.ProductRepository;
 import com.fiap.fast_food_tc.infrastructure.persistence.dataprovider.ProductDataProvider;
 import fixture.ProductFixture;
@@ -18,7 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ProductDataProviderTest {
+class ProductPersistenceEntityDataProviderTest {
 
     @Mock
     private ProductRepository repository;
@@ -28,7 +28,7 @@ class ProductDataProviderTest {
 
     @Test
     void createSuccess() {
-        Product model = ProductFixture.createProduct();
+        ProductPersistenceEntity model = ProductFixture.createProduct();
         when(repository.save(model)).thenReturn(model);
 
         var result = provider.create(model);
@@ -38,7 +38,7 @@ class ProductDataProviderTest {
 
     @Test
     void findAllSuccess() {
-        List<Product> list = List.of(ProductFixture.createProduct());
+        List<ProductPersistenceEntity> list = List.of(ProductFixture.createProduct());
         when(repository.findAll()).thenReturn(list);
 
         var result = provider.findAll();
@@ -48,7 +48,7 @@ class ProductDataProviderTest {
 
     @Test
     void updateSuccess() {
-        Product model = ProductFixture.createProduct();
+        ProductPersistenceEntity model = ProductFixture.createProduct();
         when(repository.save(any())).thenReturn(model);
 
         var result = provider.update(model);
@@ -65,7 +65,7 @@ class ProductDataProviderTest {
 
     @Test
     void findByIdSuccess() {
-        Product model = ProductFixture.createProduct();
+        ProductPersistenceEntity model = ProductFixture.createProduct();
         when(repository.findById(1)).thenReturn(Optional.of(model));
 
         var result = provider.findById(1);
@@ -75,7 +75,7 @@ class ProductDataProviderTest {
 
     @Test
     void findByCategoryIdSuccess() {
-        List<Product> list = List.of(ProductFixture.createProduct());
+        List<ProductPersistenceEntity> list = List.of(ProductFixture.createProduct());
         when(repository.findByCategoryPersistenceEntityCategoryId(1)).thenReturn(list);
 
         var result = provider.findByCategoryId(1);

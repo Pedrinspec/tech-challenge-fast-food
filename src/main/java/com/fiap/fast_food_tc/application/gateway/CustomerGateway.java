@@ -1,19 +1,19 @@
 package com.fiap.fast_food_tc.application.gateway;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Customer;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.CustomerPersistenceEntity;
 
 import java.util.List;
 
 public interface CustomerGateway {
-    Customer create(Customer domain);
+    CustomerPersistenceEntity create(CustomerPersistenceEntity domain);
 
-    Customer findByDocumentNumber(String documentNumber);
+    CustomerPersistenceEntity findByDocumentNumber(String documentNumber);
 
-    Customer findById(Integer id);
+    CustomerPersistenceEntity findById(Integer id);
 
-    Customer update(Customer customer);
+    CustomerPersistenceEntity update(CustomerPersistenceEntity customerPersistenceEntity);
 
     void delete(Integer id);
 
-    List<Customer> findAll();
+    List<CustomerPersistenceEntity> findAll();
 }

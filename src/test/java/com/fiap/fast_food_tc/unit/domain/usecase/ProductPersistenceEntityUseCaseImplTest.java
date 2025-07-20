@@ -1,5 +1,6 @@
 package com.fiap.fast_food_tc.unit.domain.usecase;
 
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.ProductPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.ProductMapper;
 import com.fiap.fast_food_tc.application.gateway.ProductGateway;
 import com.fiap.fast_food_tc.application.usecase.impl.ProductUseCaseImpl;
@@ -19,7 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class ProductUseCaseImplTest {
+class ProductPersistenceEntityUseCaseImplTest {
 
     @Mock
     private ProductGateway productGateway;
@@ -31,7 +32,7 @@ class ProductUseCaseImplTest {
     @Test
     void createSuccess() {
         Product entity = ProductFixture.createEProduct();
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Product model = ProductFixture.createProduct();
+        ProductPersistenceEntity model = ProductFixture.createProduct();
 
         Mockito.when(productMapper.toModel(entity)).thenReturn(model);
         Mockito.when(productGateway.create(model)).thenReturn(model);
@@ -44,7 +45,7 @@ class ProductUseCaseImplTest {
 
     @Test
     void findByCategoryIdSuccess() {
-        List<com.fiap.fast_food_tc.infrastructure.persistence.entity.Product> models = List.of(ProductFixture.createProduct());
+        List<ProductPersistenceEntity> models = List.of(ProductFixture.createProduct());
         List<Product> entities = List.of(ProductFixture.createEProduct());
 
         Mockito.when(productGateway.findByCategoryId(1)).thenReturn(models);
@@ -57,7 +58,7 @@ class ProductUseCaseImplTest {
 
     @Test
     void findByIdSuccess() {
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Product model = ProductFixture.createProduct();
+        ProductPersistenceEntity model = ProductFixture.createProduct();
         Product entity = ProductFixture.createEProduct();
 
         Mockito.when(productGateway.findById(1)).thenReturn(model);
@@ -70,7 +71,7 @@ class ProductUseCaseImplTest {
 
     @Test
     void findAllSuccess() {
-        List<com.fiap.fast_food_tc.infrastructure.persistence.entity.Product> models = List.of(ProductFixture.createProduct());
+        List<ProductPersistenceEntity> models = List.of(ProductFixture.createProduct());
         List<Product> entities = List.of(ProductFixture.createEProduct());
 
         Mockito.when(productGateway.findAll()).thenReturn(models);
@@ -84,7 +85,7 @@ class ProductUseCaseImplTest {
     @Test
     void updateCustomerSuccess() {
         Product entity = ProductFixture.createEProduct();
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Product model = ProductFixture.createProduct();
+        ProductPersistenceEntity model = ProductFixture.createProduct();
 
         Mockito.when(productMapper.toModel(any())).thenReturn(model);
         Mockito.when(productGateway.update(model)).thenReturn(model);

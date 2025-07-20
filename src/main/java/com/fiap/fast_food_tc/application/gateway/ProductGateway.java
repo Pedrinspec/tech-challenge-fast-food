@@ -1,19 +1,19 @@
 package com.fiap.fast_food_tc.application.gateway;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Product;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.ProductPersistenceEntity;
 
 import java.util.List;
 
 public interface ProductGateway {
-    Product create(Product eProduct);
+    ProductPersistenceEntity create(ProductPersistenceEntity eProductPersistenceEntity);
 
-    List<Product> findAll();
+    List<ProductPersistenceEntity> findAll();
 
-    Product update(Product product);
+    ProductPersistenceEntity update(ProductPersistenceEntity productPersistenceEntity);
 
     void delete(Integer id);
 
-    Product findById(Integer id);
+    ProductPersistenceEntity findById(Integer id);
 
-    List<Product> findByCategoryId(Integer categoryId);
+    List<ProductPersistenceEntity> findByCategoryId(Integer categoryId);
 }

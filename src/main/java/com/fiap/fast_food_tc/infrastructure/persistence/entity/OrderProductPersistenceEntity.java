@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Entity
 @Table(name = "order_product")
-public class OrderProduct {
+public class OrderProductPersistenceEntity {
 
     @EmbeddedId
     private OrderProductPk id;
@@ -28,12 +28,12 @@ public class OrderProduct {
     @ManyToOne
     @MapsId("orderId")
     @JoinColumn(name = "order_id")
-    private Orders orders;
+    private OrdersPersistenceEntity ordersPersistenceEntity;
 
     @ManyToOne
     @MapsId("productId")
     @JoinColumn(name = "product_id")
-    private Product product;
+    private ProductPersistenceEntity productPersistenceEntity;
 
     private Integer productQuantity;
     private BigDecimal productTotalAmount;

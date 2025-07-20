@@ -37,6 +37,6 @@ public class CategoryPersistenceEntity {
     private String categoryDescription;
 
     @OneToMany(mappedBy = "categoryPersistenceEntity")
-    private List<Product> products;
+    private List<ProductPersistenceEntity> productPersistenceEntities;
 
 }

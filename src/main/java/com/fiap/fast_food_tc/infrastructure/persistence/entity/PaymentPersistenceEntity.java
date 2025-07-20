@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "payment")
-public class Payment {
+public class PaymentPersistenceEntity {
 
     @Id
     @Column(name = "payment_id", nullable = false)
@@ -53,6 +53,6 @@ public class Payment {
 
     @OneToOne
     @JoinColumn(name = "order_id", referencedColumnName = "order_id", unique = true)
-    private Orders orders;
+    private OrdersPersistenceEntity ordersPersistenceEntity;
 
 }

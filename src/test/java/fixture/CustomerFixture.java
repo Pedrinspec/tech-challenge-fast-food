@@ -3,13 +3,14 @@ package fixture;
 import com.fiap.fast_food_tc.application.dto.customer.CustomerRequestDto;
 import com.fiap.fast_food_tc.application.dto.customer.CustomerResponseDto;
 import com.fiap.fast_food_tc.domain.entity.Customer;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.CustomerPersistenceEntity;
 
 import java.util.List;
 
 public class CustomerFixture {
 
-    public static com.fiap.fast_food_tc.infrastructure.persistence.entity.Customer createCustomerModel() {
-        return com.fiap.fast_food_tc.infrastructure.persistence.entity.Customer.builder()
+    public static CustomerPersistenceEntity createCustomerModel() {
+        return CustomerPersistenceEntity.builder()
                 .customerId(1)
                 .documentNumber("111111")
                 .firstName("Joao")

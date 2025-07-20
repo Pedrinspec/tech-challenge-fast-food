@@ -4,6 +4,7 @@ import com.fiap.fast_food_tc.domain.entity.Product;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.CategoryPersistenceEntity;
 import com.fiap.fast_food_tc.application.dto.product.ProductRequest;
 import com.fiap.fast_food_tc.application.dto.product.ProductResponse;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.ProductPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.ProductMapper;
 import fixture.CategoryFixture;
 import fixture.ProductFixture;
@@ -14,7 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProductMapperTest {
+class ProductPersistenceEntityMapperTest {
 
     private final ProductMapper mapper = Mappers.getMapper(ProductMapper.class);
 
@@ -48,7 +49,7 @@ class ProductMapperTest {
         product.setDescription("test");
         product.setImagePath("img");
 
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Product model = mapper.toModel(product);
+        ProductPersistenceEntity model = mapper.toModel(product);
 
         assertEquals(product.getProductId(), model.getProductId());
         assertEquals(product.getName(), model.getName());
@@ -57,28 +58,28 @@ class ProductMapperTest {
         assertEquals(product.getIsAvailable(), model.getIsAvailable());
         assertEquals(product.getDescription(), model.getDescription());
         assertEquals(product.getImagePath(), model.getImagePath());
-        assertNull(model.getOrderProducts());
+        assertNull(model.getOrderProductPersistenceEntities());
     }
 
     @Test
     void toEntitySuccess() {
         CategoryPersistenceEntity categoryPersistenceEntity = CategoryFixture.createCategoryModel();
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Product product = ProductFixture.createProduct();
-        product.setQuantity(2);
-        product.setIsAvailable(true);
-        product.setDescription("test");
-        product.setImagePath("img");
-        product.setCategoryPersistenceEntity(categoryPersistenceEntity);
+        ProductPersistenceEntity productPersistenceEntity = ProductFixture.createProduct();
+        productPersistenceEntity.setQuantity(2);
+        productPersistenceEntity.setIsAvailable(true);
+        productPersistenceEntity.setDescription("test");
+        productPersistenceEntity.setImagePath("img");
+        productPersistenceEntity.setCategoryPersistenceEntity(categoryPersistenceEntity);
 
-        Product entity = mapper.toEntity(product);
+        Product entity = mapper.toEntity(productPersistenceEntity);
 
-        assertEquals(product.getProductId(), entity.getProductId());
-        assertEquals(product.getName(), entity.getName());
-        assertEquals(product.getQuantity(), entity.getQuantity());
-        assertEquals(product.getProductValue(), entity.getProductValue());
-        assertEquals(product.getIsAvailable(), entity.getIsAvailable());
-        assertEquals(product.getDescription(), entity.getDescription());
-        assertEquals(product.getImagePath(), entity.getImagePath());
+        assertEquals(productPersistenceEntity.getProductId(), entity.getProductId());
+        assertEquals(productPersistenceEntity.getName(), entity.getName());
+        assertEquals(productPersistenceEntity.getQuantity(), entity.getQuantity());
+        assertEquals(productPersistenceEntity.getProductValue(), entity.getProductValue());
+        assertEquals(productPersistenceEntity.getIsAvailable(), entity.getIsAvailable());
+        assertEquals(productPersistenceEntity.getDescription(), entity.getDescription());
+        assertEquals(productPersistenceEntity.getImagePath(), entity.getImagePath());
         assertEquals(categoryPersistenceEntity.getCategoryId(), entity.getCategoryId());
     }
 
@@ -120,15 +121,15 @@ class ProductMapperTest {
 
     @Test
     void toEntityListSuccess() {
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Product product = ProductFixture.createProduct();
-        product.setQuantity(2);
-        product.setIsAvailable(true);
-        product.setDescription("test");
-        product.setImagePath("img");
+        ProductPersistenceEntity productPersistenceEntity = ProductFixture.createProduct();
+        productPersistenceEntity.setQuantity(2);
+        productPersistenceEntity.setIsAvailable(true);
+        productPersistenceEntity.setDescription("test");
+        productPersistenceEntity.setImagePath("img");
 
-        List<Product> entities = mapper.toEntityList(List.of(product));
+        List<Product> entities = mapper.toEntityList(List.of(productPersistenceEntity));
 
         assertEquals(1, entities.size());
-        assertEquals(product.getProductId(), entities.getFirst().getProductId());
+        assertEquals(productPersistenceEntity.getProductId(), entities.getFirst().getProductId());
     }
 }

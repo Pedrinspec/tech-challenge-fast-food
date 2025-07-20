@@ -26,7 +26,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class ProductPersistenceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,8 +51,8 @@ public class Product {
     @Column(name = "image_path", length = 500)
     private String imagePath;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderProduct> orderProducts;
+    @OneToMany(mappedBy = "productPersistenceEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderProductPersistenceEntity> orderProductPersistenceEntities;
 
     @ManyToOne()
     @JoinColumn(name = "category_id", nullable = false)

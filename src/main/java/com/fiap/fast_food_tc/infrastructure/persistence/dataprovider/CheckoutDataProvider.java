@@ -2,9 +2,9 @@ package com.fiap.fast_food_tc.infrastructure.persistence.dataprovider;
 
 import com.fiap.fast_food_tc.application.dto.checkout.MPPaymentResponse;
 import com.fiap.fast_food_tc.domain.enums.StatusOrder;
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders;
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Payment;
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Product;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.PaymentPersistenceEntity;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.ProductPersistenceEntity;
 import com.fiap.fast_food_tc.application.dto.checkout.PreferenceRequest;
 import com.fiap.fast_food_tc.application.dto.checkout.PreferenceResponse;
 import com.fiap.fast_food_tc.infrastructure.client.MercadoPagoClient;
@@ -38,11 +38,11 @@ public class CheckoutDataProvider implements CheckoutGateway {
     public void verifyApprovedPayment(String paymentId){
         MPPaymentResponse response = mercadoPagoClient.getPayment(paymentId);
         if (response != null && "approved".equalsIgnoreCase(response.getStatus())) {
-            Payment payment = paymentDataProvider.findByMercadoPagoId(response.getExternal_reference());
-            payment.setPaymentStatus(PaymentStatus.APPROVED);
-            paymentDataProvider.save(payment);
+            PaymentPersistenceEntity paymentPersistenceEntity = paymentDataProvider.findByMercadoPagoId(response.getExternal_reference());
+            paymentPersistenceEntity.setPaymentStatus(PaymentStatus.APPROVED);
+            paymentDataProvider.save(paymentPersistenceEntity);
 
-            Orders order = payment.getOrders();
+            OrdersPersistenceEntity order = paymentPersistenceEntity.getOrdersPersistenceEntity();
             if (order != null) {
                 order.setStatusOrder(StatusOrder.IN_PREPARATION);
                 ordersDataProvider.update(order);
@@ -55,41 +55,41 @@ public class CheckoutDataProvider implements CheckoutGateway {
     public String getPaymentLink(Integer orderId) {
 
         var order = ordersDataProvider.getById(orderId);
-        if (order.getOrderProducts() == null) {
-            order.setOrderProducts(orderProductDataProvider.findByOrderId(orderId));
+        if (order.getOrderProductPersistenceEntities() == null) {
+            order.setOrderProductPersistenceEntities(orderProductDataProvider.findByOrderId(orderId));
         }
         PreferenceRequest request = getPreferenceRequest(order);
         PreferenceResponse response = mercadoPagoClient.createPreference(request);
 
-        Payment payment = Payment.builder()
-                .customerId(order.getCustomer().getCustomerId())
+        PaymentPersistenceEntity paymentPersistenceEntity = PaymentPersistenceEntity.builder()
+                .customerId(order.getCustomerPersistenceEntity().getCustomerId())
                 .paymentValue(order.getTotalAmount())
                 .paymentStatus(PaymentStatus.PENDING)
                 .createdAt(LocalDateTime.now())
                 .paymentMethod(PaymentMethod.MERCADO_PAGO)
                 .mercadoPagoId(response.getExternalReference())
-                .orders(order)
+                .ordersPersistenceEntity(order)
                 .build();
-        paymentDataProvider.save(payment);
+        paymentDataProvider.save(paymentPersistenceEntity);
 
         return response.getSandboxInitPoint();
     }
 
-    private PreferenceRequest getPreferenceRequest(Orders order) {
-        List<PreferenceRequest.Item> items = order.getOrderProducts().stream().map(op -> {
-            Product product = op.getProduct();
+    private PreferenceRequest getPreferenceRequest(OrdersPersistenceEntity order) {
+        List<PreferenceRequest.Item> items = order.getOrderProductPersistenceEntities().stream().map(op -> {
+            ProductPersistenceEntity productPersistenceEntity = op.getProductPersistenceEntity();
             PreferenceRequest.Item item = new PreferenceRequest.Item();
-            item.setTitle(product.getName());
+            item.setTitle(productPersistenceEntity.getName());
             item.setCurrencyId("BRL");
             item.setQuantity(op.getProductQuantity());
-            item.setUnitPrice(product.getProductValue());
+            item.setUnitPrice(productPersistenceEntity.getProductValue());
             return item;
         }).toList();
 
         return buildRequest(order, items);
     }
 
-    private static PreferenceRequest buildRequest(Orders order, List<PreferenceRequest.Item> items) {
+    private static PreferenceRequest buildRequest(OrdersPersistenceEntity order, List<PreferenceRequest.Item> items) {
         PreferenceRequest.BackUrls urls = new PreferenceRequest.BackUrls();
         urls.setSuccess("https://average-dress-81.webhook.cool/pagamento/aprovado");
         urls.setFailure("https://average-dress-81.webhook.cool/pagamento/falha");

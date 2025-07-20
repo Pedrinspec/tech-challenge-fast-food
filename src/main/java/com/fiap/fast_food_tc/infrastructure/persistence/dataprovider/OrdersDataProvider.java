@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.infrastructure.persistence.dataprovider;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.repository.OrdersRepository;
 import com.fiap.fast_food_tc.application.gateway.OrdersGateway;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,27 +19,27 @@ public class OrdersDataProvider implements OrdersGateway {
     }
 
     @Override
-    public List<Orders> getAllOrders() {
+    public List<OrdersPersistenceEntity> getAllOrders() {
         return repository.findAll();
     }
 
     @Override
-    public Orders create(Orders model) {
+    public OrdersPersistenceEntity create(OrdersPersistenceEntity model) {
         return repository.save(model);
     }
 
     @Override
-    public Orders getById(Integer id) {
+    public OrdersPersistenceEntity getById(Integer id) {
         return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Order not found"));
     }
 
     @Override
-    public Orders update(Orders model) {
-        Orders order = repository.findById(model.getOrderId()).orElseThrow(() -> new IllegalArgumentException("Id not found"));
+    public OrdersPersistenceEntity update(OrdersPersistenceEntity model) {
+        OrdersPersistenceEntity order = repository.findById(model.getOrderId()).orElseThrow(() -> new IllegalArgumentException("Id not found"));
         order.setOrderDatetime(model.getOrderDatetime() != null ? model.getOrderDatetime() : order.getOrderDatetime());
         order.setStatusOrder(model.getStatusOrder() != null ? model.getStatusOrder() : order.getStatusOrder());
         order.setTotalAmount(model.getTotalAmount() != null ? model.getTotalAmount() : order.getTotalAmount());
-        order.setCustomer(model.getCustomer().getCustomerId() != null ? model.getCustomer() : order.getCustomer());
+        order.setCustomerPersistenceEntity(model.getCustomerPersistenceEntity().getCustomerId() != null ? model.getCustomerPersistenceEntity() : order.getCustomerPersistenceEntity());
         return repository.save(order);
     }
 
@@ -52,7 +52,7 @@ public class OrdersDataProvider implements OrdersGateway {
     @Override
     public Short getLastOrderCode() {
         return repository.findFirstByOrderByOrderCodeDesc()
-                .map(Orders::getOrderCode)
+                .map(OrdersPersistenceEntity::getOrderCode)
                 .orElse((short) 0);
     }
 }

@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.unit.infra.provider;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Payment;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.PaymentPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.repository.PaymentRepository;
 import com.fiap.fast_food_tc.infrastructure.persistence.dataprovider.PaymentDataProvider;
 import com.fiap.fast_food_tc.domain.enums.PaymentMethod;
@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class PaymentDataProviderTest {
+class PaymentPersistenceEntityDataProviderTest {
 
     @Mock
     private PaymentRepository repository;
@@ -28,17 +28,17 @@ class PaymentDataProviderTest {
 
     @Test
     void saveSuccess() {
-        Payment payment = Payment.builder()
+        PaymentPersistenceEntity paymentPersistenceEntity = PaymentPersistenceEntity.builder()
                 .paymentId(1)
                 .paymentMethod(PaymentMethod.MERCADO_PAGO)
                 .paymentStatus(PaymentStatus.PENDING)
                 .paymentValue(BigDecimal.TEN)
                 .createdAt(LocalDateTime.now())
                 .build();
-        when(repository.save(payment)).thenReturn(payment);
+        when(repository.save(paymentPersistenceEntity)).thenReturn(paymentPersistenceEntity);
 
-        var result = provider.save(payment);
+        var result = provider.save(paymentPersistenceEntity);
 
-        assertEquals(payment, result);
+        assertEquals(paymentPersistenceEntity, result);
     }
 }

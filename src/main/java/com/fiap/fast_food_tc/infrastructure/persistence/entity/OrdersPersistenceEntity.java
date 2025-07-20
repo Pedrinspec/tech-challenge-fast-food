@@ -29,7 +29,7 @@ import java.util.List;
 @Table(name = "orders")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Orders {
+public class OrdersPersistenceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,12 +50,12 @@ public class Orders {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private CustomerPersistenceEntity customerPersistenceEntity;
 
-    @OneToMany(mappedBy = "orders")
-    private List<OrderProduct> orderProducts;
+    @OneToMany(mappedBy = "ordersPersistenceEntity")
+    private List<OrderProductPersistenceEntity> orderProductPersistenceEntities;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "orders")
-    private Payment payment;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "ordersPersistenceEntity")
+    private PaymentPersistenceEntity paymentPersistenceEntity;
 
 }

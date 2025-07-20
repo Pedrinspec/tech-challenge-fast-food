@@ -3,6 +3,7 @@ package com.fiap.fast_food_tc.unit.cross.mapper;
 import com.fiap.fast_food_tc.application.dto.customer.CustomerRequestDto;
 import com.fiap.fast_food_tc.application.dto.customer.CustomerResponseDto;
 import com.fiap.fast_food_tc.domain.entity.Customer;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.CustomerPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CustomerMapper;
 import fixture.CustomerFixture;
 import org.junit.jupiter.api.Test;
@@ -12,28 +13,28 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CustomerMapperTest {
+class CustomerPersistenceEntityMapperTest {
 
     private final CustomerMapper mapper = Mappers.getMapper(CustomerMapper.class);
 
     @Test
     void toEntitySuccess() {
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Customer customer = CustomerFixture.createCustomerModel();
+        CustomerPersistenceEntity customerPersistenceEntity = CustomerFixture.createCustomerModel();
 
-        Customer result = mapper.toEntity(customer);
+        Customer result = mapper.toEntity(customerPersistenceEntity);
 
-        assertEquals(customer.getCustomerId(), result.getCustomerId());
-        assertEquals(customer.getDocumentNumber(), result.getDocumentNumber());
-        assertEquals(customer.getFirstName(), result.getFirstName());
-        assertEquals(customer.getLastName(), result.getLastName());
-        assertEquals(customer.getEmail(), result.getEmail());
+        assertEquals(customerPersistenceEntity.getCustomerId(), result.getCustomerId());
+        assertEquals(customerPersistenceEntity.getDocumentNumber(), result.getDocumentNumber());
+        assertEquals(customerPersistenceEntity.getFirstName(), result.getFirstName());
+        assertEquals(customerPersistenceEntity.getLastName(), result.getLastName());
+        assertEquals(customerPersistenceEntity.getEmail(), result.getEmail());
     }
 
     @Test
     void toDomainSuccess() {
         Customer entity = CustomerFixture.createECustomer();
 
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Customer result = mapper.toDomain(entity);
+        CustomerPersistenceEntity result = mapper.toDomain(entity);
 
         assertEquals(entity.getCustomerId(), result.getCustomerId());
         assertEquals(entity.getDocumentNumber(), result.getDocumentNumber());

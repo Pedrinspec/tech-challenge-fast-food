@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.unit.infra.provider;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProduct;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProductPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.ids.OrderProductPk;
 import com.fiap.fast_food_tc.infrastructure.persistence.repository.OrderProductRepository;
 import com.fiap.fast_food_tc.infrastructure.persistence.dataprovider.OrderProductDataProvider;
@@ -19,7 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class OrderProductDataProviderTest {
+class OrderProductPersistenceEntityPersistenceEntityDataProviderTest {
 
     @Mock
     private OrderProductRepository repository;
@@ -29,7 +29,7 @@ class OrderProductDataProviderTest {
 
     @Test
     void createSuccess() {
-        OrderProduct op = OrderProductFixture.createOrderProduct();
+        OrderProductPersistenceEntity op = OrderProductFixture.createOrderProduct();
         when(repository.save(any())).thenReturn(op);
 
         var result = provider.create(op);
@@ -40,7 +40,7 @@ class OrderProductDataProviderTest {
 
     @Test
     void getAllSuccess() {
-        List<OrderProduct> list = List.of(OrderProductFixture.createOrderProduct());
+        List<OrderProductPersistenceEntity> list = List.of(OrderProductFixture.createOrderProduct());
         when(repository.findAll()).thenReturn(list);
 
         var result = provider.getAll();
@@ -50,7 +50,7 @@ class OrderProductDataProviderTest {
 
     @Test
     void getByIdSuccess() {
-        OrderProduct op = OrderProductFixture.createOrderProduct();
+        OrderProductPersistenceEntity op = OrderProductFixture.createOrderProduct();
         when(repository.findById(op.getId())).thenReturn(Optional.of(op));
 
         var result = provider.getById(op.getId());
@@ -60,12 +60,12 @@ class OrderProductDataProviderTest {
 
     @Test
     void updateSuccess() {
-        OrderProduct existing = OrderProductFixture.createOrderProduct();
+        OrderProductPersistenceEntity existing = OrderProductFixture.createOrderProduct();
         OrderProductPk pk = existing.getId();
         when(repository.findById(pk)).thenReturn(Optional.of(existing));
         when(repository.save(any())).thenReturn(existing);
 
-        OrderProduct update = OrderProductFixture.createOrderProduct();
+        OrderProductPersistenceEntity update = OrderProductFixture.createOrderProduct();
         update.setProductQuantity(5);
 
         var result = provider.update(update);

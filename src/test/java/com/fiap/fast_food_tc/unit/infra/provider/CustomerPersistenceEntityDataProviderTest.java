@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.unit.infra.provider;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Customer;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.CustomerPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.repository.CustomerRepository;
 import com.fiap.fast_food_tc.infrastructure.persistence.dataprovider.CustomerDataProvider;
 import fixture.CustomerFixture;
@@ -18,7 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class CustomerDataProviderTest {
+class CustomerPersistenceEntityDataProviderTest {
 
     @Mock
     private CustomerRepository repository;
@@ -28,7 +28,7 @@ class CustomerDataProviderTest {
 
     @Test
     void createSuccess() {
-        Customer model = CustomerFixture.createCustomerModel();
+        CustomerPersistenceEntity model = CustomerFixture.createCustomerModel();
         when(repository.save(model)).thenReturn(model);
 
         var result = provider.create(model);
@@ -38,7 +38,7 @@ class CustomerDataProviderTest {
 
     @Test
     void findByDocumentNumberSuccess() {
-        Customer model = CustomerFixture.createCustomerModel();
+        CustomerPersistenceEntity model = CustomerFixture.createCustomerModel();
         when(repository.findByDocumentNumber("111111")).thenReturn(Optional.of(model));
 
         var result = provider.findByDocumentNumber("111111");
@@ -48,7 +48,7 @@ class CustomerDataProviderTest {
 
     @Test
     void findByIdSuccess() {
-        Customer model = CustomerFixture.createCustomerModel();
+        CustomerPersistenceEntity model = CustomerFixture.createCustomerModel();
         when(repository.findById(1)).thenReturn(Optional.of(model));
 
         var result = provider.findById(1);
@@ -58,7 +58,7 @@ class CustomerDataProviderTest {
 
     @Test
     void updateSuccess() {
-        Customer model = CustomerFixture.createCustomerModel();
+        CustomerPersistenceEntity model = CustomerFixture.createCustomerModel();
         when(repository.save(any())).thenReturn(model);
 
         var result = provider.update(model);
@@ -75,7 +75,7 @@ class CustomerDataProviderTest {
 
     @Test
     void findAllSuccess() {
-        List<Customer> list = List.of(CustomerFixture.createCustomerModel());
+        List<CustomerPersistenceEntity> list = List.of(CustomerFixture.createCustomerModel());
         when(repository.findAll()).thenReturn(list);
 
         var result = provider.findAll();

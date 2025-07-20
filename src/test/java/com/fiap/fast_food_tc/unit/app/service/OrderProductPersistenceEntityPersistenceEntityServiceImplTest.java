@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
-class OrderProductServiceImplTest {
+class OrderProductPersistenceEntityPersistenceEntityServiceImplTest {
 
     @Mock
     private OrderProductMapper mapper;

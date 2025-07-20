@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.infrastructure.persistence.dataprovider;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Payment;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.PaymentPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.repository.PaymentRepository;
 import com.fiap.fast_food_tc.application.gateway.PaymentGateway;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,29 +19,29 @@ public class PaymentDataProvider implements PaymentGateway {
     }
 
     @Override
-    public Payment save(Payment payment) {
-        return repository.save(payment);
+    public PaymentPersistenceEntity save(PaymentPersistenceEntity paymentPersistenceEntity) {
+        return repository.save(paymentPersistenceEntity);
     }
 
     @Override
-    public Payment findById(Integer id) {
+    public PaymentPersistenceEntity findById(Integer id) {
         return repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Payment not found"));
     }
 
     @Override
-    public List<Payment> findAll() {
+    public List<PaymentPersistenceEntity> findAll() {
         return repository.findAll();
     }
 
-    public Payment findByMercadoPagoId(String id) {
+    public PaymentPersistenceEntity findByMercadoPagoId(String id) {
         return repository.findByMercadoPagoId(id)
                 .orElseThrow(() -> new IllegalArgumentException("Payment not found"));
     }
 
     @Override
-    public Payment findByOrderId(Integer orderId) {
-        return repository.findByOrdersOrderId(orderId)
+    public PaymentPersistenceEntity findByOrderId(Integer orderId) {
+        return repository.findByOrdersPersistenceEntityOrderId(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Payment not found"));
     }
 

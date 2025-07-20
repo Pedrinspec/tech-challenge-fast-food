@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.unit.infra.provider;
 
 import com.fiap.fast_food_tc.domain.enums.StatusOrder;
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.repository.OrdersRepository;
 import com.fiap.fast_food_tc.infrastructure.persistence.dataprovider.OrdersDataProvider;
 import fixture.CustomerFixture;
@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class OrdersDataProviderTest {
+class OrdersPersistenceEntityDataProviderTest {
 
     @Mock
     private OrdersRepository repository;
@@ -32,7 +32,7 @@ class OrdersDataProviderTest {
 
     @Test
     void getAllOrdersSuccess() {
-        List<Orders> list = List.of(OrdersFixture.createOrders());
+        List<OrdersPersistenceEntity> list = List.of(OrdersFixture.createOrders());
         when(repository.findAll()).thenReturn(list);
 
         var result = provider.getAllOrders();
@@ -42,7 +42,7 @@ class OrdersDataProviderTest {
 
     @Test
     void createSuccess() {
-        Orders order = OrdersFixture.createOrders();
+        OrdersPersistenceEntity order = OrdersFixture.createOrders();
         when(repository.save(order)).thenReturn(order);
 
         var result = provider.create(order);
@@ -52,7 +52,7 @@ class OrdersDataProviderTest {
 
     @Test
     void getByIdSuccess() {
-        Orders order = OrdersFixture.createOrders();
+        OrdersPersistenceEntity order = OrdersFixture.createOrders();
         when(repository.findById(1)).thenReturn(Optional.of(order));
 
         var result = provider.getById(1);
@@ -62,16 +62,16 @@ class OrdersDataProviderTest {
 
     @Test
     void updateSuccess() {
-        Orders existing = OrdersFixture.createOrders();
+        OrdersPersistenceEntity existing = OrdersFixture.createOrders();
         when(repository.findById(existing.getOrderId())).thenReturn(Optional.of(existing));
         when(repository.save(any())).thenReturn(existing);
 
-        Orders update = Orders.builder()
+        OrdersPersistenceEntity update = OrdersPersistenceEntity.builder()
                 .orderId(existing.getOrderId())
                 .orderDatetime(LocalDateTime.now())
                 .statusOrder(StatusOrder.IN_PREPARATION)
                 .totalAmount(BigDecimal.TEN)
-                .customer(CustomerFixture.createCustomerModel())
+                .customerPersistenceEntity(CustomerFixture.createCustomerModel())
                 .build();
 
         var result = provider.update(update);
@@ -89,7 +89,7 @@ class OrdersDataProviderTest {
 
     @Test
     void getLastOrderCodeSuccess() {
-        Orders order = OrdersFixture.createOrders();
+        OrdersPersistenceEntity order = OrdersFixture.createOrders();
         when(repository.findFirstByOrderByOrderCodeDesc()).thenReturn(Optional.of(order));
 
         Short code = provider.getLastOrderCode();

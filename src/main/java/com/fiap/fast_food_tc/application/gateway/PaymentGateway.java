@@ -1,16 +1,16 @@
 package com.fiap.fast_food_tc.application.gateway;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Payment;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.PaymentPersistenceEntity;
 
 import java.util.List;
 
 public interface PaymentGateway {
 
-    Payment save(Payment payment);
+    PaymentPersistenceEntity save(PaymentPersistenceEntity paymentPersistenceEntity);
 
-    Payment findById(Integer id);
+    PaymentPersistenceEntity findById(Integer id);
 
-    List<Payment> findAll();
+    List<PaymentPersistenceEntity> findAll();
 
-    Payment findByOrderId(Integer orderId);
+    PaymentPersistenceEntity findByOrderId(Integer orderId);
 }

@@ -3,6 +3,7 @@ package com.fiap.fast_food_tc.unit.cross.mapper;
 import com.fiap.fast_food_tc.application.dto.orders.OrdersRequestDto;
 import com.fiap.fast_food_tc.application.dto.orders.OrdersResponseDto;
 import com.fiap.fast_food_tc.domain.entity.Orders;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.OrdersMapper;
 import fixture.OrdersFixture;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OrdersMapperTest {
+class OrdersPersistenceEntityMapperTest {
 
     private final OrdersMapper mapper = Mappers.getMapper(OrdersMapper.class);
 
@@ -32,7 +33,7 @@ class OrdersMapperTest {
 
     @Test
     void toEntitySuccess() {
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders model = OrdersFixture.createOrders();
+        OrdersPersistenceEntity model = OrdersFixture.createOrders();
 
         Orders entity = mapper.toEntity(model);
 
@@ -41,23 +42,23 @@ class OrdersMapperTest {
         assertEquals(model.getStatusOrder(), entity.getStatusOrder());
         assertEquals(model.getOrderCode(), entity.getOrderCode());
         assertEquals(model.getTotalAmount(), entity.getTotalAmount());
-        assertEquals(model.getCustomer().getCustomerId(), entity.getCustomerId());
+        assertEquals(model.getCustomerPersistenceEntity().getCustomerId(), entity.getCustomerId());
     }
 
     @Test
     void toModelSuccess() {
         Orders entity = OrdersFixture.createEOrders();
 
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders model = mapper.toModel(entity);
+        OrdersPersistenceEntity model = mapper.toModel(entity);
 
         assertEquals(entity.getOrderId(), model.getOrderId());
         assertEquals(entity.getOrderDatetime(), model.getOrderDatetime());
         assertEquals(entity.getStatusOrder(), model.getStatusOrder());
         assertEquals(entity.getOrderCode(), model.getOrderCode());
         assertEquals(entity.getTotalAmount(), model.getTotalAmount());
-        assertEquals(entity.getCustomerId(), model.getCustomer().getCustomerId());
-        assertNull(model.getOrderProducts());
-        assertNull(model.getPayment());
+        assertEquals(entity.getCustomerId(), model.getCustomerPersistenceEntity().getCustomerId());
+        assertNull(model.getOrderProductPersistenceEntities());
+        assertNull(model.getPaymentPersistenceEntity());
     }
 
     @Test
@@ -72,12 +73,12 @@ class OrdersMapperTest {
 
     @Test
     void toEntityListSuccess() {
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders orders = OrdersFixture.createOrders();
+        OrdersPersistenceEntity ordersPersistenceEntity = OrdersFixture.createOrders();
 
-        List<Orders> entities = mapper.toEntityList(List.of(orders));
+        List<Orders> entities = mapper.toEntityList(List.of(ordersPersistenceEntity));
 
         assertEquals(1, entities.size());
-        assertEquals(orders.getOrderId(), entities.getFirst().getOrderId());
+        assertEquals(ordersPersistenceEntity.getOrderId(), entities.getFirst().getOrderId());
     }
 
     @Test

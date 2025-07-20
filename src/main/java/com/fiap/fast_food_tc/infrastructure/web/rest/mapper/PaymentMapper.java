@@ -3,6 +3,7 @@ package com.fiap.fast_food_tc.infrastructure.web.rest.mapper;
 import com.fiap.fast_food_tc.application.dto.payment.PaymentRequestDto;
 import com.fiap.fast_food_tc.application.dto.payment.PaymentResponseDto;
 import com.fiap.fast_food_tc.domain.entity.Payment;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.PaymentPersistenceEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -12,11 +13,11 @@ import java.util.List;
 public interface PaymentMapper {
 
     @Mapping(target = "paymentId", ignore = true)
-    @Mapping(target = "orders.orderId", source = "orderId")
-    com.fiap.fast_food_tc.infrastructure.persistence.entity.Payment toModel(Payment entity);
+    @Mapping(target = "ordersPersistenceEntity.orderId", source = "orderId")
+    PaymentPersistenceEntity toModel(Payment entity);
 
-    @Mapping(target = "orderId", source = "orders.orderId")
-    Payment toEntity(com.fiap.fast_food_tc.infrastructure.persistence.entity.Payment model);
+    @Mapping(target = "orderId", source = "ordersPersistenceEntity.orderId")
+    Payment toEntity(PaymentPersistenceEntity model);
 
     @Mapping(target = "orderId", source = "orderId")
     @Mapping(target = "paymentId", ignore = true)
@@ -26,5 +27,5 @@ public interface PaymentMapper {
 
     List<PaymentResponseDto> toResponseList(List<Payment> list);
 
-    List<Payment> toEntityList(List<com.fiap.fast_food_tc.infrastructure.persistence.entity.Payment> list);
+    List<Payment> toEntityList(List<PaymentPersistenceEntity> list);
 }
