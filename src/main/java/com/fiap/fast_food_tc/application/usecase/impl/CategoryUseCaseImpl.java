@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.application.usecase.impl;
 
 import com.fiap.fast_food_tc.domain.entity.Category;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CategoryMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.CategoryMapper;
 import com.fiap.fast_food_tc.application.gateway.CategoryGateway;
 import com.fiap.fast_food_tc.application.usecase.CategoryUseCase;
 import org.springframework.beans.factory.annotation.Autowired;

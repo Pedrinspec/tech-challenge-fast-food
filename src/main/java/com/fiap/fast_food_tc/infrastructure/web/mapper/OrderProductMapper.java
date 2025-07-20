@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.infrastructure.web.rest.mapper;
+package com.fiap.fast_food_tc.infrastructure.web.mapper;
 
 import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductRequestDto;
 import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductResponseDto;

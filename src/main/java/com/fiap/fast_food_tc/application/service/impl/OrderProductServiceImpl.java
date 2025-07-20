@@ -3,7 +3,7 @@ package com.fiap.fast_food_tc.application.service.impl;
 import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductRequestDto;
 import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductResponseDto;
 import com.fiap.fast_food_tc.application.service.OrderProductService;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.OrderProductMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.OrderProductMapper;
 import com.fiap.fast_food_tc.application.usecase.OrderProductUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

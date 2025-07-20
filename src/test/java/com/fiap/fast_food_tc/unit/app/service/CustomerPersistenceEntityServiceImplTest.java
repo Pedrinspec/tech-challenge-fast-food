@@ -4,7 +4,7 @@ import com.fiap.fast_food_tc.application.dto.customer.CustomerRequestDto;
 import com.fiap.fast_food_tc.application.dto.customer.CustomerResponseDto;
 import com.fiap.fast_food_tc.application.service.impl.CustomerServiceImpl;
 import com.fiap.fast_food_tc.domain.entity.Customer;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CustomerMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.CustomerMapper;
 import com.fiap.fast_food_tc.application.usecase.CustomerUseCase;
 import fixture.CustomerFixture;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.unit.app.usecase;
 
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.CategoryPersistenceEntity;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CategoryMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.CategoryMapper;
 import com.fiap.fast_food_tc.application.gateway.CategoryGateway;
 import com.fiap.fast_food_tc.application.usecase.impl.CategoryUseCaseImpl;
 import fixture.CategoryFixture;

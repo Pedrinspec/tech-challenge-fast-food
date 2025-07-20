@@ -2,7 +2,7 @@ package com.fiap.fast_food_tc.unit.app.usecase;
 
 import com.fiap.fast_food_tc.domain.entity.OrderProduct;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProductPersistenceEntity;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.OrderProductMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.OrderProductMapper;
 import com.fiap.fast_food_tc.application.gateway.OrderProductGateway;
 import com.fiap.fast_food_tc.application.usecase.impl.OrderProductUseCaseImpl;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.ids.OrderProductPk;

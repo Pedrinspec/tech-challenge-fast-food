@@ -2,7 +2,7 @@ package com.fiap.fast_food_tc.unit.app.usecase;
 
 import com.fiap.fast_food_tc.domain.entity.Customer;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.CustomerPersistenceEntity;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CustomerMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.CustomerMapper;
 import com.fiap.fast_food_tc.application.gateway.CustomerGateway;
 import com.fiap.fast_food_tc.application.usecase.impl.CustomerUseCaseImpl;
 import fixture.CustomerFixture;

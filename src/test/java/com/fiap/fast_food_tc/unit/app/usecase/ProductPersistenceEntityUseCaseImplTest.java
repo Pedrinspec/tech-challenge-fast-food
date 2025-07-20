@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.unit.app.usecase;
 
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.ProductPersistenceEntity;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.ProductMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.ProductMapper;
 import com.fiap.fast_food_tc.application.gateway.ProductGateway;
 import com.fiap.fast_food_tc.application.usecase.impl.ProductUseCaseImpl;
 import fixture.ProductFixture;

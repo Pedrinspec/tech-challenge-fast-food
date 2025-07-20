@@ -3,7 +3,7 @@ package com.fiap.fast_food_tc.unit.app.service;
 import com.fiap.fast_food_tc.application.dto.checkout.CheckoutOrderRequest;
 import com.fiap.fast_food_tc.application.dto.checkout.CheckoutResponseDto;
 import com.fiap.fast_food_tc.application.service.impl.CheckoutServiceImpl;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CheckoutMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.CheckoutMapper;
 import com.fiap.fast_food_tc.domain.entity.Checkout;
 import com.fiap.fast_food_tc.domain.entity.CheckoutOrder;
 import com.fiap.fast_food_tc.application.usecase.CheckoutUseCase;

@@ -4,7 +4,7 @@ import com.fiap.fast_food_tc.application.dto.orders.OrdersRequestDto;
 import com.fiap.fast_food_tc.application.dto.orders.OrdersResponseDto;
 import com.fiap.fast_food_tc.domain.entity.Orders;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.OrdersMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.OrdersMapper;
 import fixture.OrdersFixture;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;

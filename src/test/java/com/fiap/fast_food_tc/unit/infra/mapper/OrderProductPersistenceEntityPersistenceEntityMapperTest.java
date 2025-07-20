@@ -3,7 +3,7 @@ package com.fiap.fast_food_tc.unit.infra.mapper;
 import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductRequestDto;
 import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductResponseDto;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProductPersistenceEntity;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.OrderProductMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.OrderProductMapper;
 import com.fiap.fast_food_tc.domain.entity.OrderProduct;
 import fixture.OrderProductFixture;
 import org.junit.jupiter.api.Test;

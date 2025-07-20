@@ -4,7 +4,7 @@ import com.fiap.fast_food_tc.application.dto.payment.PaymentRequestDto;
 import com.fiap.fast_food_tc.application.dto.payment.PaymentResponseDto;
 import com.fiap.fast_food_tc.application.dto.payment.PaymentStatusResponseDto;
 import com.fiap.fast_food_tc.application.service.PaymentService;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.PaymentMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.PaymentMapper;
 import com.fiap.fast_food_tc.application.usecase.OrdersUseCase;
 import com.fiap.fast_food_tc.application.usecase.PaymentUseCase;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,7 @@ import com.fiap.fast_food_tc.application.dto.orders.OrdersRequestDto;
 import com.fiap.fast_food_tc.application.dto.orders.OrdersResponseDto;
 import com.fiap.fast_food_tc.application.service.OrdersService;
 import com.fiap.fast_food_tc.domain.enums.StatusOrder;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.OrdersMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.OrdersMapper;
 import com.fiap.fast_food_tc.application.usecase.OrdersUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

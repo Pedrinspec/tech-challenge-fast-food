@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.infrastructure.web.rest.controller;
+package com.fiap.fast_food_tc.infrastructure.web.controller;
 
 import com.fiap.fast_food_tc.application.dto.customer.CustomerRequestDto;
 import com.fiap.fast_food_tc.application.dto.customer.CustomerResponseDto;

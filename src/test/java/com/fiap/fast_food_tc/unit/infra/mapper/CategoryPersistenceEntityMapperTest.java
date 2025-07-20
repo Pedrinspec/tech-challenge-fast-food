@@ -3,7 +3,7 @@ package com.fiap.fast_food_tc.unit.infra.mapper;
 import com.fiap.fast_food_tc.application.dto.category.CategoryResponseDTO;
 import com.fiap.fast_food_tc.domain.entity.Category;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.CategoryPersistenceEntity;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CategoryMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.CategoryMapper;
 import fixture.CategoryFixture;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;

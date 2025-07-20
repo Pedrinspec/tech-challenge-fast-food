@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.application.usecase.impl;
 
 import com.fiap.fast_food_tc.domain.entity.Orders;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.OrdersMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.OrdersMapper;
 import com.fiap.fast_food_tc.application.gateway.OrdersGateway;
 import com.fiap.fast_food_tc.application.usecase.OrdersUseCase;
 import org.springframework.beans.factory.annotation.Autowired;

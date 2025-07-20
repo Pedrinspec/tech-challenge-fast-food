@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.application.usecase.impl;
 
 import com.fiap.fast_food_tc.domain.entity.Payment;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.PaymentMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.PaymentMapper;
 import com.fiap.fast_food_tc.application.gateway.PaymentGateway;
 import com.fiap.fast_food_tc.application.usecase.PaymentUseCase;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.unit.infra.controller;
 
-import com.fiap.fast_food_tc.infrastructure.web.rest.controller.OrderProductController;
+import com.fiap.fast_food_tc.infrastructure.web.controller.OrderProductController;
 import com.fiap.fast_food_tc.application.service.OrderProductService;
 import fixture.OrderProductFixture;
 import org.junit.jupiter.api.Test;

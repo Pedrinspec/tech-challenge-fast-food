@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.unit.app.service;
 
 import com.fiap.fast_food_tc.application.service.impl.ProductServiceImpl;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.ProductMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.ProductMapper;
 import com.fiap.fast_food_tc.application.usecase.ProductUseCase;
 import fixture.ProductFixture;
 import org.junit.jupiter.api.Test;

@@ -3,7 +3,7 @@ package com.fiap.fast_food_tc.application.service.impl;
 import com.fiap.fast_food_tc.application.dto.category.CategoryRequest;
 import com.fiap.fast_food_tc.application.dto.category.CategoryResponseDTO;
 import com.fiap.fast_food_tc.application.service.CategoryService;
-import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CategoryMapper;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.CategoryMapper;
 import com.fiap.fast_food_tc.application.usecase.CategoryUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
