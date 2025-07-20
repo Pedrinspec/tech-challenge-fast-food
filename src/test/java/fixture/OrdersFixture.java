@@ -1,41 +1,42 @@
 package fixture;
 
-import com.fiap.fast_food_tc.adapter.db.model.Orders;
-import com.fiap.fast_food_tc.adapter.dto.orders.OrdersRequestDto;
-import com.fiap.fast_food_tc.adapter.dto.orders.OrdersResponseDto;
-import com.fiap.fast_food_tc.domain.entity.EOrders;
+import com.fiap.fast_food_tc.domain.enums.StatusOrder;
+import com.fiap.fast_food_tc.application.dto.orders.OrdersRequestDto;
+import com.fiap.fast_food_tc.application.dto.orders.OrdersResponseDto;
+import com.fiap.fast_food_tc.domain.entity.Orders;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class OrdersFixture {
 
-    public static EOrders createEOrders() {
-        return EOrders.builder()
+    public static Orders createEOrders() {
+        return Orders.builder()
                 .orderId(1)
                 .orderDatetime(LocalDateTime.now())
-                .statusOrder(1)
+                .statusOrder(StatusOrder.IN_PREPARATION)
                 .orderCode((short) 1)
                 .totalAmount(BigDecimal.ONE)
                 .customerId(1)
                 .build();
     }
 
-    public static Orders createOrders() {
-        return Orders.builder()
+    public static OrdersPersistenceEntity createOrders() {
+        return OrdersPersistenceEntity.builder()
                 .orderId(1)
                 .orderDatetime(LocalDateTime.now())
-                .statusOrder(2)
+                .statusOrder(StatusOrder.READY_FOR_PICKUP)
                 .orderCode((short) 5)
                 .totalAmount(BigDecimal.ONE)
-                .customer(CustomerFixture.createCustomerModel())
+                .customerPersistenceEntity(CustomerFixture.createCustomerModel())
                 .build();
     }
 
     public static OrdersRequestDto createOrdersRequestDto() {
         return OrdersRequestDto.builder()
                 .orderDatetime(LocalDateTime.now())
-                .statusOrder(1)
+                .statusOrder(StatusOrder.IN_PREPARATION)
                 .totalAmount(BigDecimal.TEN)
                 .customerId(1)
                 .build();
@@ -45,7 +46,7 @@ public class OrdersFixture {
         return OrdersResponseDto.builder()
                 .orderId(1)
                 .orderDatetime(LocalDateTime.now())
-                .statusOrder(2)
+                .statusOrder(StatusOrder.IN_PREPARATION)
                 .orderCode((short) 5)
                 .totalAmount(BigDecimal.ONE)
                 .customerId(1)

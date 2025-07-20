@@ -1,16 +1,16 @@
 package fixture;
 
-import com.fiap.fast_food_tc.adapter.db.model.Customer;
-import com.fiap.fast_food_tc.adapter.dto.customer.CustomerRequestDto;
-import com.fiap.fast_food_tc.adapter.dto.customer.CustomerResponseDto;
-import com.fiap.fast_food_tc.domain.entity.ECustomer;
+import com.fiap.fast_food_tc.application.dto.customer.CustomerRequestDto;
+import com.fiap.fast_food_tc.application.dto.customer.CustomerResponseDto;
+import com.fiap.fast_food_tc.domain.entity.Customer;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.CustomerPersistenceEntity;
 
 import java.util.List;
 
 public class CustomerFixture {
 
-    public static Customer createCustomerModel() {
-        return Customer.builder()
+    public static CustomerPersistenceEntity createCustomerModel() {
+        return CustomerPersistenceEntity.builder()
                 .customerId(1)
                 .documentNumber("111111")
                 .firstName("Joao")
@@ -20,8 +20,8 @@ public class CustomerFixture {
                 .build();
     }
 
-    public static ECustomer createECustomer() {
-        return ECustomer.builder()
+    public static Customer createECustomer() {
+        return Customer.builder()
                 .customerId(1)
                 .documentNumber("111111")
                 .firstName("Joao")
