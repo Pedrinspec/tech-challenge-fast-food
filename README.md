@@ -106,28 +106,28 @@ O banco de dados foi estruturado para suportar um sistema de pedidos de fast foo
 
 ### 🗃️ Tabelas e Campos
 
-#### `customer`
+#### `customerPersistenceEntity`
 - `customer_id` (PK)
 - `document_number`
 - `email`
 - `first_name`
 - `last_name`
 
-#### `orders`
+#### `ordersPersistenceEntity`
 - `order_id` (PK)
 - `order_code`
 - `order_datetime`
 - `status_order`
 - `total_amount`
-- `customer_id` (FK → customer)
+- `customer_id` (FK → customerPersistenceEntity)
 
 #### `order_product`
-- `order_id` (FK → orders)
-- `product_id` (FK → product)
+- `order_id` (FK → ordersPersistenceEntity)
+- `product_id` (FK → productPersistenceEntity)
 - `product_quantity`
 - `product_total_amount`
 
-#### `product`
+#### `productPersistenceEntity`
 - `product_id` (PK)
 - `name`
 - `description`
@@ -135,22 +135,22 @@ O banco de dados foi estruturado para suportar um sistema de pedidos de fast foo
 - `available_indicator`
 - `product_value`
 - `quantity`
-- `category_id` (FK → category)
+- `category_id` (FK → categoryPersistenceEntity)
 
-#### `category`
+#### `categoryPersistenceEntity`
 - `category_id` (PK)
 - `category_name`
 - `category_description`
 
-#### `payment`
+#### `paymentPersistenceEntity`
 - `payment_id` (PK)
 - `created_at`
-- `customer_id` (FK → customer)
+- `customer_id` (FK → customerPersistenceEntity)
 - `mercado_pago_id`
 - `payment_method`
 - `payment_status`
 - `payment_value`
-- `order_id` (FK → orders)
+- `order_id` (FK → ordersPersistenceEntity)
 
 #### `employee`
 - `employee_id` (PK)
@@ -165,13 +165,13 @@ O banco de dados foi estruturado para suportar um sistema de pedidos de fast foo
 
 ```sql
 -- Categorias
-INSERT INTO category (category_name, category_description) VALUES 
+INSERT INTO categoryPersistenceEntity (category_name, category_description) VALUES 
 ('Lanches', 'Hambúrgueres, sanduíches e wraps'),
 ('Bebidas', 'Refrigerantes, sucos e água'),
 ('Sobremesas', 'Doces e sobremesas variadas');
 
 -- Produtos
-INSERT INTO product (name, description, product_value, quantity, category_id) VALUES 
+INSERT INTO productPersistenceEntity (name, description, product_value, quantity, category_id) VALUES 
 ('Hambúrguer Clássico', 'Pão, carne, queijo e salada', 18.90, 50, 1),
 ('Cheeseburger Duplo', 'Dois hambúrgueres e queijo extra', 24.90, 40, 1),
 ('Refrigerante Lata', '350ml - diversos sabores', 5.00, 100, 2),
@@ -179,12 +179,12 @@ INSERT INTO product (name, description, product_value, quantity, category_id) VA
 ('Sorvete de Chocolate', '1 bola de sorvete artesanal', 7.00, 30, 3);
 
 -- Clientes
-INSERT INTO customer (document_number, email, first_name, last_name) VALUES
+INSERT INTO customerPersistenceEntity (document_number, email, first_name, last_name) VALUES
 ('12345678900', 'ana@email.com', 'Ana', 'Silva'),
 ('98765432100', 'bruno@email.com', 'Bruno', 'Oliveira');
 
 -- Pedidos
-INSERT INTO orders (order_code, status_order, total_amount, customer_id) VALUES
+INSERT INTO ordersPersistenceEntity (order_code, status_order, total_amount, customer_id) VALUES
 ('ORD001', 'Finalizado', 48.80, 1),
 ('ORD002', 'Pendente', 32.90, 2);
 
@@ -198,7 +198,7 @@ INSERT INTO order_product (order_id, product_id, product_quantity, product_total
 (2, 5, 1, 5.00);
 
 -- Pagamentos
-INSERT INTO payment (customer_id, mercado_pago_id, payment_method, payment_status, payment_value, order_id) VALUES
+INSERT INTO paymentPersistenceEntity (customer_id, mercado_pago_id, payment_method, payment_status, payment_value, order_id) VALUES
 (1, 'MP123ABC', 'Cartão de Crédito', 'Aprovado', 48.80, 1),
 (2, 'MP456DEF', 'Pix', 'Pendente', 32.90, 2);
 
@@ -220,8 +220,8 @@ SELECT
     c.customer_id,
     CONCAT(c.first_name, ' ', c.last_name) AS cliente,
     SUM(o.total_amount) AS total_gasto
-FROM orders o
-JOIN customer c ON c.customer_id = o.customer_id
+FROM ordersPersistenceEntity o
+JOIN customerPersistenceEntity c ON c.customer_id = o.customer_id
 GROUP BY c.customer_id;
 ```
 
@@ -233,8 +233,8 @@ SELECT
     cat.category_name,
     SUM(op.product_total_amount) AS total_vendido
 FROM order_product op
-JOIN product p ON p.product_id = op.product_id
-JOIN category cat ON cat.category_id = p.category_id
+JOIN productPersistenceEntity p ON p.product_id = op.product_id
+JOIN categoryPersistenceEntity cat ON cat.category_id = p.category_id
 GROUP BY cat.category_name;
 ```
 
@@ -246,7 +246,7 @@ SELECT
     p.name AS produto,
     SUM(op.product_quantity) AS total_vendido
 FROM order_product op
-JOIN product p ON p.product_id = op.product_id
+JOIN productPersistenceEntity p ON p.product_id = op.product_id
 GROUP BY p.name
 ORDER BY total_vendido DESC;
 ```
@@ -293,16 +293,16 @@ ORDER BY total_vendido DESC;
 
 | Resource   | Method | Route                             | Description                        |
 | ---------- | ------ |-----------------------------------|------------------------------------|
-| Customer   | POST   | `/customers`                      | Register new customer              |
-| Customer   | GET    | `/customers/{documentNumber}`     | Get customer by CPF                |
-| Product    | POST   | `/products`                       | Register new product               |
+| Customer   | POST   | `/customerPersistenceEntities`                      | Register new customerPersistenceEntity              |
+| Customer   | GET    | `/customerPersistenceEntities/{documentNumber}`     | Get customerPersistenceEntity by CPF                |
+| Product    | POST   | `/products`                       | Register new productPersistenceEntity               |
 | Product    | GET    | `/products`                       | List all products                  |
-| Product    | GET    | `/products/category/{categoryId}` | List all products by category      |
-| Product    | PUT    | `/products/{id}`                  | Update product                     |
-| Product    | DELETE | `/products/{id}`                  | Remove product                     |
+| Product    | GET    | `/products/categoryPersistenceEntity/{categoryId}` | List all products by categoryPersistenceEntity      |
+| Product    | PUT    | `/products/{id}`                  | Update productPersistenceEntity                     |
+| Product    | DELETE | `/products/{id}`                  | Remove productPersistenceEntity                     |
 | Category   | GET    | `/categories`                     | List categories                    |
-| Order      | POST   | `/orders`                         | Create new order                   |
-| Checkout   | POST   | `/checkout`                       | Generate Mercado Pago payment link |
+| Order      | POST   | `/ordersPersistenceEntity`                         | Create new order                   |
+| Checkout   | POST   | `/checkout`                       | Generate Mercado Pago paymentPersistenceEntity link |
 
 💳 Integração com Mercado Pago
 

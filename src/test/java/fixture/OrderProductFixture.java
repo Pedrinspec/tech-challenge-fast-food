@@ -1,35 +1,35 @@
 package fixture;
 
-import com.fiap.fast_food_tc.infra.db.model.OrderProduct;
-import com.fiap.fast_food_tc.infra.db.model.Orders;
-import com.fiap.fast_food_tc.infra.db.model.Product;
-import com.fiap.fast_food_tc.infra.db.model.ids.OrderProductPk;
-import com.fiap.fast_food_tc.app.dto.orderproduct.OrderProductRequestDto;
-import com.fiap.fast_food_tc.app.dto.orderproduct.OrderProductResponseDto;
-import com.fiap.fast_food_tc.domain.entity.EOrderProduct;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProductPersistenceEntity;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.ProductPersistenceEntity;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.ids.OrderProductPk;
+import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductRequestDto;
+import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductResponseDto;
+import com.fiap.fast_food_tc.domain.entity.OrderProduct;
 
 import java.math.BigDecimal;
 
 public class OrderProductFixture {
 
-    public static OrderProduct createOrderProduct() {
-        Orders order = OrdersFixture.createOrders();
-        Product product = ProductFixture.createProduct();
+    public static OrderProductPersistenceEntity createOrderProduct() {
+        OrdersPersistenceEntity order = OrdersFixture.createOrders();
+        ProductPersistenceEntity productPersistenceEntity = ProductFixture.createProduct();
         OrderProductPk pk = OrderProductPk.builder()
                 .orderId(order.getOrderId())
-                .productId(product.getProductId())
+                .productId(productPersistenceEntity.getProductId())
                 .build();
-        OrderProduct op = new OrderProduct();
+        OrderProductPersistenceEntity op = new OrderProductPersistenceEntity();
         op.setId(pk);
-        op.setOrders(order);
-        op.setProduct(product);
+        op.setOrdersPersistenceEntity(order);
+        op.setProductPersistenceEntity(productPersistenceEntity);
         op.setProductQuantity(1);
         op.setProductTotalAmount(BigDecimal.ONE);
         return op;
     }
 
-    public static EOrderProduct createEOrderProduct() {
-        return EOrderProduct.builder()
+    public static OrderProduct createEOrderProduct() {
+        return OrderProduct.builder()
                 .orderId(1)
                 .productId(1)
                 .productQuantity(1)
