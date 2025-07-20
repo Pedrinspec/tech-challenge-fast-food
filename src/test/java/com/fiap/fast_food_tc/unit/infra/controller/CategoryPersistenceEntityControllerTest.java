@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.unit.app.controller;
+package com.fiap.fast_food_tc.unit.infra.controller;
 
 import com.fiap.fast_food_tc.infrastructure.web.rest.controller.CategoryController;
 import com.fiap.fast_food_tc.application.dto.category.CategoryRequest;

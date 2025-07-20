@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.unit.cross.mapper;
+package com.fiap.fast_food_tc.unit.infra.mapper;
 
 import com.fiap.fast_food_tc.domain.entity.Product;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.CategoryPersistenceEntity;

@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.unit.cross.mapper;
+package com.fiap.fast_food_tc.unit.infra.mapper;
 
 import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductRequestDto;
 import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductResponseDto;

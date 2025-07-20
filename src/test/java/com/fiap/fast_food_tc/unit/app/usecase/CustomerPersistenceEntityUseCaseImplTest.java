@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.unit.domain.usecase;
+package com.fiap.fast_food_tc.unit.app.usecase;
 
 import com.fiap.fast_food_tc.domain.entity.Customer;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.CustomerPersistenceEntity;
