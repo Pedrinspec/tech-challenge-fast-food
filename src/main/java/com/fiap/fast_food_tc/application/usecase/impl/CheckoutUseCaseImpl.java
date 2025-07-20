@@ -1,11 +1,11 @@
 package com.fiap.fast_food_tc.application.usecase.impl;
 
+import com.fiap.fast_food_tc.domain.entity.Checkout;
+import com.fiap.fast_food_tc.domain.entity.CheckoutOrder;
+import com.fiap.fast_food_tc.domain.entity.OrderProduct;
+import com.fiap.fast_food_tc.domain.entity.Orders;
 import com.fiap.fast_food_tc.domain.enums.StatusOrder;
-import com.fiap.fast_food_tc.domain.entity.ECheckout;
-import com.fiap.fast_food_tc.domain.entity.ECheckoutOrder;
-import com.fiap.fast_food_tc.domain.entity.EOrderProduct;
-import com.fiap.fast_food_tc.domain.entity.EOrders;
-import com.fiap.fast_food_tc.domain.entity.EProduct;
+import com.fiap.fast_food_tc.domain.entity.Product;
 import com.fiap.fast_food_tc.application.gateway.CheckoutGateway;
 import com.fiap.fast_food_tc.application.usecase.CheckoutUseCase;
 import com.fiap.fast_food_tc.application.usecase.OrderProductUseCase;
@@ -39,8 +39,8 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
 
     @Override
     @Transactional
-    public ECheckout checkoutAndCreateOrder(ECheckoutOrder request) {
-        EOrders order = EOrders.builder()
+    public Checkout checkoutAndCreateOrder(CheckoutOrder request) {
+        Orders order = Orders.builder()
                 .orderDatetime(java.time.LocalDateTime.now())
                 .statusOrder(StatusOrder.PAYMENT_PENDING)
                 .totalAmount(BigDecimal.ZERO)
@@ -52,13 +52,13 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
 
         BigDecimal total = BigDecimal.ZERO;
 
-        for (ECheckoutOrder.Item item : request.getItems()) {
-            EProduct product = productUseCase.findById(item.getProductId());
+        for (CheckoutOrder.Item item : request.getItems()) {
+            Product product = productUseCase.findById(item.getProductId());
             BigDecimal itemTotal = product.getProductValue()
                     .multiply(BigDecimal.valueOf(item.getQuantity()));
             total = total.add(itemTotal);
 
-            EOrderProduct op = EOrderProduct.builder()
+            OrderProduct op = OrderProduct.builder()
                     .orderId(order.getOrderId())
                     .productId(product.getProductId())
                     .productQuantity(item.getQuantity())
@@ -73,8 +73,8 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
         return buildCheckout(total, order, paymentLink, request);
     }
 
-    private ECheckout buildCheckout(BigDecimal total, EOrders order, String paymentLink, ECheckoutOrder request) {
-        return ECheckout.builder()
+    private Checkout buildCheckout(BigDecimal total, Orders order, String paymentLink, CheckoutOrder request) {
+        return Checkout.builder()
                 .totalAmount(total)
                 .orderId(order.getOrderId())
                 .orderCode(order.getOrderCode())

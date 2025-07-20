@@ -4,8 +4,8 @@ import com.fiap.fast_food_tc.application.dto.checkout.CheckoutOrderRequest;
 import com.fiap.fast_food_tc.application.dto.checkout.CheckoutResponseDto;
 import com.fiap.fast_food_tc.application.service.impl.CheckoutServiceImpl;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CheckoutMapper;
-import com.fiap.fast_food_tc.domain.entity.ECheckout;
-import com.fiap.fast_food_tc.domain.entity.ECheckoutOrder;
+import com.fiap.fast_food_tc.domain.entity.Checkout;
+import com.fiap.fast_food_tc.domain.entity.CheckoutOrder;
 import com.fiap.fast_food_tc.application.usecase.CheckoutUseCase;
 import fixture.CheckoutFixture;
 import org.junit.jupiter.api.Test;
@@ -34,15 +34,15 @@ class CheckoutServiceImplTest {
     @Test
     void checkoutAndCreateOrderSuccess() {
         CheckoutOrderRequest request = CheckoutFixture.createRequest();
-        ECheckoutOrder.Item item = ECheckoutOrder.Item.builder()
+        CheckoutOrder.Item item = CheckoutOrder.Item.builder()
                 .productId(1)
                 .quantity(1)
                 .build();
-        ECheckoutOrder entityRequest = ECheckoutOrder.builder()
+        CheckoutOrder entityRequest = CheckoutOrder.builder()
                 .customerId(1)
                 .items(List.of(item))
                 .build();
-        ECheckout checkoutEntity = ECheckout.builder()
+        Checkout checkoutEntity = Checkout.builder()
                 .orderId(1)
                 .paymentLink("link")
                 .build();

@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ECategory {
+public class Category {
 
     private Integer categoryId;
     private String categoryName;

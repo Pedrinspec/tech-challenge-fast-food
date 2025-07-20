@@ -1,9 +1,8 @@
 package com.fiap.fast_food_tc.unit.cross.mapper;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Category;
 import com.fiap.fast_food_tc.application.dto.category.CategoryResponseDTO;
+import com.fiap.fast_food_tc.domain.entity.Category;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CategoryMapper;
-import com.fiap.fast_food_tc.domain.entity.ECategory;
 import fixture.CategoryFixture;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -18,9 +17,9 @@ class CategoryMapperTest {
 
     @Test
     void toEntitySuccess() {
-        Category category = CategoryFixture.createCategoryModel();
+        com.fiap.fast_food_tc.infrastructure.persistence.entity.Category category = CategoryFixture.createCategoryModel();
 
-        ECategory result = mapper.toEntity(category);
+        Category result = mapper.toEntity(category);
 
         assertEquals(category.getCategoryId(), result.getCategoryId());
         assertEquals(category.getCategoryName(), result.getCategoryName());
@@ -29,9 +28,9 @@ class CategoryMapperTest {
 
     @Test
     void toEntityListSuccess() {
-        Category category = CategoryFixture.createCategoryModel();
+        com.fiap.fast_food_tc.infrastructure.persistence.entity.Category category = CategoryFixture.createCategoryModel();
 
-        List<ECategory> result = mapper.toEntityList(List.of(category));
+        List<Category> result = mapper.toEntityList(List.of(category));
 
         assertEquals(1, result.size());
         assertEquals(category.getCategoryId(), result.getFirst().getCategoryId());
@@ -39,11 +38,11 @@ class CategoryMapperTest {
 
     @Test
     void toResponseDTOListSuccess() {
-        ECategory eCategory = CategoryFixture.createECategory();
+        Category category = CategoryFixture.createECategory();
 
-        List<CategoryResponseDTO> result = mapper.toResponseDTOList(List.of(eCategory));
+        List<CategoryResponseDTO> result = mapper.toResponseDTOList(List.of(category));
 
         assertEquals(1, result.size());
-        assertEquals(eCategory.getCategoryId(), result.getFirst().getCategoryId());
+        assertEquals(category.getCategoryId(), result.getFirst().getCategoryId());
     }
 }

@@ -1,11 +1,10 @@
 package com.fiap.fast_food_tc.unit.domain.usecase;
 
+import com.fiap.fast_food_tc.domain.entity.OrderProduct;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.OrderProductMapper;
 import com.fiap.fast_food_tc.application.gateway.OrderProductGateway;
 import com.fiap.fast_food_tc.application.usecase.impl.OrderProductUseCaseImpl;
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProduct;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.ids.OrderProductPk;
-import com.fiap.fast_food_tc.domain.entity.EOrderProduct;
 import fixture.OrderProductFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,8 +33,8 @@ class OrderProductUseCaseImplTest {
 
     @Test
     void createSuccess() {
-        EOrderProduct entity = OrderProductFixture.createEOrderProduct();
-        OrderProduct model = OrderProductFixture.createOrderProduct();
+        OrderProduct entity = OrderProductFixture.createEOrderProduct();
+        com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProduct model = OrderProductFixture.createOrderProduct();
 
         Mockito.when(mapper.toModel(entity)).thenReturn(model);
         Mockito.when(gateway.create(model)).thenReturn(model);
@@ -48,8 +47,8 @@ class OrderProductUseCaseImplTest {
 
     @Test
     void getAllSuccess() {
-        List<OrderProduct> models = List.of(OrderProductFixture.createOrderProduct());
-        List<EOrderProduct> entities = List.of(OrderProductFixture.createEOrderProduct());
+        List<com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProduct> models = List.of(OrderProductFixture.createOrderProduct());
+        List<OrderProduct> entities = List.of(OrderProductFixture.createEOrderProduct());
 
         Mockito.when(gateway.getAll()).thenReturn(models);
         Mockito.when(mapper.toEntityList(models)).thenReturn(entities);
@@ -61,8 +60,8 @@ class OrderProductUseCaseImplTest {
 
     @Test
     void getByIdSuccess() {
-        OrderProduct model = OrderProductFixture.createOrderProduct();
-        EOrderProduct entity = OrderProductFixture.createEOrderProduct();
+        com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProduct model = OrderProductFixture.createOrderProduct();
+        OrderProduct entity = OrderProductFixture.createEOrderProduct();
         OrderProductPk pk = new OrderProductPk(1,1);
 
         Mockito.when(gateway.getById(pk)).thenReturn(model);
@@ -75,8 +74,8 @@ class OrderProductUseCaseImplTest {
 
     @Test
     void updateSuccess() {
-        EOrderProduct entity = OrderProductFixture.createEOrderProduct();
-        OrderProduct model = OrderProductFixture.createOrderProduct();
+        OrderProduct entity = OrderProductFixture.createEOrderProduct();
+        com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProduct model = OrderProductFixture.createOrderProduct();
 
         Mockito.when(mapper.toModel(any())).thenReturn(model);
         Mockito.when(gateway.update(model)).thenReturn(model);

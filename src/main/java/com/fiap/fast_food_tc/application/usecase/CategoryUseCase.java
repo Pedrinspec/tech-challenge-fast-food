@@ -1,13 +1,13 @@
 package com.fiap.fast_food_tc.application.usecase;
 
-import com.fiap.fast_food_tc.domain.entity.ECategory;
+import com.fiap.fast_food_tc.domain.entity.Category;
 
 import java.util.List;
 
 public interface CategoryUseCase {
-    List<ECategory> getAllCategories();
+    List<Category> getAllCategories();
 
-    ECategory create(ECategory category);
+    Category create(Category category);
 
-    ECategory update(Integer id, ECategory category);
+    Category update(Integer id, Category category);
 }

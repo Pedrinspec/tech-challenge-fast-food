@@ -1,21 +1,21 @@
 package com.fiap.fast_food_tc.application.usecase;
 
-import com.fiap.fast_food_tc.domain.entity.ECustomer;
+import com.fiap.fast_food_tc.domain.entity.Customer;
 
 import java.util.List;
 
 public interface CustomerUseCase {
 
-    ECustomer create(ECustomer user);
+    Customer create(Customer user);
 
-    ECustomer update(ECustomer user);
+    Customer update(Customer user);
 
     void delete(Integer id);
 
-    ECustomer getById(Integer id);
+    Customer getById(Integer id);
 
-    List<ECustomer> getAll();
+    List<Customer> getAll();
 
-    ECustomer getByDocumentNumber(String documentNumber);
+    Customer getByDocumentNumber(String documentNumber);
 
 }

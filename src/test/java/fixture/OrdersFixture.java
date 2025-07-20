@@ -1,18 +1,17 @@
 package fixture;
 
 import com.fiap.fast_food_tc.domain.enums.StatusOrder;
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders;
 import com.fiap.fast_food_tc.application.dto.orders.OrdersRequestDto;
 import com.fiap.fast_food_tc.application.dto.orders.OrdersResponseDto;
-import com.fiap.fast_food_tc.domain.entity.EOrders;
+import com.fiap.fast_food_tc.domain.entity.Orders;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class OrdersFixture {
 
-    public static EOrders createEOrders() {
-        return EOrders.builder()
+    public static Orders createEOrders() {
+        return Orders.builder()
                 .orderId(1)
                 .orderDatetime(LocalDateTime.now())
                 .statusOrder(StatusOrder.IN_PREPARATION)
@@ -22,8 +21,8 @@ public class OrdersFixture {
                 .build();
     }
 
-    public static Orders createOrders() {
-        return Orders.builder()
+    public static com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders createOrders() {
+        return com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders.builder()
                 .orderId(1)
                 .orderDatetime(LocalDateTime.now())
                 .statusOrder(StatusOrder.READY_FOR_PICKUP)

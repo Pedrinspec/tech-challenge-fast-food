@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.application.usecase.impl;
 
+import com.fiap.fast_food_tc.domain.entity.Category;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CategoryMapper;
-import com.fiap.fast_food_tc.domain.entity.ECategory;
 import com.fiap.fast_food_tc.application.gateway.CategoryGateway;
 import com.fiap.fast_food_tc.application.usecase.CategoryUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +22,18 @@ public class CategoryUseCaseImpl implements CategoryUseCase {
     }
 
     @Override
-    public List<ECategory> getAllCategories() {
+    public List<Category> getAllCategories() {
         return categoryMapper.toEntityList(categoryGateway.findAllCategories());
     }
 
     @Override
-    public ECategory create(ECategory category) {
+    public Category create(Category category) {
         return categoryMapper.toEntity(
                 categoryGateway.createCategory(categoryMapper.toModel(category)));
     }
 
     @Override
-    public ECategory update(Integer id, ECategory category) {
+    public Category update(Integer id, Category category) {
         category.setCategoryId(id);
         return categoryMapper.toEntity(
                 categoryGateway.updateCategory(categoryMapper.toModel(category)));

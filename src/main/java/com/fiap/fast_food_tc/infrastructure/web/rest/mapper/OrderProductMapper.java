@@ -1,9 +1,8 @@
 package com.fiap.fast_food_tc.infrastructure.web.rest.mapper;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProduct;
 import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductRequestDto;
 import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductResponseDto;
-import com.fiap.fast_food_tc.domain.entity.EOrderProduct;
+import com.fiap.fast_food_tc.domain.entity.OrderProduct;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -15,19 +14,19 @@ public interface OrderProductMapper {
     @Mapping(target = "orders.orderId", source = "orderId")
     @Mapping(target = "product.productId", source = "productId")
     @Mapping(target = "id", ignore = true)
-    OrderProduct toModel(EOrderProduct entity);
+    com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProduct toModel(OrderProduct entity);
 
     @Mapping(target = "orderId", source = "orders.orderId")
     @Mapping(target = "productId", source = "product.productId")
-    EOrderProduct toEntity(OrderProduct model);
+    OrderProduct toEntity(com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProduct model);
 
     @Mapping(target = "orderId", source = "orderId")
     @Mapping(target = "productId", source = "productId")
-    EOrderProduct toEntityCreate(OrderProductRequestDto dto);
+    OrderProduct toEntityCreate(OrderProductRequestDto dto);
 
-    OrderProductResponseDto toResponse(EOrderProduct entity);
+    OrderProductResponseDto toResponse(OrderProduct entity);
 
-    List<OrderProductResponseDto> toResponseList(List<EOrderProduct> list);
+    List<OrderProductResponseDto> toResponseList(List<OrderProduct> list);
 
-    List<EOrderProduct> toEntityList(List<OrderProduct> list);
+    List<OrderProduct> toEntityList(List<com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProduct> list);
 }

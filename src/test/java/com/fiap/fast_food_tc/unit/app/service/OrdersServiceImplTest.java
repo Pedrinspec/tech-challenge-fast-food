@@ -4,7 +4,7 @@ import com.fiap.fast_food_tc.application.dto.orders.OrdersRequestDto;
 import com.fiap.fast_food_tc.application.dto.orders.OrdersResponseDto;
 import com.fiap.fast_food_tc.application.service.impl.OrdersServiceImpl;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.OrdersMapper;
-import com.fiap.fast_food_tc.domain.entity.EOrders;
+import com.fiap.fast_food_tc.domain.entity.Orders;
 import com.fiap.fast_food_tc.application.usecase.OrdersUseCase;
 import fixture.OrdersFixture;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +32,7 @@ class OrdersServiceImplTest {
     @InjectMocks
     private OrdersServiceImpl service;
 
-    private EOrders order;
+    private Orders order;
     private OrdersResponseDto responseDto;
     private OrdersRequestDto requestDto;
 

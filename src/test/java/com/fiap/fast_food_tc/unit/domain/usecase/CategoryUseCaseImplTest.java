@@ -1,11 +1,10 @@
 package com.fiap.fast_food_tc.unit.domain.usecase;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Category;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CategoryMapper;
 import com.fiap.fast_food_tc.application.gateway.CategoryGateway;
 import com.fiap.fast_food_tc.application.usecase.impl.CategoryUseCaseImpl;
 import fixture.CategoryFixture;
-import com.fiap.fast_food_tc.domain.entity.ECategory;
+import com.fiap.fast_food_tc.domain.entity.Category;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,8 +29,8 @@ class CategoryUseCaseImplTest {
 
     @Test
     void getAllCategoriesSuccess() {
-        List<Category> models = List.of(CategoryFixture.createCategoryModel());
-        List<ECategory> entities = List.of(CategoryFixture.createECategory());
+        List<com.fiap.fast_food_tc.infrastructure.persistence.entity.Category> models = List.of(CategoryFixture.createCategoryModel());
+        List<Category> entities = List.of(CategoryFixture.createECategory());
 
         Mockito.when(categoryGateway.findAllCategories()).thenReturn(models);
         Mockito.when(categoryMapper.toEntityList(models)).thenReturn(entities);
@@ -44,8 +43,8 @@ class CategoryUseCaseImplTest {
 
     @Test
     void createSuccess() {
-        ECategory entity = CategoryFixture.createECategory();
-        Category model = CategoryFixture.createCategoryModel();
+        Category entity = CategoryFixture.createECategory();
+        com.fiap.fast_food_tc.infrastructure.persistence.entity.Category model = CategoryFixture.createCategoryModel();
 
         Mockito.when(categoryMapper.toModel(entity)).thenReturn(model);
         Mockito.when(categoryGateway.createCategory(model)).thenReturn(model);
@@ -58,8 +57,8 @@ class CategoryUseCaseImplTest {
 
     @Test
     void updateSuccess() {
-        ECategory entity = CategoryFixture.createECategory();
-        Category model = CategoryFixture.createCategoryModel();
+        Category entity = CategoryFixture.createECategory();
+        com.fiap.fast_food_tc.infrastructure.persistence.entity.Category model = CategoryFixture.createCategoryModel();
 
         Mockito.when(categoryMapper.toModel(any())).thenReturn(model);
         Mockito.when(categoryGateway.updateCategory(model)).thenReturn(model);

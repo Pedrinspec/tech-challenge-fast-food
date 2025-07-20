@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EOrders {
+public class Orders {
 
     private Integer orderId;
     private LocalDateTime orderDatetime;

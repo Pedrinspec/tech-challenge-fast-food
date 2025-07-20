@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.application.dto.checkout;
 
 import com.fiap.fast_food_tc.domain.enums.StatusOrder;
-import com.fiap.fast_food_tc.domain.entity.ECheckoutOrder;
+import com.fiap.fast_food_tc.domain.entity.CheckoutOrder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +24,6 @@ public class CheckoutResponseDto {
     private StatusOrder statusOrder;
     private Short orderCode;
     private BigDecimal totalAmount;
-    private ECheckoutOrder orderRequest;
+    private CheckoutOrder orderRequest;
 
 }

@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.application.usecase.impl;
 
+import com.fiap.fast_food_tc.domain.entity.Customer;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CustomerMapper;
-import com.fiap.fast_food_tc.domain.entity.ECustomer;
 import com.fiap.fast_food_tc.application.gateway.CustomerGateway;
 import com.fiap.fast_food_tc.application.usecase.CustomerUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +23,17 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
     }
 
     @Override
-    public ECustomer create(ECustomer eCustomer) {
-        return customerMapper.toEntity(customerGateway.create(customerMapper.toDomain(eCustomer)));
+    public Customer create(Customer customer) {
+        return customerMapper.toEntity(customerGateway.create(customerMapper.toDomain(customer)));
     }
 
     @Override
-    public ECustomer getByDocumentNumber(String documentNumber) {
+    public Customer getByDocumentNumber(String documentNumber) {
         return customerMapper.toEntity(customerGateway.findByDocumentNumber(documentNumber));
     }
 
     @Override
-    public ECustomer update(ECustomer user) {
+    public Customer update(Customer user) {
         return customerMapper.toEntity(customerGateway.update(customerMapper.toDomain(user)));
     }
 
@@ -43,12 +43,12 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
     }
 
     @Override
-    public ECustomer getById(Integer id) {
+    public Customer getById(Integer id) {
         return customerMapper.toEntity(customerGateway.findById(id));
     }
 
     @Override
-    public List<ECustomer> getAll() {
+    public List<Customer> getAll() {
         return customerMapper.toEntityList(customerGateway.findAll());
     }
 

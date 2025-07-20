@@ -12,12 +12,12 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ECheckout {
+public class Checkout {
 
     private Integer orderId;
     private String paymentLink;
     private StatusOrder statusOrder;
     private Short orderCode;
     private BigDecimal totalAmount;
-    private ECheckoutOrder orderRequest;
+    private CheckoutOrder orderRequest;
 }

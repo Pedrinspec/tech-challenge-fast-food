@@ -3,8 +3,8 @@ package com.fiap.fast_food_tc.unit.app.service;
 import com.fiap.fast_food_tc.application.dto.customer.CustomerRequestDto;
 import com.fiap.fast_food_tc.application.dto.customer.CustomerResponseDto;
 import com.fiap.fast_food_tc.application.service.impl.CustomerServiceImpl;
+import com.fiap.fast_food_tc.domain.entity.Customer;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CustomerMapper;
-import com.fiap.fast_food_tc.domain.entity.ECustomer;
 import com.fiap.fast_food_tc.application.usecase.CustomerUseCase;
 import fixture.CustomerFixture;
 import org.junit.jupiter.api.Test;
@@ -34,19 +34,19 @@ class CustomerServiceImplTest {
     @Test
     void shouldCreateUserSuccess() {
         CustomerRequestDto requestDto = CustomerFixture.createCustomerRequestDto();
-        ECustomer userSalvo = CustomerFixture.createECustomer();
+        Customer userSalvo = CustomerFixture.createECustomer();
 
         when(customerMapper.messageToEntity(requestDto)).thenReturn(userSalvo);
-        when(customerUseCase.create(any(ECustomer.class))).thenReturn(userSalvo);
+        when(customerUseCase.create(any(Customer.class))).thenReturn(userSalvo);
 
         service.create(requestDto);
 
-        verify(customerUseCase).create(any(ECustomer.class));
+        verify(customerUseCase).create(any(Customer.class));
     }
 
     @Test
     void shouldGetByDocumentNumberSuccess() {
-        ECustomer userSalvo = CustomerFixture.createECustomer();
+        Customer userSalvo = CustomerFixture.createECustomer();
         CustomerResponseDto requestDto = CustomerFixture.createCustomerResponseDto();
 
         when(customerUseCase.getByDocumentNumber(any())).thenReturn(userSalvo);
@@ -60,7 +60,7 @@ class CustomerServiceImplTest {
 
     @Test
     void shouldGetByIdSuccess() {
-        ECustomer user = CustomerFixture.createECustomer();
+        Customer user = CustomerFixture.createECustomer();
         CustomerResponseDto responseDto = CustomerFixture.createCustomerResponseDto();
 
         when(customerUseCase.getById(any())).thenReturn(user);
@@ -89,7 +89,7 @@ class CustomerServiceImplTest {
     @Test
     void shouldUpdateSuccess() {
         CustomerRequestDto requestDto = CustomerFixture.createCustomerRequestDto();
-        ECustomer entity = CustomerFixture.createECustomer();
+        Customer entity = CustomerFixture.createECustomer();
         CustomerResponseDto responseDto = CustomerFixture.createCustomerResponseDto();
 
         when(customerMapper.messageToEntity(requestDto)).thenReturn(entity);

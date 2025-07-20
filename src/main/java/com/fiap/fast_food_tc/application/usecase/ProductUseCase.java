@@ -1,19 +1,19 @@
 package com.fiap.fast_food_tc.application.usecase;
 
-import com.fiap.fast_food_tc.domain.entity.EProduct;
+import com.fiap.fast_food_tc.domain.entity.Product;
 
 import java.util.List;
 
 public interface ProductUseCase {
-    EProduct create(EProduct product);
+    Product create(Product product);
 
-    List<EProduct> findAll();
+    List<Product> findAll();
 
-    EProduct updateCustomer(Integer id, EProduct dto);
+    Product updateCustomer(Integer id, Product dto);
 
     void deleteProduct(Integer id);
 
-    List<EProduct> findByCategoryId(Integer categoryId);
+    List<Product> findByCategoryId(Integer categoryId);
 
-    EProduct findById(Integer id);
+    Product findById(Integer id);
 }

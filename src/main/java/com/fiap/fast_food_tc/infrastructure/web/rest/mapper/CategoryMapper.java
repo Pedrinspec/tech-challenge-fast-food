@@ -1,9 +1,8 @@
 package com.fiap.fast_food_tc.infrastructure.web.rest.mapper;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Category;
 import com.fiap.fast_food_tc.application.dto.category.CategoryRequest;
 import com.fiap.fast_food_tc.application.dto.category.CategoryResponseDTO;
-import com.fiap.fast_food_tc.domain.entity.ECategory;
+import com.fiap.fast_food_tc.domain.entity.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -12,17 +11,17 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CategoryMapper {
 
-    ECategory toEntity(Category category);
+    Category toEntity(com.fiap.fast_food_tc.infrastructure.persistence.entity.Category category);
 
-    List<ECategory> toEntityList(List<Category> categories);
+    List<Category> toEntityList(List<com.fiap.fast_food_tc.infrastructure.persistence.entity.Category> categories);
 
-    List<CategoryResponseDTO> toResponseDTOList(List<ECategory> allCategories);
+    List<CategoryResponseDTO> toResponseDTOList(List<Category> allCategories);
 
     @Mapping(target = "products", ignore = true)
-    Category toModel(ECategory category);
+    com.fiap.fast_food_tc.infrastructure.persistence.entity.Category toModel(Category category);
 
     @Mapping(target = "categoryId", ignore = true)
-    ECategory toEntityCreate(CategoryRequest request);
+    Category toEntityCreate(CategoryRequest request);
 
-    CategoryResponseDTO toResponseDTO(ECategory category);
+    CategoryResponseDTO toResponseDTO(Category category);
 }

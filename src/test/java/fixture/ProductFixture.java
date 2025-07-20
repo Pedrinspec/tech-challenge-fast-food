@@ -1,9 +1,8 @@
 package fixture;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Product;
 import com.fiap.fast_food_tc.application.dto.product.ProductRequest;
 import com.fiap.fast_food_tc.application.dto.product.ProductResponse;
-import com.fiap.fast_food_tc.domain.entity.EProduct;
+import com.fiap.fast_food_tc.domain.entity.Product;
 
 import java.math.BigDecimal;
 
@@ -11,8 +10,8 @@ public class ProductFixture {
 
 
 
-    public static Product createProduct() {
-        return Product.builder()
+    public static com.fiap.fast_food_tc.infrastructure.persistence.entity.Product createProduct() {
+        return com.fiap.fast_food_tc.infrastructure.persistence.entity.Product.builder()
                 .productId(1)
                 .name("Hamburguer")
                 .description("Delicious hamburguer")
@@ -20,8 +19,8 @@ public class ProductFixture {
                 .build();
     }
 
-    public static EProduct createEProduct() {
-        return EProduct.builder()
+    public static Product createEProduct() {
+        return Product.builder()
                 .productId(1)
                 .name("Hamburguer")
                 .description("Delicious hamburguer")

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EPayment {
+public class Payment {
     private Integer paymentId;
     private PaymentMethod paymentMethod;
     private PaymentStatus paymentStatus;

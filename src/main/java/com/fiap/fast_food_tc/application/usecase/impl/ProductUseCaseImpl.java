@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.application.usecase.impl;
 
+import com.fiap.fast_food_tc.domain.entity.Product;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.ProductMapper;
-import com.fiap.fast_food_tc.domain.entity.EProduct;
 import com.fiap.fast_food_tc.application.gateway.ProductGateway;
 import com.fiap.fast_food_tc.application.usecase.ProductUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,27 +23,27 @@ public class ProductUseCaseImpl implements ProductUseCase {
     }
 
     @Override
-    public EProduct create(EProduct eProduct) {
-        return productMapper.toEntity(productGateway.create(productMapper.toModel(eProduct)));
+    public Product create(Product product) {
+        return productMapper.toEntity(productGateway.create(productMapper.toModel(product)));
     }
 
     @Override
-    public List<EProduct> findByCategoryId(Integer categoryId) {
+    public List<Product> findByCategoryId(Integer categoryId) {
         return productMapper.toEntityList(productGateway.findByCategoryId(categoryId));
     }
 
     @Override
-    public EProduct findById(Integer id) {
+    public Product findById(Integer id) {
         return productMapper.toEntity(productGateway.findById(id));
     }
 
     @Override
-    public List<EProduct> findAll() {
+    public List<Product> findAll() {
         return productMapper.toEntityList(productGateway.findAll());
     }
 
     @Override
-    public EProduct updateCustomer(Integer id, EProduct dto) {
+    public Product updateCustomer(Integer id, Product dto) {
         dto.setProductId(id);
         return productMapper.toEntity(productGateway.update(productMapper.toModel(dto)));
     }

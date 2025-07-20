@@ -1,10 +1,9 @@
 package com.fiap.fast_food_tc.unit.cross.mapper;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders;
 import com.fiap.fast_food_tc.application.dto.orders.OrdersRequestDto;
 import com.fiap.fast_food_tc.application.dto.orders.OrdersResponseDto;
+import com.fiap.fast_food_tc.domain.entity.Orders;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.OrdersMapper;
-import com.fiap.fast_food_tc.domain.entity.EOrders;
 import fixture.OrdersFixture;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -21,7 +20,7 @@ class OrdersMapperTest {
     void toEntityCreateSuccess() {
         OrdersRequestDto request = OrdersFixture.createOrdersRequestDto();
 
-        EOrders entity = mapper.toEntityCreate(request);
+        Orders entity = mapper.toEntityCreate(request);
 
         assertNull(entity.getOrderId());
         assertNull(entity.getOrderCode());
@@ -33,9 +32,9 @@ class OrdersMapperTest {
 
     @Test
     void toEntitySuccess() {
-        Orders model = OrdersFixture.createOrders();
+        com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders model = OrdersFixture.createOrders();
 
-        EOrders entity = mapper.toEntity(model);
+        Orders entity = mapper.toEntity(model);
 
         assertEquals(model.getOrderId(), entity.getOrderId());
         assertEquals(model.getOrderDatetime(), entity.getOrderDatetime());
@@ -47,9 +46,9 @@ class OrdersMapperTest {
 
     @Test
     void toModelSuccess() {
-        EOrders entity = OrdersFixture.createEOrders();
+        Orders entity = OrdersFixture.createEOrders();
 
-        Orders model = mapper.toModel(entity);
+        com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders model = mapper.toModel(entity);
 
         assertEquals(entity.getOrderId(), model.getOrderId());
         assertEquals(entity.getOrderDatetime(), model.getOrderDatetime());
@@ -63,19 +62,19 @@ class OrdersMapperTest {
 
     @Test
     void toResponseListSuccess() {
-        EOrders eOrders = OrdersFixture.createEOrders();
+        Orders orders = OrdersFixture.createEOrders();
 
-        List<OrdersResponseDto> dtos = mapper.toResponseList(List.of(eOrders));
+        List<OrdersResponseDto> dtos = mapper.toResponseList(List.of(orders));
 
         assertEquals(1, dtos.size());
-        assertEquals(eOrders.getOrderId(), dtos.getFirst().getOrderId());
+        assertEquals(orders.getOrderId(), dtos.getFirst().getOrderId());
     }
 
     @Test
     void toEntityListSuccess() {
-        Orders orders = OrdersFixture.createOrders();
+        com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders orders = OrdersFixture.createOrders();
 
-        List<EOrders> entities = mapper.toEntityList(List.of(orders));
+        List<Orders> entities = mapper.toEntityList(List.of(orders));
 
         assertEquals(1, entities.size());
         assertEquals(orders.getOrderId(), entities.getFirst().getOrderId());
@@ -83,7 +82,7 @@ class OrdersMapperTest {
 
     @Test
     void toResponseSuccess() {
-        EOrders entity = OrdersFixture.createEOrders();
+        Orders entity = OrdersFixture.createEOrders();
 
         OrdersResponseDto dto = mapper.toResponse(entity);
 

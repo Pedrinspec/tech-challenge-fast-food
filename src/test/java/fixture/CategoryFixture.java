@@ -1,14 +1,13 @@
 package fixture;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Category;
 import com.fiap.fast_food_tc.application.dto.category.CategoryRequest;
 import com.fiap.fast_food_tc.application.dto.category.CategoryResponseDTO;
-import com.fiap.fast_food_tc.domain.entity.ECategory;
+import com.fiap.fast_food_tc.domain.entity.Category;
 
 public class CategoryFixture {
 
-    public static ECategory createECategory() {
-        return ECategory.builder()
+    public static Category createECategory() {
+        return Category.builder()
                 .categoryId(1)
                 .categoryName("Burgers")
                 .categoryDescription("Delicious burgers")
@@ -23,8 +22,8 @@ public class CategoryFixture {
                 .build();
     }
 
-    public static Category createCategoryModel() {
-        return Category.builder()
+    public static com.fiap.fast_food_tc.infrastructure.persistence.entity.Category createCategoryModel() {
+        return com.fiap.fast_food_tc.infrastructure.persistence.entity.Category.builder()
                 .categoryId(1)
                 .categoryName("Burgers")
                 .categoryDescription("Delicious burgers")

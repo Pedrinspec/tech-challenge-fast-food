@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.application.usecase.impl;
 
+import com.fiap.fast_food_tc.domain.entity.Orders;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.OrdersMapper;
-import com.fiap.fast_food_tc.domain.entity.EOrders;
 import com.fiap.fast_food_tc.application.gateway.OrdersGateway;
 import com.fiap.fast_food_tc.application.usecase.OrdersUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,23 +38,23 @@ public class OrdersUseCaseImpl implements OrdersUseCase {
     }
 
     @Override
-    public List<EOrders> getAllOrders() {
+    public List<Orders> getAllOrders() {
         return ordersMapper.toEntityList(provider.getAllOrders());
     }
 
     @Override
-    public EOrders create(EOrders orderEntity) {
+    public Orders create(Orders orderEntity) {
         orderEntity.setOrderCode(getNextOrderCode());
         return ordersMapper.toEntity(provider.create(ordersMapper.toModel(orderEntity)));
     }
 
     @Override
-    public EOrders getById(Integer id) {
+    public Orders getById(Integer id) {
         return ordersMapper.toEntity(provider.getById(id));
     }
 
     @Override
-    public EOrders update(Integer id, EOrders orderEntity) {
+    public Orders update(Integer id, Orders orderEntity) {
         orderEntity.setOrderId(id);
         return ordersMapper.toEntity(provider.update(ordersMapper.toModel(orderEntity)));
     }

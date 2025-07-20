@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.application.usecase.impl;
 
+import com.fiap.fast_food_tc.domain.entity.OrderProduct;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.OrderProductMapper;
-import com.fiap.fast_food_tc.domain.entity.EOrderProduct;
 import com.fiap.fast_food_tc.application.gateway.OrderProductGateway;
 import com.fiap.fast_food_tc.application.usecase.OrderProductUseCase;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.ids.OrderProductPk;
@@ -23,23 +23,23 @@ public class OrderProductUseCaseImpl implements OrderProductUseCase {
     }
 
     @Override
-    public EOrderProduct create(EOrderProduct orderProduct) {
+    public OrderProduct create(OrderProduct orderProduct) {
         return mapper.toEntity(gateway.create(mapper.toModel(orderProduct)));
     }
 
     @Override
-    public List<EOrderProduct> getAll() {
+    public List<OrderProduct> getAll() {
         return mapper.toEntityList(gateway.getAll());
     }
 
     @Override
-    public EOrderProduct getById(Integer orderId, Integer productId) {
+    public OrderProduct getById(Integer orderId, Integer productId) {
         OrderProductPk pk = new OrderProductPk(orderId, productId);
         return mapper.toEntity(gateway.getById(pk));
     }
 
     @Override
-    public EOrderProduct update(Integer orderId, Integer productId, EOrderProduct orderProduct) {
+    public OrderProduct update(Integer orderId, Integer productId, OrderProduct orderProduct) {
         orderProduct.setOrderId(orderId);
         orderProduct.setProductId(productId);
         return mapper.toEntity(gateway.update(mapper.toModel(orderProduct)));

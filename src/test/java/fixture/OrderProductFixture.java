@@ -1,25 +1,24 @@
 package fixture;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProduct;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.Product;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.ids.OrderProductPk;
 import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductRequestDto;
 import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductResponseDto;
-import com.fiap.fast_food_tc.domain.entity.EOrderProduct;
+import com.fiap.fast_food_tc.domain.entity.OrderProduct;
 
 import java.math.BigDecimal;
 
 public class OrderProductFixture {
 
-    public static OrderProduct createOrderProduct() {
+    public static com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProduct createOrderProduct() {
         Orders order = OrdersFixture.createOrders();
         Product product = ProductFixture.createProduct();
         OrderProductPk pk = OrderProductPk.builder()
                 .orderId(order.getOrderId())
                 .productId(product.getProductId())
                 .build();
-        OrderProduct op = new OrderProduct();
+        com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProduct op = new com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProduct();
         op.setId(pk);
         op.setOrders(order);
         op.setProduct(product);
@@ -28,8 +27,8 @@ public class OrderProductFixture {
         return op;
     }
 
-    public static EOrderProduct createEOrderProduct() {
-        return EOrderProduct.builder()
+    public static OrderProduct createEOrderProduct() {
+        return OrderProduct.builder()
                 .orderId(1)
                 .productId(1)
                 .productQuantity(1)

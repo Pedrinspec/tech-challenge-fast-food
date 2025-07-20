@@ -1,10 +1,10 @@
 package com.fiap.fast_food_tc.unit.domain.usecase;
 
-import com.fiap.fast_food_tc.domain.entity.ECheckoutOrder;
+import com.fiap.fast_food_tc.domain.entity.CheckoutOrder;
 import com.fiap.fast_food_tc.application.gateway.CheckoutGateway;
-import com.fiap.fast_food_tc.domain.entity.EOrderProduct;
-import com.fiap.fast_food_tc.domain.entity.EOrders;
-import com.fiap.fast_food_tc.domain.entity.EProduct;
+import com.fiap.fast_food_tc.domain.entity.OrderProduct;
+import com.fiap.fast_food_tc.domain.entity.Orders;
+import com.fiap.fast_food_tc.domain.entity.Product;
 import com.fiap.fast_food_tc.application.usecase.OrderProductUseCase;
 import com.fiap.fast_food_tc.application.usecase.OrdersUseCase;
 import com.fiap.fast_food_tc.application.usecase.ProductUseCase;
@@ -43,20 +43,20 @@ class CheckoutUseCaseImplTest {
 
     @Test
     void checkoutAndCreateOrderSuccess() {
-        ECheckoutOrder.Item item = ECheckoutOrder.Item.builder()
+        CheckoutOrder.Item item = CheckoutOrder.Item.builder()
                 .productId(1)
                 .quantity(1)
                 .build();
-        ECheckoutOrder request = ECheckoutOrder.builder()
+        CheckoutOrder request = CheckoutOrder.builder()
                 .customerId(1)
                 .items(java.util.List.of(item))
                 .build();
 
         Mockito.when(ordersUseCase.getNextOrderCode()).thenReturn((short)1);
-        Mockito.when(ordersUseCase.create(Mockito.any(EOrders.class))).thenReturn(EOrders.builder().orderId(1).build());
-        Mockito.when(productUseCase.findById(Mockito.anyInt())).thenReturn(EProduct.builder().productId(1).productValue(java.math.BigDecimal.ONE).build());
-        Mockito.when(orderProductUseCase.create(Mockito.any(EOrderProduct.class))).thenReturn(EOrderProduct.builder().build());
-        Mockito.when(ordersUseCase.update(Mockito.anyInt(), Mockito.any(EOrders.class))).thenReturn(EOrders.builder().orderId(1).build());
+        Mockito.when(ordersUseCase.create(Mockito.any(Orders.class))).thenReturn(Orders.builder().orderId(1).build());
+        Mockito.when(productUseCase.findById(Mockito.anyInt())).thenReturn(Product.builder().productId(1).productValue(java.math.BigDecimal.ONE).build());
+        Mockito.when(orderProductUseCase.create(Mockito.any(OrderProduct.class))).thenReturn(OrderProduct.builder().build());
+        Mockito.when(ordersUseCase.update(Mockito.anyInt(), Mockito.any(Orders.class))).thenReturn(Orders.builder().orderId(1).build());
         Mockito.when(checkoutGateway.getPaymentLink(1)).thenReturn("link");
 
         var result = useCase.checkoutAndCreateOrder(request);

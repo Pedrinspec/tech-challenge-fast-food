@@ -1,11 +1,10 @@
 package com.fiap.fast_food_tc.unit.domain.usecase;
 
+import com.fiap.fast_food_tc.domain.entity.Customer;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CustomerMapper;
 import com.fiap.fast_food_tc.application.gateway.CustomerGateway;
 import com.fiap.fast_food_tc.application.usecase.impl.CustomerUseCaseImpl;
 import fixture.CustomerFixture;
-import com.fiap.fast_food_tc.domain.entity.ECustomer;
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Customer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,9 +26,9 @@ class CustomerUseCaseImplTest {
 
     @Test
     void createSuccess() {
-        ECustomer input = CustomerFixture.createECustomer();
-        Customer model = CustomerFixture.createCustomerModel();
-        ECustomer expected = CustomerFixture.createECustomer();
+        Customer input = CustomerFixture.createECustomer();
+        com.fiap.fast_food_tc.infrastructure.persistence.entity.Customer model = CustomerFixture.createCustomerModel();
+        Customer expected = CustomerFixture.createECustomer();
 
         Mockito.when(customerMapper.toDomain(input)).thenReturn(model);
         Mockito.when(customerGateway.create(model)).thenReturn(model);
@@ -42,8 +41,8 @@ class CustomerUseCaseImplTest {
 
     @Test
     void getByDocumentNumberSuccess() {
-        Customer model = CustomerFixture.createCustomerModel();
-        ECustomer expected = CustomerFixture.createECustomer();
+        com.fiap.fast_food_tc.infrastructure.persistence.entity.Customer model = CustomerFixture.createCustomerModel();
+        Customer expected = CustomerFixture.createECustomer();
 
         Mockito.when(customerGateway.findByDocumentNumber("111111")).thenReturn(model);
         Mockito.when(customerMapper.toEntity(model)).thenReturn(expected);
@@ -55,8 +54,8 @@ class CustomerUseCaseImplTest {
 
     @Test
     void getByIdSuccess() {
-        Customer model = CustomerFixture.createCustomerModel();
-        ECustomer expected = CustomerFixture.createECustomer();
+        com.fiap.fast_food_tc.infrastructure.persistence.entity.Customer model = CustomerFixture.createCustomerModel();
+        Customer expected = CustomerFixture.createECustomer();
 
         Mockito.when(customerGateway.findById(1)).thenReturn(model);
         Mockito.when(customerMapper.toEntity(model)).thenReturn(expected);
@@ -68,8 +67,8 @@ class CustomerUseCaseImplTest {
 
     @Test
     void getAllSuccess() {
-        java.util.List<Customer> models = java.util.List.of(CustomerFixture.createCustomerModel());
-        java.util.List<ECustomer> entities = java.util.List.of(CustomerFixture.createECustomer());
+        java.util.List<com.fiap.fast_food_tc.infrastructure.persistence.entity.Customer> models = java.util.List.of(CustomerFixture.createCustomerModel());
+        java.util.List<Customer> entities = java.util.List.of(CustomerFixture.createECustomer());
 
         Mockito.when(customerGateway.findAll()).thenReturn(models);
         Mockito.when(customerMapper.toEntityList(models)).thenReturn(entities);
@@ -81,8 +80,8 @@ class CustomerUseCaseImplTest {
 
     @Test
     void updateSuccess() {
-        ECustomer entity = CustomerFixture.createECustomer();
-        Customer model = CustomerFixture.createCustomerModel();
+        Customer entity = CustomerFixture.createECustomer();
+        com.fiap.fast_food_tc.infrastructure.persistence.entity.Customer model = CustomerFixture.createCustomerModel();
 
         Mockito.when(customerMapper.toDomain(entity)).thenReturn(model);
         Mockito.when(customerGateway.update(model)).thenReturn(model);

@@ -7,13 +7,19 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-@Data
 @Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EOrderProduct {
-    private Integer orderId;
+public class Product {
+
     private Integer productId;
-    private Integer productQuantity;
-    private BigDecimal productTotalAmount;
+    private String name;
+    private Integer quantity;
+    private BigDecimal productValue;
+    private Boolean isAvailable;
+    private Integer categoryId;
+    private String description;
+    private String imagePath;
+
 }

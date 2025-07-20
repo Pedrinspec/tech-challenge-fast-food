@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ECustomer {
+public class Customer {
 
     private Integer customerId;
     private String documentNumber;

@@ -1,15 +1,15 @@
 package com.fiap.fast_food_tc.application.usecase;
 
-import com.fiap.fast_food_tc.domain.entity.EPayment;
+import com.fiap.fast_food_tc.domain.entity.Payment;
 
 import java.util.List;
 
 public interface PaymentUseCase {
-    EPayment create(EPayment payment);
+    Payment create(Payment payment);
 
-    List<EPayment> findAll();
+    List<Payment> findAll();
 
-    EPayment findById(Integer id);
+    Payment findById(Integer id);
 
-    EPayment findByOrderId(Integer orderId);
+    Payment findByOrderId(Integer orderId);
 }

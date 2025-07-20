@@ -11,10 +11,10 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ECheckoutOrder {
+public class CheckoutOrder {
 
     private Integer customerId;
-    private List<ECheckoutOrder.Item> items;
+    private List<CheckoutOrder.Item> items;
 
     @Data
     @Builder
