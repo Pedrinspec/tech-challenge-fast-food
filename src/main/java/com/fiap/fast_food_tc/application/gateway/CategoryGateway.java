@@ -1,17 +1,17 @@
 package com.fiap.fast_food_tc.application.gateway;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Category;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.CategoryPersistenceEntity;
 
 import java.util.List;
 
 public interface CategoryGateway {
-    List<Category> findAllCategories();
+    List<CategoryPersistenceEntity> findAllCategories();
 
-    Category findCategoryById(Integer id);
+    CategoryPersistenceEntity findCategoryById(Integer id);
 
-    Category createCategory(Category category);
+    CategoryPersistenceEntity createCategory(CategoryPersistenceEntity categoryPersistenceEntity);
 
     void deleteCategory(Integer id);
 
-    Category updateCategory(Category category);
+    CategoryPersistenceEntity updateCategory(CategoryPersistenceEntity categoryPersistenceEntity);
 }

@@ -1,4 +1,4 @@
-INSERT INTO category (category_id, category_name, category_description) VALUES
+INSERT INTO categoryPersistenceEntity (category_id, category_name, category_description) VALUES
   (1, 'Burgers', 'Hambúrgueres e sanduíches'),
   (2, 'Bebidas', 'Bebidas em geral');
 

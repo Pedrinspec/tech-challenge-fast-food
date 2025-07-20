@@ -1,5 +1,6 @@
 package com.fiap.fast_food_tc.unit.domain.usecase;
 
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.CategoryPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CategoryMapper;
 import com.fiap.fast_food_tc.application.gateway.CategoryGateway;
 import com.fiap.fast_food_tc.application.usecase.impl.CategoryUseCaseImpl;
@@ -18,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
-class CategoryUseCaseImplTest {
+class CategoryPersistenceEntityUseCaseImplTest {
 
     @Mock
     private CategoryGateway categoryGateway;
@@ -29,7 +30,7 @@ class CategoryUseCaseImplTest {
 
     @Test
     void getAllCategoriesSuccess() {
-        List<com.fiap.fast_food_tc.infrastructure.persistence.entity.Category> models = List.of(CategoryFixture.createCategoryModel());
+        List<CategoryPersistenceEntity> models = List.of(CategoryFixture.createCategoryModel());
         List<Category> entities = List.of(CategoryFixture.createECategory());
 
         Mockito.when(categoryGateway.findAllCategories()).thenReturn(models);
@@ -44,7 +45,7 @@ class CategoryUseCaseImplTest {
     @Test
     void createSuccess() {
         Category entity = CategoryFixture.createECategory();
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Category model = CategoryFixture.createCategoryModel();
+        CategoryPersistenceEntity model = CategoryFixture.createCategoryModel();
 
         Mockito.when(categoryMapper.toModel(entity)).thenReturn(model);
         Mockito.when(categoryGateway.createCategory(model)).thenReturn(model);
@@ -58,7 +59,7 @@ class CategoryUseCaseImplTest {
     @Test
     void updateSuccess() {
         Category entity = CategoryFixture.createECategory();
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Category model = CategoryFixture.createCategoryModel();
+        CategoryPersistenceEntity model = CategoryFixture.createCategoryModel();
 
         Mockito.when(categoryMapper.toModel(any())).thenReturn(model);
         Mockito.when(categoryGateway.updateCategory(model)).thenReturn(model);

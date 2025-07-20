@@ -14,10 +14,10 @@ public interface ProductMapper {
     ProductResponse toResponse(Product product);
 
     @Mapping(target = "orderProducts", ignore = true)
-    @Mapping(target = "category.categoryId", source = "categoryId")
+    @Mapping(target = "categoryPersistenceEntity.categoryId", source = "categoryId")
     com.fiap.fast_food_tc.infrastructure.persistence.entity.Product toModel(Product product);
 
-    @Mapping(source = "category.categoryId", target = "categoryId")
+    @Mapping(source = "categoryPersistenceEntity.categoryId", target = "categoryId")
     Product toEntity(com.fiap.fast_food_tc.infrastructure.persistence.entity.Product product);
 
     @Mapping(target = "productId", ignore = true)

@@ -23,7 +23,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category {
+public class CategoryPersistenceEntity {
 
     @Id
     @Column(name = "category_id", nullable = false, unique = true)
@@ -36,7 +36,7 @@ public class Category {
     @Column(name = "category_description")
     private String categoryDescription;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "categoryPersistenceEntity")
     private List<Product> products;
 
 }

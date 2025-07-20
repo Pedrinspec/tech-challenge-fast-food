@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.unit.cross.mapper;
 
 import com.fiap.fast_food_tc.domain.entity.Product;
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Category;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.CategoryPersistenceEntity;
 import com.fiap.fast_food_tc.application.dto.product.ProductRequest;
 import com.fiap.fast_food_tc.application.dto.product.ProductResponse;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.ProductMapper;
@@ -62,13 +62,13 @@ class ProductMapperTest {
 
     @Test
     void toEntitySuccess() {
-        Category category = CategoryFixture.createCategoryModel();
+        CategoryPersistenceEntity categoryPersistenceEntity = CategoryFixture.createCategoryModel();
         com.fiap.fast_food_tc.infrastructure.persistence.entity.Product product = ProductFixture.createProduct();
         product.setQuantity(2);
         product.setIsAvailable(true);
         product.setDescription("test");
         product.setImagePath("img");
-        product.setCategory(category);
+        product.setCategoryPersistenceEntity(categoryPersistenceEntity);
 
         Product entity = mapper.toEntity(product);
 
@@ -79,7 +79,7 @@ class ProductMapperTest {
         assertEquals(product.getIsAvailable(), entity.getIsAvailable());
         assertEquals(product.getDescription(), entity.getDescription());
         assertEquals(product.getImagePath(), entity.getImagePath());
-        assertEquals(category.getCategoryId(), entity.getCategoryId());
+        assertEquals(categoryPersistenceEntity.getCategoryId(), entity.getCategoryId());
     }
 
     @Test

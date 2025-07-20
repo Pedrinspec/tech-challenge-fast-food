@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.integration;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Category;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.CategoryPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.repository.CategoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @Transactional
-class CategoryControllerITest {
+class CategoryPersistenceEntityControllerITest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -30,7 +30,7 @@ class CategoryControllerITest {
 
     @BeforeEach
     void initMocks() {
-        categoryRepository.save(Category.builder()
+        categoryRepository.save(CategoryPersistenceEntity.builder()
                 .categoryId(1)
                 .categoryName("Burgers")
                 .categoryDescription("burgers")

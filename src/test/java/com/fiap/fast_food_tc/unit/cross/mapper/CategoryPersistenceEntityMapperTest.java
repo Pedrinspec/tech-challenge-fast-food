@@ -2,6 +2,7 @@ package com.fiap.fast_food_tc.unit.cross.mapper;
 
 import com.fiap.fast_food_tc.application.dto.category.CategoryResponseDTO;
 import com.fiap.fast_food_tc.domain.entity.Category;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.CategoryPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CategoryMapper;
 import fixture.CategoryFixture;
 import org.junit.jupiter.api.Test;
@@ -11,29 +12,29 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CategoryMapperTest {
+class CategoryPersistenceEntityMapperTest {
 
     private final CategoryMapper mapper = Mappers.getMapper(CategoryMapper.class);
 
     @Test
     void toEntitySuccess() {
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Category category = CategoryFixture.createCategoryModel();
+        CategoryPersistenceEntity categoryPersistenceEntity = CategoryFixture.createCategoryModel();
 
-        Category result = mapper.toEntity(category);
+        Category result = mapper.toEntity(categoryPersistenceEntity);
 
-        assertEquals(category.getCategoryId(), result.getCategoryId());
-        assertEquals(category.getCategoryName(), result.getCategoryName());
-        assertEquals(category.getCategoryDescription(), result.getCategoryDescription());
+        assertEquals(categoryPersistenceEntity.getCategoryId(), result.getCategoryId());
+        assertEquals(categoryPersistenceEntity.getCategoryName(), result.getCategoryName());
+        assertEquals(categoryPersistenceEntity.getCategoryDescription(), result.getCategoryDescription());
     }
 
     @Test
     void toEntityListSuccess() {
-        com.fiap.fast_food_tc.infrastructure.persistence.entity.Category category = CategoryFixture.createCategoryModel();
+        CategoryPersistenceEntity categoryPersistenceEntity = CategoryFixture.createCategoryModel();
 
-        List<Category> result = mapper.toEntityList(List.of(category));
+        List<Category> result = mapper.toEntityList(List.of(categoryPersistenceEntity));
 
         assertEquals(1, result.size());
-        assertEquals(category.getCategoryId(), result.getFirst().getCategoryId());
+        assertEquals(categoryPersistenceEntity.getCategoryId(), result.getFirst().getCategoryId());
     }
 
     @Test

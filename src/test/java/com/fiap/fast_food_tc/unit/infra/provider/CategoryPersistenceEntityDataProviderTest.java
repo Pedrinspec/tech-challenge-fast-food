@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.unit.infra.provider;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Category;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.CategoryPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.repository.CategoryRepository;
 import com.fiap.fast_food_tc.infrastructure.persistence.dataprovider.CategoryDataProvider;
 import fixture.CategoryFixture;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class CategoryDataProviderTest {
+class CategoryPersistenceEntityDataProviderTest {
 
     @Mock
     private CategoryRepository repository;
@@ -27,7 +27,7 @@ class CategoryDataProviderTest {
 
     @Test
     void findAllCategoriesSuccess() {
-        List<Category> categories = List.of(CategoryFixture.createCategoryModel());
+        List<CategoryPersistenceEntity> categories = List.of(CategoryFixture.createCategoryModel());
         when(repository.findAll()).thenReturn(categories);
 
         var result = provider.findAllCategories();
@@ -37,22 +37,22 @@ class CategoryDataProviderTest {
 
     @Test
     void findCategoryByIdSuccess() {
-        Category category = CategoryFixture.createCategoryModel();
-        when(repository.findById(1)).thenReturn(Optional.of(category));
+        CategoryPersistenceEntity categoryPersistenceEntity = CategoryFixture.createCategoryModel();
+        when(repository.findById(1)).thenReturn(Optional.of(categoryPersistenceEntity));
 
         var result = provider.findCategoryById(1);
 
-        assertEquals(category, result);
+        assertEquals(categoryPersistenceEntity, result);
     }
 
     @Test
     void createCategorySuccess() {
-        Category category = CategoryFixture.createCategoryModel();
-        when(repository.save(category)).thenReturn(category);
+        CategoryPersistenceEntity categoryPersistenceEntity = CategoryFixture.createCategoryModel();
+        when(repository.save(categoryPersistenceEntity)).thenReturn(categoryPersistenceEntity);
 
-        var result = provider.createCategory(category);
+        var result = provider.createCategory(categoryPersistenceEntity);
 
-        assertEquals(category, result);
+        assertEquals(categoryPersistenceEntity, result);
     }
 
     @Test
@@ -64,11 +64,11 @@ class CategoryDataProviderTest {
 
     @Test
     void updateCategorySuccess() {
-        Category category = CategoryFixture.createCategoryModel();
-        when(repository.save(category)).thenReturn(category);
+        CategoryPersistenceEntity categoryPersistenceEntity = CategoryFixture.createCategoryModel();
+        when(repository.save(categoryPersistenceEntity)).thenReturn(categoryPersistenceEntity);
 
-        var result = provider.updateCategory(category);
+        var result = provider.updateCategory(categoryPersistenceEntity);
 
-        assertEquals(category, result);
+        assertEquals(categoryPersistenceEntity, result);
     }
 }

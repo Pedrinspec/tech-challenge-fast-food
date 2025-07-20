@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
-class CategoryServiceTest {
+class CategoryPersistenceEntityServiceTest {
 
     @Mock
     private CategoryMapper categoryMapper;

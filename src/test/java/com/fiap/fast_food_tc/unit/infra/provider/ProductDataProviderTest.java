@@ -76,7 +76,7 @@ class ProductDataProviderTest {
     @Test
     void findByCategoryIdSuccess() {
         List<Product> list = List.of(ProductFixture.createProduct());
-        when(repository.findByCategoryCategoryId(1)).thenReturn(list);
+        when(repository.findByCategoryPersistenceEntityCategoryId(1)).thenReturn(list);
 
         var result = provider.findByCategoryId(1);
 

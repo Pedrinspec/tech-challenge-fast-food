@@ -46,7 +46,7 @@ public class ProductDataProvider implements ProductGateway {
 
     @Override
     public List<Product> findByCategoryId(Integer categoryId) {
-        return productRepository.findByCategoryCategoryId(categoryId);
+        return productRepository.findByCategoryPersistenceEntityCategoryId(categoryId);
     }
 
 }

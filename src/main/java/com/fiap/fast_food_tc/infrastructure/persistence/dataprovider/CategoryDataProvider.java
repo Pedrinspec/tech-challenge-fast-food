@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.infrastructure.persistence.dataprovider;
 
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.Category;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.CategoryPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.repository.CategoryRepository;
 import com.fiap.fast_food_tc.application.gateway.CategoryGateway;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +19,18 @@ public class CategoryDataProvider implements CategoryGateway {
     }
 
     @Override
-    public List<Category> findAllCategories() {
+    public List<CategoryPersistenceEntity> findAllCategories() {
         return categoryRepository.findAll();
     }
 
     @Override
-    public Category findCategoryById(Integer id) {
+    public CategoryPersistenceEntity findCategoryById(Integer id) {
         return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found"));
     }
 
     @Override
-    public Category createCategory(Category category) {
-        return categoryRepository.save(category);
+    public CategoryPersistenceEntity createCategory(CategoryPersistenceEntity categoryPersistenceEntity) {
+        return categoryRepository.save(categoryPersistenceEntity);
     }
 
     @Override
@@ -39,8 +39,8 @@ public class CategoryDataProvider implements CategoryGateway {
     }
 
     @Override
-    public Category updateCategory(Category category) {
-        return categoryRepository.save(category);
+    public CategoryPersistenceEntity updateCategory(CategoryPersistenceEntity categoryPersistenceEntity) {
+        return categoryRepository.save(categoryPersistenceEntity);
     }
 
 }

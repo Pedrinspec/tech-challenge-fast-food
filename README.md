@@ -135,9 +135,9 @@ O banco de dados foi estruturado para suportar um sistema de pedidos de fast foo
 - `available_indicator`
 - `product_value`
 - `quantity`
-- `category_id` (FK → category)
+- `category_id` (FK → categoryPersistenceEntity)
 
-#### `category`
+#### `categoryPersistenceEntity`
 - `category_id` (PK)
 - `category_name`
 - `category_description`
@@ -165,7 +165,7 @@ O banco de dados foi estruturado para suportar um sistema de pedidos de fast foo
 
 ```sql
 -- Categorias
-INSERT INTO category (category_name, category_description) VALUES 
+INSERT INTO categoryPersistenceEntity (category_name, category_description) VALUES 
 ('Lanches', 'Hambúrgueres, sanduíches e wraps'),
 ('Bebidas', 'Refrigerantes, sucos e água'),
 ('Sobremesas', 'Doces e sobremesas variadas');
@@ -234,7 +234,7 @@ SELECT
     SUM(op.product_total_amount) AS total_vendido
 FROM order_product op
 JOIN product p ON p.product_id = op.product_id
-JOIN category cat ON cat.category_id = p.category_id
+JOIN categoryPersistenceEntity cat ON cat.category_id = p.category_id
 GROUP BY cat.category_name;
 ```
 
@@ -297,7 +297,7 @@ ORDER BY total_vendido DESC;
 | Customer   | GET    | `/customers/{documentNumber}`     | Get customer by CPF                |
 | Product    | POST   | `/products`                       | Register new product               |
 | Product    | GET    | `/products`                       | List all products                  |
-| Product    | GET    | `/products/category/{categoryId}` | List all products by category      |
+| Product    | GET    | `/products/categoryPersistenceEntity/{categoryId}` | List all products by categoryPersistenceEntity      |
 | Product    | PUT    | `/products/{id}`                  | Update product                     |
 | Product    | DELETE | `/products/{id}`                  | Remove product                     |
 | Category   | GET    | `/categories`                     | List categories                    |
