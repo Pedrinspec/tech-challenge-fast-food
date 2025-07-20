@@ -1,0 +1,106 @@
+package com.fiap.fast_food_tc.infrastructure.persistence.dataprovider;
+
+import com.fiap.fast_food_tc.application.dto.checkout.MPPaymentResponse;
+import com.fiap.fast_food_tc.domain.enums.StatusOrder;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.Payment;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.Product;
+import com.fiap.fast_food_tc.application.dto.checkout.PreferenceRequest;
+import com.fiap.fast_food_tc.application.dto.checkout.PreferenceResponse;
+import com.fiap.fast_food_tc.infrastructure.client.MercadoPagoClient;
+import com.fiap.fast_food_tc.domain.enums.PaymentMethod;
+import com.fiap.fast_food_tc.domain.enums.PaymentStatus;
+import com.fiap.fast_food_tc.application.gateway.CheckoutGateway;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Component
+public class CheckoutDataProvider implements CheckoutGateway {
+
+    private final MercadoPagoClient mercadoPagoClient;
+    private final PaymentDataProvider paymentDataProvider;
+    private final OrdersDataProvider ordersDataProvider;
+    private final OrderProductDataProvider orderProductDataProvider;
+
+    @Autowired
+    public CheckoutDataProvider(MercadoPagoClient mercadoPagoClient, PaymentDataProvider paymentDataProvider, OrdersDataProvider ordersDataProvider, OrderProductDataProvider orderProductDataProvider) {
+        this.mercadoPagoClient = mercadoPagoClient;
+        this.paymentDataProvider = paymentDataProvider;
+        this.ordersDataProvider = ordersDataProvider;
+        this.orderProductDataProvider = orderProductDataProvider;
+    }
+
+    @Override
+    public void verifyApprovedPayment(String paymentId){
+        MPPaymentResponse response = mercadoPagoClient.getPayment(paymentId);
+        if (response != null && "approved".equalsIgnoreCase(response.getStatus())) {
+            Payment payment = paymentDataProvider.findByMercadoPagoId(response.getExternal_reference());
+            payment.setPaymentStatus(PaymentStatus.APPROVED);
+            paymentDataProvider.save(payment);
+
+            Orders order = payment.getOrders();
+            if (order != null) {
+                order.setStatusOrder(StatusOrder.IN_PREPARATION);
+                ordersDataProvider.update(order);
+            }
+        }
+    }
+
+    @Transactional
+    @Override
+    public String getPaymentLink(Integer orderId) {
+
+        var order = ordersDataProvider.getById(orderId);
+        if (order.getOrderProducts() == null) {
+            order.setOrderProducts(orderProductDataProvider.findByOrderId(orderId));
+        }
+        PreferenceRequest request = getPreferenceRequest(order);
+        PreferenceResponse response = mercadoPagoClient.createPreference(request);
+
+        Payment payment = Payment.builder()
+                .customerId(order.getCustomer().getCustomerId())
+                .paymentValue(order.getTotalAmount())
+                .paymentStatus(PaymentStatus.PENDING)
+                .createdAt(LocalDateTime.now())
+                .paymentMethod(PaymentMethod.MERCADO_PAGO)
+                .mercadoPagoId(response.getExternalReference())
+                .orders(order)
+                .build();
+        paymentDataProvider.save(payment);
+
+        return response.getSandboxInitPoint();
+    }
+
+    private PreferenceRequest getPreferenceRequest(Orders order) {
+        List<PreferenceRequest.Item> items = order.getOrderProducts().stream().map(op -> {
+            Product product = op.getProduct();
+            PreferenceRequest.Item item = new PreferenceRequest.Item();
+            item.setTitle(product.getName());
+            item.setCurrencyId("BRL");
+            item.setQuantity(op.getProductQuantity());
+            item.setUnitPrice(product.getProductValue());
+            return item;
+        }).toList();
+
+        return buildRequest(order, items);
+    }
+
+    private static PreferenceRequest buildRequest(Orders order, List<PreferenceRequest.Item> items) {
+        PreferenceRequest.BackUrls urls = new PreferenceRequest.BackUrls();
+        urls.setSuccess("https://average-dress-81.webhook.cool/pagamento/aprovado");
+        urls.setFailure("https://average-dress-81.webhook.cool/pagamento/falha");
+        urls.setPending("https://average-dress-81.webhook.cool/pagamento/pendente");
+
+        PreferenceRequest request = new PreferenceRequest();
+        request.setItems(items);
+        request.setExternalReference("PEDIDO_" + order.getOrderId());
+        request.setBackUrls(urls);
+        request.setAutoReturn("approved");
+        request.setNotificationUrl("https://average-dress-81.webhook.cool/pagamento");
+        return request;
+    }
+}

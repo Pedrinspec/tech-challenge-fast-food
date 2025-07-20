@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.domain.entity;
 
-import com.fiap.fast_food_tc.cross.enums.PaymentMethod;
-import com.fiap.fast_food_tc.cross.enums.PaymentStatus;
+import com.fiap.fast_food_tc.domain.enums.PaymentMethod;
+import com.fiap.fast_food_tc.domain.enums.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

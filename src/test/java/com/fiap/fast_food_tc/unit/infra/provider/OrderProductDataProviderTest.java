@@ -1,9 +1,9 @@
 package com.fiap.fast_food_tc.unit.infra.provider;
 
-import com.fiap.fast_food_tc.infra.db.model.OrderProduct;
-import com.fiap.fast_food_tc.infra.db.model.ids.OrderProductPk;
-import com.fiap.fast_food_tc.infra.db.repository.OrderProductRepository;
-import com.fiap.fast_food_tc.infra.provider.OrderProductDataProvider;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProduct;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.ids.OrderProductPk;
+import com.fiap.fast_food_tc.infrastructure.persistence.repository.OrderProductRepository;
+import com.fiap.fast_food_tc.infrastructure.persistence.dataprovider.OrderProductDataProvider;
 import fixture.OrderProductFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,11 +1,11 @@
 package com.fiap.fast_food_tc.unit.domain.usecase;
 
-import com.fiap.fast_food_tc.cross.mapper.CategoryMapper;
-import com.fiap.fast_food_tc.domain.gateway.CategoryGateway;
-import com.fiap.fast_food_tc.domain.usecase.impl.CategoryUseCaseImpl;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.Category;
+import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CategoryMapper;
+import com.fiap.fast_food_tc.application.gateway.CategoryGateway;
+import com.fiap.fast_food_tc.application.usecase.impl.CategoryUseCaseImpl;
 import fixture.CategoryFixture;
 import com.fiap.fast_food_tc.domain.entity.ECategory;
-import com.fiap.fast_food_tc.infra.db.model.Category;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,6 +1,6 @@
 package com.fiap.fast_food_tc.domain.entity;
 
-import com.fiap.fast_food_tc.cross.enums.StatusOrder;
+import com.fiap.fast_food_tc.domain.enums.StatusOrder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

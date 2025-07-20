@@ -1,8 +1,8 @@
 package fixture;
 
-import com.fiap.fast_food_tc.infra.db.model.Category;
-import com.fiap.fast_food_tc.app.dto.category.CategoryRequest;
-import com.fiap.fast_food_tc.app.dto.category.CategoryResponseDTO;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.Category;
+import com.fiap.fast_food_tc.application.dto.category.CategoryRequest;
+import com.fiap.fast_food_tc.application.dto.category.CategoryResponseDTO;
 import com.fiap.fast_food_tc.domain.entity.ECategory;
 
 public class CategoryFixture {

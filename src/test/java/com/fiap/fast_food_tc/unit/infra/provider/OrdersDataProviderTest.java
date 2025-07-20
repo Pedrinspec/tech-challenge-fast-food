@@ -1,9 +1,9 @@
 package com.fiap.fast_food_tc.unit.infra.provider;
 
-import com.fiap.fast_food_tc.cross.enums.StatusOrder;
-import com.fiap.fast_food_tc.infra.db.model.Orders;
-import com.fiap.fast_food_tc.infra.db.repository.OrdersRepository;
-import com.fiap.fast_food_tc.infra.provider.OrdersDataProvider;
+import com.fiap.fast_food_tc.domain.enums.StatusOrder;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders;
+import com.fiap.fast_food_tc.infrastructure.persistence.repository.OrdersRepository;
+import com.fiap.fast_food_tc.infrastructure.persistence.dataprovider.OrdersDataProvider;
 import fixture.CustomerFixture;
 import fixture.OrdersFixture;
 import org.junit.jupiter.api.Test;

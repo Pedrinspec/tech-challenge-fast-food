@@ -1,9 +1,9 @@
 package com.fiap.fast_food_tc.unit.cross.mapper;
 
-import com.fiap.fast_food_tc.infra.db.model.Orders;
-import com.fiap.fast_food_tc.app.dto.orders.OrdersRequestDto;
-import com.fiap.fast_food_tc.app.dto.orders.OrdersResponseDto;
-import com.fiap.fast_food_tc.cross.mapper.OrdersMapper;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders;
+import com.fiap.fast_food_tc.application.dto.orders.OrdersRequestDto;
+import com.fiap.fast_food_tc.application.dto.orders.OrdersResponseDto;
+import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.OrdersMapper;
 import com.fiap.fast_food_tc.domain.entity.EOrders;
 import fixture.OrdersFixture;
 import org.junit.jupiter.api.Test;

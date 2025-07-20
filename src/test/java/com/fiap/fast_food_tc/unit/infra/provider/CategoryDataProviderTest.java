@@ -1,8 +1,8 @@
 package com.fiap.fast_food_tc.unit.infra.provider;
 
-import com.fiap.fast_food_tc.infra.db.model.Category;
-import com.fiap.fast_food_tc.infra.db.repository.CategoryRepository;
-import com.fiap.fast_food_tc.infra.provider.CategoryDataProvider;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.Category;
+import com.fiap.fast_food_tc.infrastructure.persistence.repository.CategoryRepository;
+import com.fiap.fast_food_tc.infrastructure.persistence.dataprovider.CategoryDataProvider;
 import fixture.CategoryFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

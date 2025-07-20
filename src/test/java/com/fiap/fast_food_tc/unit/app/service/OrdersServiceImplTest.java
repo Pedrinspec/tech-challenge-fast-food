@@ -1,11 +1,11 @@
 package com.fiap.fast_food_tc.unit.app.service;
 
-import com.fiap.fast_food_tc.app.dto.orders.OrdersRequestDto;
-import com.fiap.fast_food_tc.app.dto.orders.OrdersResponseDto;
-import com.fiap.fast_food_tc.app.service.impl.OrdersServiceImpl;
-import com.fiap.fast_food_tc.cross.mapper.OrdersMapper;
+import com.fiap.fast_food_tc.application.dto.orders.OrdersRequestDto;
+import com.fiap.fast_food_tc.application.dto.orders.OrdersResponseDto;
+import com.fiap.fast_food_tc.application.service.impl.OrdersServiceImpl;
+import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.OrdersMapper;
 import com.fiap.fast_food_tc.domain.entity.EOrders;
-import com.fiap.fast_food_tc.domain.usecase.OrdersUseCase;
+import com.fiap.fast_food_tc.application.usecase.OrdersUseCase;
 import fixture.OrdersFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

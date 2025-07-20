@@ -1,8 +1,8 @@
 package com.fiap.fast_food_tc.unit.cross.mapper;
 
-import com.fiap.fast_food_tc.infra.db.model.Category;
-import com.fiap.fast_food_tc.app.dto.category.CategoryResponseDTO;
-import com.fiap.fast_food_tc.cross.mapper.CategoryMapper;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.Category;
+import com.fiap.fast_food_tc.application.dto.category.CategoryResponseDTO;
+import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CategoryMapper;
 import com.fiap.fast_food_tc.domain.entity.ECategory;
 import fixture.CategoryFixture;
 import org.junit.jupiter.api.Test;

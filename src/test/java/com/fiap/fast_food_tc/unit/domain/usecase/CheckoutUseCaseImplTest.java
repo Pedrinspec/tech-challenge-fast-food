@@ -1,14 +1,14 @@
 package com.fiap.fast_food_tc.unit.domain.usecase;
 
 import com.fiap.fast_food_tc.domain.entity.ECheckoutOrder;
-import com.fiap.fast_food_tc.domain.gateway.CheckoutGateway;
+import com.fiap.fast_food_tc.application.gateway.CheckoutGateway;
 import com.fiap.fast_food_tc.domain.entity.EOrderProduct;
 import com.fiap.fast_food_tc.domain.entity.EOrders;
 import com.fiap.fast_food_tc.domain.entity.EProduct;
-import com.fiap.fast_food_tc.domain.usecase.OrderProductUseCase;
-import com.fiap.fast_food_tc.domain.usecase.OrdersUseCase;
-import com.fiap.fast_food_tc.domain.usecase.ProductUseCase;
-import com.fiap.fast_food_tc.domain.usecase.impl.CheckoutUseCaseImpl;
+import com.fiap.fast_food_tc.application.usecase.OrderProductUseCase;
+import com.fiap.fast_food_tc.application.usecase.OrdersUseCase;
+import com.fiap.fast_food_tc.application.usecase.ProductUseCase;
+import com.fiap.fast_food_tc.application.usecase.impl.CheckoutUseCaseImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

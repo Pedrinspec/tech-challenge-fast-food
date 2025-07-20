@@ -1,11 +1,11 @@
 package fixture;
 
-import com.fiap.fast_food_tc.infra.db.model.OrderProduct;
-import com.fiap.fast_food_tc.infra.db.model.Orders;
-import com.fiap.fast_food_tc.infra.db.model.Product;
-import com.fiap.fast_food_tc.infra.db.model.ids.OrderProductPk;
-import com.fiap.fast_food_tc.app.dto.orderproduct.OrderProductRequestDto;
-import com.fiap.fast_food_tc.app.dto.orderproduct.OrderProductResponseDto;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProduct;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.Product;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.ids.OrderProductPk;
+import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductRequestDto;
+import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductResponseDto;
 import com.fiap.fast_food_tc.domain.entity.EOrderProduct;
 
 import java.math.BigDecimal;

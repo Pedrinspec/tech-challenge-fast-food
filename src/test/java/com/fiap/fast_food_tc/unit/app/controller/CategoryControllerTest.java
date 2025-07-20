@@ -1,9 +1,9 @@
 package com.fiap.fast_food_tc.unit.app.controller;
 
-import com.fiap.fast_food_tc.app.controller.CategoryController;
-import com.fiap.fast_food_tc.app.dto.category.CategoryRequest;
-import com.fiap.fast_food_tc.app.dto.category.CategoryResponseDTO;
-import com.fiap.fast_food_tc.app.service.CategoryService;
+import com.fiap.fast_food_tc.infrastructure.web.rest.controller.CategoryController;
+import com.fiap.fast_food_tc.application.dto.category.CategoryRequest;
+import com.fiap.fast_food_tc.application.dto.category.CategoryResponseDTO;
+import com.fiap.fast_food_tc.application.service.CategoryService;
 import fixture.CategoryFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

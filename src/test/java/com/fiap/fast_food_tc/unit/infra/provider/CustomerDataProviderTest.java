@@ -1,8 +1,8 @@
 package com.fiap.fast_food_tc.unit.infra.provider;
 
-import com.fiap.fast_food_tc.infra.db.model.Customer;
-import com.fiap.fast_food_tc.infra.db.repository.CustomerRepository;
-import com.fiap.fast_food_tc.infra.provider.CustomerDataProvider;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.Customer;
+import com.fiap.fast_food_tc.infrastructure.persistence.repository.CustomerRepository;
+import com.fiap.fast_food_tc.infrastructure.persistence.dataprovider.CustomerDataProvider;
 import fixture.CustomerFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

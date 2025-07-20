@@ -1,9 +1,9 @@
 package fixture;
 
-import com.fiap.fast_food_tc.cross.enums.StatusOrder;
-import com.fiap.fast_food_tc.infra.db.model.Orders;
-import com.fiap.fast_food_tc.app.dto.orders.OrdersRequestDto;
-import com.fiap.fast_food_tc.app.dto.orders.OrdersResponseDto;
+import com.fiap.fast_food_tc.domain.enums.StatusOrder;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.Orders;
+import com.fiap.fast_food_tc.application.dto.orders.OrdersRequestDto;
+import com.fiap.fast_food_tc.application.dto.orders.OrdersResponseDto;
 import com.fiap.fast_food_tc.domain.entity.EOrders;
 
 import java.math.BigDecimal;

@@ -1,0 +1,18 @@
+package com.fiap.fast_food_tc.application.usecase;
+import com.fiap.fast_food_tc.domain.entity.EOrders;
+import java.util.List;
+
+public interface OrdersUseCase {
+    
+    Short getNextOrderCode();
+
+    List<EOrders> getAllOrders();
+
+    EOrders create(EOrders orderEntity);
+
+    EOrders getById(Integer id);
+
+    EOrders update(Integer id, EOrders orderEntity);
+
+    void delete(Integer id);
+}

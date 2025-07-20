@@ -1,8 +1,8 @@
 package com.fiap.fast_food_tc.unit.app.service;
 
-import com.fiap.fast_food_tc.app.service.impl.CategoryServiceImpl;
-import com.fiap.fast_food_tc.cross.mapper.CategoryMapper;
-import com.fiap.fast_food_tc.domain.usecase.CategoryUseCase;
+import com.fiap.fast_food_tc.application.service.impl.CategoryServiceImpl;
+import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.CategoryMapper;
+import com.fiap.fast_food_tc.application.usecase.CategoryUseCase;
 import fixture.CategoryFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

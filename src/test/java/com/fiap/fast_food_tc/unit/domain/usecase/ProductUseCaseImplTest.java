@@ -1,11 +1,11 @@
 package com.fiap.fast_food_tc.unit.domain.usecase;
 
-import com.fiap.fast_food_tc.cross.mapper.ProductMapper;
-import com.fiap.fast_food_tc.domain.gateway.ProductGateway;
-import com.fiap.fast_food_tc.domain.usecase.impl.ProductUseCaseImpl;
+import com.fiap.fast_food_tc.infrastructure.web.rest.mapper.ProductMapper;
+import com.fiap.fast_food_tc.application.gateway.ProductGateway;
+import com.fiap.fast_food_tc.application.usecase.impl.ProductUseCaseImpl;
 import fixture.ProductFixture;
 import com.fiap.fast_food_tc.domain.entity.EProduct;
-import com.fiap.fast_food_tc.infra.db.model.Product;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.Product;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

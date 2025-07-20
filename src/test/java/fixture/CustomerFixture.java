@@ -1,8 +1,8 @@
 package fixture;
 
-import com.fiap.fast_food_tc.infra.db.model.Customer;
-import com.fiap.fast_food_tc.app.dto.customer.CustomerRequestDto;
-import com.fiap.fast_food_tc.app.dto.customer.CustomerResponseDto;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.Customer;
+import com.fiap.fast_food_tc.application.dto.customer.CustomerRequestDto;
+import com.fiap.fast_food_tc.application.dto.customer.CustomerResponseDto;
 import com.fiap.fast_food_tc.domain.entity.ECustomer;
 
 import java.util.List;

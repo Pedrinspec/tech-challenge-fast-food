@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.unit.app.controller;
 
-import com.fiap.fast_food_tc.app.controller.ProductController;
-import com.fiap.fast_food_tc.app.service.impl.ProductServiceImpl;
+import com.fiap.fast_food_tc.infrastructure.web.rest.controller.ProductController;
+import com.fiap.fast_food_tc.application.service.impl.ProductServiceImpl;
 import fixture.ProductFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
