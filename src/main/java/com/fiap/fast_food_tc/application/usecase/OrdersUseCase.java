@@ -1,5 +1,7 @@
 package com.fiap.fast_food_tc.application.usecase;
 import com.fiap.fast_food_tc.domain.entity.Orders;
+import com.fiap.fast_food_tc.domain.enums.StatusOrder;
+
 import java.util.List;
 
 public interface OrdersUseCase {
@@ -15,4 +17,6 @@ public interface OrdersUseCase {
     Orders update(Integer id, Orders orderEntity);
 
     void delete(Integer id);
+
+    Orders updateStatusOrder(Integer id, StatusOrder status);
 }

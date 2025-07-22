@@ -2,6 +2,7 @@ package com.fiap.fast_food_tc.infrastructure.web.controller;
 
 import com.fiap.fast_food_tc.application.dto.orders.OrdersRequestDto;
 import com.fiap.fast_food_tc.application.dto.orders.OrdersResponseDto;
+import com.fiap.fast_food_tc.application.dto.orders.UpdateStatusOrderRequest;
 import com.fiap.fast_food_tc.application.service.OrdersService;
 import com.fiap.fast_food_tc.application.service.impl.OrdersServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -51,6 +52,12 @@ public class OrderController {
     @PutMapping("/{id}")
     public ResponseEntity<OrdersResponseDto> update(@PathVariable Integer id, @RequestBody @Valid OrdersRequestDto dto) {
         var updated = ordersService.update(id, dto);
+        return ResponseEntity.ok(updated);
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<OrdersResponseDto> updateStatus(@PathVariable Integer id, @RequestBody UpdateStatusOrderRequest status) {
+        var updated = ordersService.updateStatus(id, status.getNewStatusOrder());
         return ResponseEntity.ok(updated);
     }
 

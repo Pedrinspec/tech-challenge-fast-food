@@ -33,7 +33,7 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public List<OrdersResponseDto> getAllOrderUnfinished() {
        return mapper.toResponseList(ordersUseCase.getAllOrders()).stream()
-                .filter(order -> order.getStatusOrder() != StatusOrder.DELIVERED)
+                .filter(order -> order.getStatusOrder() != StatusOrder.FINISHED)
                 .sorted(Comparator.comparingInt((OrdersResponseDto o) -> getPriority(o.getStatusOrder()))
                         .thenComparing(OrdersResponseDto::getOrderDatetime))
                 .toList();
@@ -41,12 +41,13 @@ public class OrdersServiceImpl implements OrdersService {
 
     private int getPriority(StatusOrder status) {
         return switch (status) {
-            case READY_FOR_PICKUP -> 0;
-            case IN_PREPARATION -> 1;
-            case PAYMENT_CONFIRMED -> 2;
-            case PAYMENT_PENDING -> 3;
-            case CANCELED -> 4;
-            case DELIVERED -> 5;
+            case PAYMENT_REFUSED -> 0;
+            case PAYMENT_PENDING -> 1;
+            case RECEIVED -> 2;
+            case READY_FOR_PICKUP -> 3;
+            case IN_PREPARATION -> 4;
+            case FINISHED -> 5;
+            case CANCELED -> 6;
         };
     }
 
@@ -70,5 +71,10 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public void delete(Integer id) {
         ordersUseCase.delete(id);
+    }
+
+    @Override
+    public OrdersResponseDto updateStatus(Integer id, StatusOrder status) {
+        return mapper.toResponse(ordersUseCase.updateStatusOrder(id, status));
     }
 }
