@@ -76,6 +76,7 @@ public class OrdersUseCaseImpl implements OrdersUseCase {
             case CANCELED -> order.cancelOrder();
             default -> throw new IllegalStateException("Unexpected status: " + status);
         }
+        order = update(id, order);
         return order;
     }
 

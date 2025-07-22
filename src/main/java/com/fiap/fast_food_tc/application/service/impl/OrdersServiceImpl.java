@@ -75,6 +75,6 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public OrdersResponseDto updateStatus(Integer id, StatusOrder status) {
-        return  mapper.toResponse(ordersUseCase.updateStatusOrder(id, status));
+        return mapper.toResponse(ordersUseCase.updateStatusOrder(id, status));
     }
 }
