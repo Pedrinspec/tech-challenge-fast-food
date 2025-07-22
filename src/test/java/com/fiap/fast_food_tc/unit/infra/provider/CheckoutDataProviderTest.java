@@ -1,18 +1,18 @@
 package com.fiap.fast_food_tc.unit.infra.provider;
 
-import com.fiap.fast_food_tc.cross.enums.StatusOrder;
-import com.fiap.fast_food_tc.infra.db.model.OrderProduct;
-import com.fiap.fast_food_tc.infra.db.model.Orders;
-import com.fiap.fast_food_tc.infra.db.model.Payment;
-import com.fiap.fast_food_tc.infra.db.model.Product;
-import com.fiap.fast_food_tc.infra.db.model.ids.OrderProductPk;
-import com.fiap.fast_food_tc.app.dto.checkout.PreferenceResponse;
-import com.fiap.fast_food_tc.infra.provider.CheckoutDataProvider;
-import com.fiap.fast_food_tc.infra.provider.OrdersDataProvider;
-import com.fiap.fast_food_tc.infra.provider.PaymentDataProvider;
-import com.fiap.fast_food_tc.infra.provider.clients.MercadoPagoClient;
-import com.fiap.fast_food_tc.cross.enums.PaymentMethod;
-import com.fiap.fast_food_tc.cross.enums.PaymentStatus;
+import com.fiap.fast_food_tc.domain.enums.StatusOrder;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProductPersistenceEntity;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.PaymentPersistenceEntity;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.ProductPersistenceEntity;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.ids.OrderProductPk;
+import com.fiap.fast_food_tc.application.dto.checkout.PreferenceResponse;
+import com.fiap.fast_food_tc.infrastructure.persistence.dataprovider.CheckoutDataProvider;
+import com.fiap.fast_food_tc.infrastructure.persistence.dataprovider.OrdersDataProvider;
+import com.fiap.fast_food_tc.infrastructure.persistence.dataprovider.PaymentDataProvider;
+import com.fiap.fast_food_tc.infrastructure.client.MercadoPagoClient;
+import com.fiap.fast_food_tc.domain.enums.PaymentMethod;
+import com.fiap.fast_food_tc.domain.enums.PaymentStatus;
 import fixture.CustomerFixture;
 import fixture.ProductFixture;
 import org.junit.jupiter.api.Test;
@@ -45,7 +45,7 @@ class CheckoutDataProviderTest {
 
     @Test
     void getPaymentLinkSuccess() {
-        Orders order = createOrder();
+        OrdersPersistenceEntity order = createOrder();
         PreferenceResponse response = PreferenceResponse.builder()
                 .externalReference("123")
                 .sandboxInitPoint("http://pay")
@@ -60,10 +60,10 @@ class CheckoutDataProviderTest {
         assertEquals("http://pay", link);
         verify(mercadoPagoClient).createPreference(any());
 
-        ArgumentCaptor<Payment> captor = ArgumentCaptor.forClass(Payment.class);
+        ArgumentCaptor<PaymentPersistenceEntity> captor = ArgumentCaptor.forClass(PaymentPersistenceEntity.class);
         verify(paymentDataProvider).save(captor.capture());
-        Payment saved = captor.getValue();
-        assertEquals(order.getCustomer().getCustomerId(), saved.getCustomerId());
+        PaymentPersistenceEntity saved = captor.getValue();
+        assertEquals(order.getCustomerPersistenceEntity().getCustomerId(), saved.getCustomerId());
         assertEquals(order.getTotalAmount(), saved.getPaymentValue());
         assertEquals(PaymentStatus.PENDING, saved.getPaymentStatus());
         assertEquals(PaymentMethod.MERCADO_PAGO, saved.getPaymentMethod());
@@ -71,23 +71,23 @@ class CheckoutDataProviderTest {
         assertNotNull(saved.getCreatedAt());
     }
 
-    private Orders createOrder() {
-        Orders order = Orders.builder()
+    private OrdersPersistenceEntity createOrder() {
+        OrdersPersistenceEntity order = OrdersPersistenceEntity.builder()
                 .orderId(1)
                 .totalAmount(BigDecimal.TEN)
-                .customer(CustomerFixture.createCustomerModel())
+                .customerPersistenceEntity(CustomerFixture.createCustomerModel())
                 .orderDatetime(LocalDateTime.now())
                 .statusOrder(StatusOrder.READY_FOR_PICKUP)
                 .build();
 
-        Product product = ProductFixture.createProduct();
-        OrderProduct op = new OrderProduct();
-        op.setOrders(order);
-        op.setProduct(product);
+        ProductPersistenceEntity productPersistenceEntity = ProductFixture.createProduct();
+        OrderProductPersistenceEntity op = new OrderProductPersistenceEntity();
+        op.setOrdersPersistenceEntity(order);
+        op.setProductPersistenceEntity(productPersistenceEntity);
         op.setProductQuantity(2);
         op.setProductTotalAmount(BigDecimal.TEN);
-        op.setId(new OrderProductPk(order.getOrderId(), product.getProductId()));
-        order.setOrderProducts(List.of(op));
+        op.setId(new OrderProductPk(order.getOrderId(), productPersistenceEntity.getProductId()));
+        order.setOrderProductPersistenceEntities(List.of(op));
         return order;
     }
 }

@@ -1,18 +1,18 @@
 package fixture;
 
-import com.fiap.fast_food_tc.cross.enums.StatusOrder;
-import com.fiap.fast_food_tc.infra.db.model.Orders;
-import com.fiap.fast_food_tc.app.dto.orders.OrdersRequestDto;
-import com.fiap.fast_food_tc.app.dto.orders.OrdersResponseDto;
-import com.fiap.fast_food_tc.domain.entity.EOrders;
+import com.fiap.fast_food_tc.domain.enums.StatusOrder;
+import com.fiap.fast_food_tc.application.dto.orders.OrdersRequestDto;
+import com.fiap.fast_food_tc.application.dto.orders.OrdersResponseDto;
+import com.fiap.fast_food_tc.domain.entity.Orders;
+import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class OrdersFixture {
 
-    public static EOrders createEOrders() {
-        return EOrders.builder()
+    public static Orders createEOrders() {
+        return Orders.builder()
                 .orderId(1)
                 .orderDatetime(LocalDateTime.now())
                 .statusOrder(StatusOrder.IN_PREPARATION)
@@ -22,14 +22,14 @@ public class OrdersFixture {
                 .build();
     }
 
-    public static Orders createOrders() {
-        return Orders.builder()
+    public static OrdersPersistenceEntity createOrders() {
+        return OrdersPersistenceEntity.builder()
                 .orderId(1)
                 .orderDatetime(LocalDateTime.now())
                 .statusOrder(StatusOrder.READY_FOR_PICKUP)
                 .orderCode((short) 5)
                 .totalAmount(BigDecimal.ONE)
-                .customer(CustomerFixture.createCustomerModel())
+                .customerPersistenceEntity(CustomerFixture.createCustomerModel())
                 .build();
     }
 
