@@ -1,6 +1,7 @@
 package com.fiap.fast_food_tc.application.usecase.impl;
 
 import com.fiap.fast_food_tc.domain.entity.Orders;
+import com.fiap.fast_food_tc.domain.enums.StatusOrder;
 import com.fiap.fast_food_tc.infrastructure.web.mapper.OrdersMapper;
 import com.fiap.fast_food_tc.application.gateway.OrdersGateway;
 import com.fiap.fast_food_tc.application.usecase.OrdersUseCase;
@@ -62,6 +63,20 @@ public class OrdersUseCaseImpl implements OrdersUseCase {
     @Override
     public void delete(Integer id) {
         provider.delete(id);
+    }
+
+    @Override
+    public Orders updateStatusOrder(Integer id, StatusOrder status) {
+        var order = getById(id);
+        switch (status) {
+            case RECEIVED -> order.confirmPayment();
+            case IN_PREPARATION -> order.startPreparation();
+            case READY_FOR_PICKUP -> order.readyForPickup();
+            case FINISHED -> order.finishOrder();
+            case CANCELED -> order.cancelOrder();
+            default -> throw new IllegalStateException("Unexpected status: " + status);
+        }
+        return order;
     }
 
 }
