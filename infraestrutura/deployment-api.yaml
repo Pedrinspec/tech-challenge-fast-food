@@ -2,18 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fastfood-app
-  labels:
-    app: fastfood-app
+  namespace: desafio-fiap
 spec:
-  minReplicas: 1
-  maxReplicas: 3
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 50
+  replicas: 1
   selector:
     matchLabels:
       app: fastfood-app
@@ -24,9 +15,14 @@ spec:
     spec:
       containers:
         - name: fastfood-app
-          image: fastfood-app:latest # Replace with your image repository if pushing to a registry
+          image: gustavohaj/fastfood-app:v1
           ports:
             - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: fastfood-app-config
+            - secretRef:
+                name: fastfood-app-secret
           resources:
             requests:
               memory: "512Mi"

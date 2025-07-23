@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config
+  namespace: desafio-fiap
+data:
+  MYSQL_DATABASE: fastfoodtc

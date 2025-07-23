@@ -2,4 +2,4 @@ format: json
 exit-code: 1
 severity: CRITICAL
 secret:
-  config: config/trivy/secret.yaml
+  config: config/trivy/secret-api.yaml
