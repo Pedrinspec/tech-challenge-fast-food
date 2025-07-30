@@ -42,7 +42,6 @@ public class OrderProductFixture {
                 .orderId(1)
                 .productId(1)
                 .productQuantity(1)
-                .productTotalAmount(BigDecimal.ONE)
                 .build();
     }
 
