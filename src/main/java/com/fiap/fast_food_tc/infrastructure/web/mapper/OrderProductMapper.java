@@ -23,6 +23,7 @@ public interface OrderProductMapper {
 
     @Mapping(target = "orderId", source = "orderId")
     @Mapping(target = "productId", source = "productId")
+    @Mapping(target = "productTotalAmount", ignore = true)
     OrderProduct toEntityCreate(OrderProductRequestDto dto);
 
     OrderProductResponseDto toResponse(OrderProduct entity);
