@@ -1,7 +1,6 @@
 package com.fiap.fast_food_tc.infrastructure.persistence.dataprovider;
 
 import com.fiap.fast_food_tc.application.dto.checkout.out.MPPaymentResponse;
-import com.fiap.fast_food_tc.domain.enums.StatusOrder;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.PaymentPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.ProductPersistenceEntity;
@@ -35,19 +34,8 @@ public class CheckoutDataProvider implements CheckoutGateway {
     }
 
     @Override
-    public void verifyApprovedPayment(String paymentId){
-        MPPaymentResponse response = mercadoPagoClient.getPayment(paymentId);
-        if (response != null && "approved".equalsIgnoreCase(response.getStatus())) {
-            PaymentPersistenceEntity paymentPersistenceEntity = paymentDataProvider.findByMercadoPagoId(response.getExternal_reference());
-            paymentPersistenceEntity.setPaymentStatus(PaymentStatus.APPROVED);
-            paymentDataProvider.save(paymentPersistenceEntity);
-
-            OrdersPersistenceEntity order = paymentPersistenceEntity.getOrdersPersistenceEntity();
-            if (order != null) {
-                order.setStatusOrder(StatusOrder.IN_PREPARATION);
-                ordersDataProvider.update(order);
-            }
-        }
+    public MPPaymentResponse findMercadoPagoPaymentResponse(String paymentId){
+        return mercadoPagoClient.getPayment(paymentId);
     }
 
     @Transactional

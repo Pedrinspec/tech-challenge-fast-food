@@ -4,6 +4,7 @@ import com.fiap.fast_food_tc.application.dto.checkout.in.CheckoutOrderRequest;
 import com.fiap.fast_food_tc.application.dto.checkout.out.CheckoutResponseDto;
 import com.fiap.fast_food_tc.application.dto.checkout.in.CheckoutWebhookRequest;
 import com.fiap.fast_food_tc.application.service.CheckoutService;
+import com.fiap.fast_food_tc.domain.entity.Orders;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +32,16 @@ public class CheckoutController {
     }
 
     @PostMapping("/webhook/mercadoPago")
-    public ResponseEntity<Void> handleWebhook(@Valid @RequestBody CheckoutWebhookRequest payload) {
+    public ResponseEntity<Orders> handleWebhook(@Valid @RequestBody CheckoutWebhookRequest payload) {
 
         if ("payment".equals(payload.getType()) && payload.getData() != null) {
             String paymentId = payload.getData().getId();
 
             if (paymentId != null && !paymentId.isEmpty()) {
-                checkoutService.handleWebhook(paymentId);
+                return ResponseEntity.ok(checkoutService.handleWebhook(paymentId));
             }
         }
-        return ResponseEntity.noContent().build();
+        throw new IllegalArgumentException("Invalid webhook payload or missing payment ID");
     }
 
 }

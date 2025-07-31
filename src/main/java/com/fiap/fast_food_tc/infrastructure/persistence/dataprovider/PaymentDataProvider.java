@@ -34,6 +34,7 @@ public class PaymentDataProvider implements PaymentGateway {
         return repository.findAll();
     }
 
+    @Override
     public PaymentPersistenceEntity findByMercadoPagoId(String id) {
         return repository.findByMercadoPagoId(id)
                 .orElseThrow(() -> new IllegalArgumentException("Payment not found"));

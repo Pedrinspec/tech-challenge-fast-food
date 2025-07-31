@@ -38,7 +38,7 @@ class CheckoutUseCaseImplTest {
     @Test
     void handleWebhook() {
         useCase.handleWebhook("123");
-        Mockito.verify(checkoutGateway).verifyApprovedPayment("123");
+        Mockito.verify(checkoutGateway).findMercadoPagoPaymentResponse("123");
     }
 
     @Test
