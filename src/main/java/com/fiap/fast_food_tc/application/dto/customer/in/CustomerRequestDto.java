@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.application.dto.customer;
+package com.fiap.fast_food_tc.application.dto.customer.in;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

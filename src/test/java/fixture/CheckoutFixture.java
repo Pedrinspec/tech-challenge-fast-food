@@ -1,6 +1,6 @@
 package fixture;
 
-import com.fiap.fast_food_tc.application.dto.checkout.CheckoutOrderRequest;
+import com.fiap.fast_food_tc.application.dto.checkout.in.CheckoutOrderRequest;
 
 import java.util.List;
 

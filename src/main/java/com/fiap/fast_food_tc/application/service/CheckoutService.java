@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.application.service;
 
-import com.fiap.fast_food_tc.application.dto.checkout.CheckoutOrderRequest;
-import com.fiap.fast_food_tc.application.dto.checkout.CheckoutResponseDto;
+import com.fiap.fast_food_tc.application.dto.checkout.in.CheckoutOrderRequest;
+import com.fiap.fast_food_tc.application.dto.checkout.out.CheckoutResponseDto;
 
 public interface CheckoutService {
 

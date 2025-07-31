@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.application.service.impl;
 
-import com.fiap.fast_food_tc.application.dto.product.ProductRequest;
-import com.fiap.fast_food_tc.application.dto.product.ProductResponse;
+import com.fiap.fast_food_tc.application.dto.product.in.ProductRequest;
+import com.fiap.fast_food_tc.application.dto.product.out.ProductResponse;
 import com.fiap.fast_food_tc.application.service.ProductService;
 import com.fiap.fast_food_tc.infrastructure.web.mapper.ProductMapper;
 import com.fiap.fast_food_tc.application.usecase.ProductUseCase;

@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.application.dto.orders;
+package com.fiap.fast_food_tc.application.dto.orders.out;
 
 import com.fiap.fast_food_tc.domain.enums.StatusOrder;
 import jakarta.validation.constraints.NotNull;

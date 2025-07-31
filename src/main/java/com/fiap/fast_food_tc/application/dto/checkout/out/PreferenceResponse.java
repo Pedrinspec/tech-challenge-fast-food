@@ -1,6 +1,7 @@
-package com.fiap.fast_food_tc.application.dto.checkout;
+package com.fiap.fast_food_tc.application.dto.checkout.out;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fiap.fast_food_tc.application.dto.checkout.in.PreferenceRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

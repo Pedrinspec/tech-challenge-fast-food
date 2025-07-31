@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.application.service;
 
-import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductRequestDto;
-import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductResponseDto;
+import com.fiap.fast_food_tc.application.dto.orderproduct.in.OrderProductRequestDto;
+import com.fiap.fast_food_tc.application.dto.orderproduct.out.OrderProductResponseDto;
 
 import java.util.List;
 

@@ -4,8 +4,8 @@ import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProductPersi
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.ProductPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.ids.OrderProductPk;
-import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductRequestDto;
-import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductResponseDto;
+import com.fiap.fast_food_tc.application.dto.orderproduct.in.OrderProductRequestDto;
+import com.fiap.fast_food_tc.application.dto.orderproduct.out.OrderProductResponseDto;
 import com.fiap.fast_food_tc.domain.entity.OrderProduct;
 
 import java.math.BigDecimal;

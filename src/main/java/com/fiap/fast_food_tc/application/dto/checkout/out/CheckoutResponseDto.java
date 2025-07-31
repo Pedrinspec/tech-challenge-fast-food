@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.application.dto.checkout;
+package com.fiap.fast_food_tc.application.dto.checkout.out;
 
 import com.fiap.fast_food_tc.domain.enums.StatusOrder;
 import com.fiap.fast_food_tc.domain.entity.CheckoutOrder;

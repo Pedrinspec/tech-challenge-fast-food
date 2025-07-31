@@ -6,7 +6,7 @@ import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistence
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.PaymentPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.ProductPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.ids.OrderProductPk;
-import com.fiap.fast_food_tc.application.dto.checkout.PreferenceResponse;
+import com.fiap.fast_food_tc.application.dto.checkout.out.PreferenceResponse;
 import com.fiap.fast_food_tc.infrastructure.persistence.dataprovider.CheckoutDataProvider;
 import com.fiap.fast_food_tc.infrastructure.persistence.dataprovider.OrdersDataProvider;
 import com.fiap.fast_food_tc.infrastructure.persistence.dataprovider.PaymentDataProvider;

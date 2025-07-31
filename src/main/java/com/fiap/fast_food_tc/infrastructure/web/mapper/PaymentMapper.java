@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.infrastructure.web.mapper;
 
-import com.fiap.fast_food_tc.application.dto.payment.PaymentRequestDto;
-import com.fiap.fast_food_tc.application.dto.payment.PaymentResponseDto;
+import com.fiap.fast_food_tc.application.dto.payment.in.PaymentRequestDto;
+import com.fiap.fast_food_tc.application.dto.payment.out.PaymentResponseDto;
 import com.fiap.fast_food_tc.domain.entity.Payment;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.PaymentPersistenceEntity;
 import org.mapstruct.Mapper;

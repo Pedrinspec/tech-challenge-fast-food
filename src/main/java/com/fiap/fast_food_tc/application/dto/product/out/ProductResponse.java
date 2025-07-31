@@ -1,7 +1,5 @@
-package com.fiap.fast_food_tc.application.dto.product;
+package com.fiap.fast_food_tc.application.dto.product.out;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,25 +11,15 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductRequest {
+public class ProductResponse {
 
-    @NotBlank
+    private Integer productId;
     private String name;
-
-    @NotNull
     private Integer quantity;
-
-    @NotNull
     private BigDecimal productValue;
-
-    @NotNull
     private Boolean isAvailable;
-
     private Integer categoryId;
-
     private String description;
-
     private String imagePath;
-
 
 }

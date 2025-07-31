@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.unit.infra.mapper;
 
-import com.fiap.fast_food_tc.application.dto.customer.CustomerRequestDto;
-import com.fiap.fast_food_tc.application.dto.customer.CustomerResponseDto;
+import com.fiap.fast_food_tc.application.dto.customer.in.CustomerRequestDto;
+import com.fiap.fast_food_tc.application.dto.customer.out.CustomerResponseDto;
 import com.fiap.fast_food_tc.domain.entity.Customer;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.CustomerPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.web.mapper.CustomerMapper;

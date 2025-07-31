@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.application.dto.category;
+package com.fiap.fast_food_tc.application.dto.category.out;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

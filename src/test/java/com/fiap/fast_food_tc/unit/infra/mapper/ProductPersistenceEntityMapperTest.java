@@ -2,8 +2,8 @@ package com.fiap.fast_food_tc.unit.infra.mapper;
 
 import com.fiap.fast_food_tc.domain.entity.Product;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.CategoryPersistenceEntity;
-import com.fiap.fast_food_tc.application.dto.product.ProductRequest;
-import com.fiap.fast_food_tc.application.dto.product.ProductResponse;
+import com.fiap.fast_food_tc.application.dto.product.in.ProductRequest;
+import com.fiap.fast_food_tc.application.dto.product.out.ProductResponse;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.ProductPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.web.mapper.ProductMapper;
 import fixture.CategoryFixture;

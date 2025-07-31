@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.infrastructure.web.controller;
 
-import com.fiap.fast_food_tc.application.dto.product.ProductRequest;
-import com.fiap.fast_food_tc.application.dto.product.ProductResponse;
+import com.fiap.fast_food_tc.application.dto.product.in.ProductRequest;
+import com.fiap.fast_food_tc.application.dto.product.out.ProductResponse;
 import com.fiap.fast_food_tc.application.service.ProductService;
 import com.fiap.fast_food_tc.application.service.impl.ProductServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;

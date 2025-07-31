@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.application.service;
 
-import com.fiap.fast_food_tc.application.dto.product.ProductRequest;
-import com.fiap.fast_food_tc.application.dto.product.ProductResponse;
+import com.fiap.fast_food_tc.application.dto.product.in.ProductRequest;
+import com.fiap.fast_food_tc.application.dto.product.out.ProductResponse;
 import jakarta.validation.Valid;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package fixture;
 
-import com.fiap.fast_food_tc.application.dto.category.CategoryRequest;
-import com.fiap.fast_food_tc.application.dto.category.CategoryResponseDTO;
+import com.fiap.fast_food_tc.application.dto.category.in.CategoryRequest;
+import com.fiap.fast_food_tc.application.dto.category.out.CategoryResponseDTO;
 import com.fiap.fast_food_tc.domain.entity.Category;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.CategoryPersistenceEntity;
 

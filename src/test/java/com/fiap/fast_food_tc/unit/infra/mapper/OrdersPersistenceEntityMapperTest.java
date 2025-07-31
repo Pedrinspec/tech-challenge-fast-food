@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.unit.infra.mapper;
 
-import com.fiap.fast_food_tc.application.dto.orders.OrdersRequestDto;
-import com.fiap.fast_food_tc.application.dto.orders.OrdersResponseDto;
+import com.fiap.fast_food_tc.application.dto.orders.in.OrdersRequestDto;
+import com.fiap.fast_food_tc.application.dto.orders.out.OrdersResponseDto;
 import com.fiap.fast_food_tc.domain.entity.Orders;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.web.mapper.OrdersMapper;

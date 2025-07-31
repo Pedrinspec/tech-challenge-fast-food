@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.application.dto.orderproduct;
+package com.fiap.fast_food_tc.application.dto.orderproduct.in;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

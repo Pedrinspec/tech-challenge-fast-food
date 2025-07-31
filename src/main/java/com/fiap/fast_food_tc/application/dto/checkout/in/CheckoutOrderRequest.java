@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.application.dto.checkout;
+package com.fiap.fast_food_tc.application.dto.checkout.in;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

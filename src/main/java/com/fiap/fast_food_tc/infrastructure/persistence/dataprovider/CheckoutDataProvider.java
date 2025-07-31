@@ -1,12 +1,12 @@
 package com.fiap.fast_food_tc.infrastructure.persistence.dataprovider;
 
-import com.fiap.fast_food_tc.application.dto.checkout.MPPaymentResponse;
+import com.fiap.fast_food_tc.application.dto.checkout.out.MPPaymentResponse;
 import com.fiap.fast_food_tc.domain.enums.StatusOrder;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.PaymentPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.ProductPersistenceEntity;
-import com.fiap.fast_food_tc.application.dto.checkout.PreferenceRequest;
-import com.fiap.fast_food_tc.application.dto.checkout.PreferenceResponse;
+import com.fiap.fast_food_tc.application.dto.checkout.in.PreferenceRequest;
+import com.fiap.fast_food_tc.application.dto.checkout.out.PreferenceResponse;
 import com.fiap.fast_food_tc.infrastructure.client.MercadoPagoClient;
 import com.fiap.fast_food_tc.domain.enums.PaymentMethod;
 import com.fiap.fast_food_tc.domain.enums.PaymentStatus;
@@ -91,16 +91,16 @@ public class CheckoutDataProvider implements CheckoutGateway {
 
     private static PreferenceRequest buildRequest(OrdersPersistenceEntity order, List<PreferenceRequest.Item> items) {
         PreferenceRequest.BackUrls urls = new PreferenceRequest.BackUrls();
-        urls.setSuccess("https://average-dress-81.webhook.cool/pagamento/aprovado");
-        urls.setFailure("https://average-dress-81.webhook.cool/pagamento/falha");
-        urls.setPending("https://average-dress-81.webhook.cool/pagamento/pendente");
+        urls.setSuccess("https://huge-musician-87.webhook.cool/pagamento/aprovado");
+        urls.setFailure("https://huge-musician-87.webhook.cool/pagamento/falha");
+        urls.setPending("https://huge-musician-87.webhook.cool/pagamento/pendente");
 
         PreferenceRequest request = new PreferenceRequest();
         request.setItems(items);
         request.setExternalReference("PEDIDO_" + order.getOrderId());
         request.setBackUrls(urls);
         request.setAutoReturn("approved");
-        request.setNotificationUrl("https://average-dress-81.webhook.cool/pagamento");
+        request.setNotificationUrl("https://huge-musician-87.webhook.cool/pagamento");
         return request;
     }
 }

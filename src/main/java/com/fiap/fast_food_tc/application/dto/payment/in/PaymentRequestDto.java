@@ -1,4 +1,4 @@
-package com.fiap.fast_food_tc.application.dto.payment;
+package com.fiap.fast_food_tc.application.dto.payment.in;
 
 import com.fiap.fast_food_tc.domain.enums.PaymentMethod;
 import com.fiap.fast_food_tc.domain.enums.PaymentStatus;
