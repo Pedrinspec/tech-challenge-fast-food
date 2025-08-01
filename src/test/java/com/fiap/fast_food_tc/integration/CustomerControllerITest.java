@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @Transactional
-class CustomerPersistenceEntityControllerITest {
+class CustomerControllerITest {
 
     @Autowired
     private MockMvc mockMvc;
