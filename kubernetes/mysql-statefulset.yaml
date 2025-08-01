@@ -4,11 +4,11 @@ metadata:
   name: mysql
   namespace: desafio-fiap
 spec:
+  serviceName: mysql
+  replicas: 1
   selector:
     matchLabels:
       app: mysql
-  serviceName: mysql
-  replicas: 1
   template:
     metadata:
       labels:
@@ -30,41 +30,20 @@ spec:
                 configMapKeyRef:
                   name: mysql-config
                   key: MYSQL_DATABASE
+            - name: MYSQL_ROOT_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-config
+                  key: MYSQL_ROOT_HOST
           volumeMounts:
-            - name: mysql-storage
+            - name: mysql-persistent-storage
               mountPath: /var/lib/mysql
-            - name: init-script
-              mountPath: /docker-entrypoint-initdb.d/init.sql
-              subPath: init.sql
-          readinessProbe:
-            tcpSocket:
-              port: 3306
-            initialDelaySeconds: 10
-            periodSeconds: 5
-          livenessProbe:
-            tcpSocket:
-              port: 3306
-            initialDelaySeconds: 15
-            periodSeconds: 10
-          resources:
-            requests:
-              cpu: "250m"
-              memory: "512Mi"
-            limits:
-              cpu: "500m"
-              memory: "1Gi"
-      volumes:
-        - name: init-script
-          configMap:
-            name: mysql-config
-            items:
-              - key: init.sql
-                path: init.sql
   volumeClaimTemplates:
     - metadata:
-        name: mysql-storage
+        name: mysql-persistent-storage
       spec:
-        accessModes: [ "ReadWriteOnce" ]
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: standard  # <- aqui é a correção principal
         resources:
           requests:
-            storage: 5Gi
+            storage: 1Gi

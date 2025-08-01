@@ -4,9 +4,9 @@ metadata:
   name: fastfood-app-config
   namespace: desafio-fiap
 data:
-  SPRING_APPLICATION_NAME: fast-food-tc
-  SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/fastfoodtc
   SPRING_DATASOURCE_USERNAME: root
+  SPRING_APPLICATION_NAME: fast-food-tc
+  SPRING_DATASOURCE_URL: jdbc:mysql://mysql.desafio-fiap.svc.cluster.local:3306/fastfood?useSSL=false&allowPublicKeyRetrieval=true
   SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
   SPRING_JPA_HIBERNATE_DDL_AUTO: drop-and-create
   SPRING_JPA_SHOW_SQL: "true"
