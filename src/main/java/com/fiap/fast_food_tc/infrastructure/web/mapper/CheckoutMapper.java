@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.infrastructure.web.mapper;
 
-import com.fiap.fast_food_tc.application.dto.checkout.CheckoutOrderRequest;
-import com.fiap.fast_food_tc.application.dto.checkout.CheckoutResponseDto;
+import com.fiap.fast_food_tc.application.dto.checkout.in.CheckoutOrderRequest;
+import com.fiap.fast_food_tc.application.dto.checkout.out.CheckoutResponseDto;
 import com.fiap.fast_food_tc.domain.entity.Checkout;
 import com.fiap.fast_food_tc.domain.entity.CheckoutOrder;
 import org.mapstruct.Mapper;

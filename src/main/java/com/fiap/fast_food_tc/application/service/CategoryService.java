@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.application.service;
 
-import com.fiap.fast_food_tc.application.dto.category.CategoryRequest;
-import com.fiap.fast_food_tc.application.dto.category.CategoryResponseDTO;
+import com.fiap.fast_food_tc.application.dto.category.in.CategoryRequest;
+import com.fiap.fast_food_tc.application.dto.category.out.CategoryResponseDTO;
 
 import java.util.List;
 

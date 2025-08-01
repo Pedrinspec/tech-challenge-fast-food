@@ -67,12 +67,14 @@ jacocoTestReport {
 	classDirectories.setFrom(
 			files(classDirectories.files.collect {
 				fileTree(dir: it, exclude: [
-						'**/adapter/dto/**',
+						'**/FastFoodTcApplication.class',
+						'**/infrastructure/config/**',
+						'**/application/dto/**',
 						'**/domain/entity/**',
-						'**/adapter/db/model/**',
-						'**/adapter/db/model/ids/**',
-						'**/cross/exception/**',
-						'**/cross/enums/**'
+						'**/infrastructure/persistence/entity/**',
+						'**/infrastructure/client/**',
+						'**/domain/enums/**',
+						'**/domain/exception/**'
 				])
 			})
 	)

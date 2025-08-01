@@ -12,5 +12,7 @@ public interface PaymentGateway {
 
     List<PaymentPersistenceEntity> findAll();
 
+    PaymentPersistenceEntity findByMercadoPagoId(String id);
+
     PaymentPersistenceEntity findByOrderId(Integer orderId);
 }

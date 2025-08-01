@@ -1,8 +1,9 @@
 package com.fiap.fast_food_tc.application.service.impl;
 
-import com.fiap.fast_food_tc.application.dto.checkout.CheckoutOrderRequest;
-import com.fiap.fast_food_tc.application.dto.checkout.CheckoutResponseDto;
+import com.fiap.fast_food_tc.application.dto.checkout.in.CheckoutOrderRequest;
+import com.fiap.fast_food_tc.application.dto.checkout.out.CheckoutResponseDto;
 import com.fiap.fast_food_tc.application.service.CheckoutService;
+import com.fiap.fast_food_tc.domain.entity.Orders;
 import com.fiap.fast_food_tc.infrastructure.web.mapper.CheckoutMapper;
 import com.fiap.fast_food_tc.application.usecase.CheckoutUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class CheckoutServiceImpl implements CheckoutService {
     }
 
     @Override
-    public void handleWebhook(String paymentId) {
-        checkoutUseCase.handleWebhook(paymentId);
+    public Orders handleWebhook(String paymentId) {
+        return checkoutUseCase.handleWebhook(paymentId);
     }
 }

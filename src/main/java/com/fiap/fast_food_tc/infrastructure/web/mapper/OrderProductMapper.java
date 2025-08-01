@@ -1,7 +1,7 @@
 package com.fiap.fast_food_tc.infrastructure.web.mapper;
 
-import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductRequestDto;
-import com.fiap.fast_food_tc.application.dto.orderproduct.OrderProductResponseDto;
+import com.fiap.fast_food_tc.application.dto.orderproduct.in.OrderProductRequestDto;
+import com.fiap.fast_food_tc.application.dto.orderproduct.out.OrderProductResponseDto;
 import com.fiap.fast_food_tc.domain.entity.OrderProduct;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrderProductPersistenceEntity;
 import org.mapstruct.Mapper;
@@ -23,6 +23,7 @@ public interface OrderProductMapper {
 
     @Mapping(target = "orderId", source = "orderId")
     @Mapping(target = "productId", source = "productId")
+    @Mapping(target = "productTotalAmount", ignore = true)
     OrderProduct toEntityCreate(OrderProductRequestDto dto);
 
     OrderProductResponseDto toResponse(OrderProduct entity);

@@ -1,17 +1,18 @@
 package com.fiap.fast_food_tc.infrastructure.web.controller;
 
-import com.fiap.fast_food_tc.application.dto.checkout.CheckoutOrderRequest;
-import com.fiap.fast_food_tc.application.dto.checkout.CheckoutResponseDto;
+import com.fiap.fast_food_tc.application.dto.checkout.in.CheckoutOrderRequest;
+import com.fiap.fast_food_tc.application.dto.checkout.out.CheckoutResponseDto;
+import com.fiap.fast_food_tc.application.dto.checkout.in.CheckoutWebhookRequest;
 import com.fiap.fast_food_tc.application.service.CheckoutService;
+import com.fiap.fast_food_tc.domain.entity.Orders;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 @Tag(name = "Checkout", description = "Endpoints de checkout")
 @RestController
@@ -31,15 +32,16 @@ public class CheckoutController {
     }
 
     @PostMapping("/webhook/mercadoPago")
-    public ResponseEntity<Void> handleWebhook(@RequestBody Map<String, Object> payload) {
-        Map<String, Object> data = (Map<String, Object>) payload.get("data");
-        String type = (String) payload.get("type");
+    public ResponseEntity<Orders> handleWebhook(@Valid @RequestBody CheckoutWebhookRequest payload) {
 
-        if ("payment".equals(type) && data != null) {
-            String paymentId = data.get("id").toString();
-            checkoutService.handleWebhook(paymentId);
+        if ("payment".equals(payload.getType()) && payload.getData() != null) {
+            String paymentId = payload.getData().getId();
+
+            if (paymentId != null && !paymentId.isEmpty()) {
+                return ResponseEntity.ok(checkoutService.handleWebhook(paymentId));
+            }
         }
-        return ResponseEntity.noContent().build();
+        throw new IllegalArgumentException("Invalid webhook payload or missing payment ID");
     }
 
 }

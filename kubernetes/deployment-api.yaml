@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastfood-app
+  namespace: desafio-fiap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastfood-app
+  template:
+    metadata:
+      labels:
+        app: fastfood-app
+    spec:
+      containers:
+        - name: fastfood-app
+          image: gustavohaj/fastfood-app:v1
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: fastfood-app-config
+            - secretRef:
+                name: fastfood-app-secret
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"

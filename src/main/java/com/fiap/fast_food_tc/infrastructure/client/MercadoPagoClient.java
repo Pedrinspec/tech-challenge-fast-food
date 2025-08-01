@@ -1,8 +1,8 @@
 package com.fiap.fast_food_tc.infrastructure.client;
 
-import com.fiap.fast_food_tc.application.dto.checkout.MPPaymentResponse;
-import com.fiap.fast_food_tc.application.dto.checkout.PreferenceRequest;
-import com.fiap.fast_food_tc.application.dto.checkout.PreferenceResponse;
+import com.fiap.fast_food_tc.application.dto.checkout.out.MPPaymentResponse;
+import com.fiap.fast_food_tc.application.dto.checkout.in.PreferenceRequest;
+import com.fiap.fast_food_tc.application.dto.checkout.out.PreferenceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

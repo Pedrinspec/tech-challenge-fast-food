@@ -1,9 +1,13 @@
 package com.fiap.fast_food_tc.application.usecase.impl;
 
+import com.fiap.fast_food_tc.application.dto.checkout.out.MPPaymentResponse;
+import com.fiap.fast_food_tc.application.gateway.PaymentGateway;
 import com.fiap.fast_food_tc.domain.entity.Checkout;
 import com.fiap.fast_food_tc.domain.entity.CheckoutOrder;
 import com.fiap.fast_food_tc.domain.entity.OrderProduct;
 import com.fiap.fast_food_tc.domain.entity.Orders;
+import com.fiap.fast_food_tc.domain.entity.Payment;
+import com.fiap.fast_food_tc.domain.enums.PaymentStatus;
 import com.fiap.fast_food_tc.domain.enums.StatusOrder;
 import com.fiap.fast_food_tc.domain.entity.Product;
 import com.fiap.fast_food_tc.application.gateway.CheckoutGateway;
@@ -11,6 +15,7 @@ import com.fiap.fast_food_tc.application.usecase.CheckoutUseCase;
 import com.fiap.fast_food_tc.application.usecase.OrderProductUseCase;
 import com.fiap.fast_food_tc.application.usecase.OrdersUseCase;
 import com.fiap.fast_food_tc.application.usecase.ProductUseCase;
+import com.fiap.fast_food_tc.infrastructure.web.mapper.PaymentMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,16 +29,20 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
     private final OrdersUseCase ordersUseCase;
     private final OrderProductUseCase orderProductUseCase;
     private final ProductUseCase productUseCase;
+    private final PaymentGateway paymentGateway;
+    private final PaymentMapper paymentMapper;
 
     @Autowired
     public CheckoutUseCaseImpl(CheckoutGateway checkoutGateway,
                                OrdersUseCase ordersUseCase,
                                OrderProductUseCase orderProductUseCase,
-                               ProductUseCase productUseCase) {
+                               ProductUseCase productUseCase, PaymentGateway paymentGateway, PaymentMapper paymentMapper) {
         this.checkoutGateway = checkoutGateway;
         this.ordersUseCase = ordersUseCase;
         this.orderProductUseCase = orderProductUseCase;
         this.productUseCase = productUseCase;
+        this.paymentGateway = paymentGateway;
+        this.paymentMapper = paymentMapper;
     }
 
 
@@ -86,8 +95,30 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
 
 
     @Override
-    public void handleWebhook(String paymentId) {
-        checkoutGateway.verifyApprovedPayment(paymentId);
+    public Orders handleWebhook(String paymentId) {
+
+        MPPaymentResponse MPResponse = checkoutGateway.findMercadoPagoPaymentResponse(paymentId);
+        Payment payment = paymentMapper.toEntity(paymentGateway.findByMercadoPagoId(MPResponse.getExternal_reference()));
+        Orders order = ordersUseCase.getById(payment.getOrderId());
+        if ("approved".equalsIgnoreCase(MPResponse.getStatus())) {
+            payment.setPaymentStatus(PaymentStatus.APPROVED);
+            paymentGateway.save(paymentMapper.toModel(payment));
+            if (order != null) {
+                ordersUseCase.updateStatusOrder(order.getOrderId(), StatusOrder.IN_PREPARATION);
+            }
+            //TODO update product stock
+            return order;
+        }
+        if ("rejected".equalsIgnoreCase(MPResponse.getStatus())) {
+            payment.setPaymentStatus(PaymentStatus.REJECTED);
+            paymentGateway.save(paymentMapper.toModel(payment));
+            if (order != null) {
+                ordersUseCase.updateStatusOrder(order.getOrderId(), StatusOrder.CANCELED);
+            }
+            return order;
+        }
+        return order;
+
     }
 
 }
