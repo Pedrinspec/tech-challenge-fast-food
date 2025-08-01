@@ -1,24 +1,24 @@
 spring:
   application:
-    name: fast-food-tc
+    name: ${SPRING_APPLICATION_NAME:fast-food-tc}
 
   datasource:
-    url: jdbc:mysql://db:3306/fastfoodtc #usado para docker
-    username: root
-    password: admin
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME}
 
   jpa:
     hibernate:
-      ddl-auto: drop-and-create
-    show-sql: true
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO}
+    show-sql: ${SPRING_JPA_SHOW_SQL}
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: ${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT}
 
 server:
-  port: 8080
+  port: ${SERVER_PORT}
 
 mercadopago:
   access:
-    token: TEST-2693522035727463-051111-593221a6b3646669f028b3794e8b639c-534690741
+    token: ${MERCADOPAGO_ACCESS_TOKEN}
