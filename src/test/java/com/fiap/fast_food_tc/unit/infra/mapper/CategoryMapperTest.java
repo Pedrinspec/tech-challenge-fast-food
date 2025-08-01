@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CategoryPersistenceEntityMapperTest {
+class CategoryMapperTest {
 
     private final CategoryMapper mapper = Mappers.getMapper(CategoryMapper.class);
 

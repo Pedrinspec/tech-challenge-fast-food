@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class OrdersPersistenceEntityDataProviderTest {
+class OrdersDataProviderTest {
 
     @Mock
     private OrdersRepository repository;

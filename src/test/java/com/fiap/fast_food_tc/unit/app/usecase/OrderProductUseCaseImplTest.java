@@ -28,7 +28,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-class OrderProductPersistenceEntityPersistenceEntityUseCaseImplTest {
+class OrderProductUseCaseImplTest {
 
     @Mock
     private OrderProductGateway gateway;

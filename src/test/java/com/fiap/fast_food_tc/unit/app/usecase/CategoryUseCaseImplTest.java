@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
-class CategoryPersistenceEntityUseCaseImplTest {
+class CategoryUseCaseImplTest {
 
     @Mock
     private CategoryGateway categoryGateway;

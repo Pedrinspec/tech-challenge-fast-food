@@ -22,7 +22,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-class OrdersPersistenceEntityUseCaseImplTest {
+class OrdersUseCaseImplTest {
 
     @Mock
     private OrdersGateway provider;

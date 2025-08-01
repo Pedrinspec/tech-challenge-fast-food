@@ -18,7 +18,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-class CategoryPersistenceEntityControllerTest {
+class CategoryControllerTest {
 
     @Mock
     private CategoryService categoryService;

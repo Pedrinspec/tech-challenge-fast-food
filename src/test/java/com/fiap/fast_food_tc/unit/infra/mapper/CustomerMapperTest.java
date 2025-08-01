@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CustomerPersistenceEntityMapperTest {
+class CustomerMapperTest {
 
     private final CustomerMapper mapper = Mappers.getMapper(CustomerMapper.class);
 

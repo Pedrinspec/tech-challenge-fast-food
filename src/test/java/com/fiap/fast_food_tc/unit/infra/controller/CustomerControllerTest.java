@@ -14,7 +14,7 @@ import org.springframework.http.HttpStatus;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-class CustomerPersistenceEntityControllerTest {
+class CustomerControllerTest {
 
     @Mock
     private CustomerServiceImpl customerService;

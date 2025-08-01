@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProductPersistenceEntityMapperTest {
+class ProductMapperTest {
 
     private final ProductMapper mapper = Mappers.getMapper(ProductMapper.class);
 

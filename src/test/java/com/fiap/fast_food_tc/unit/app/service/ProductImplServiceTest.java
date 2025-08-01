@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
-class ProductPersistenceEntityServiceTest {
+class ProductImplServiceTest {
 
     @Mock
     private ProductMapper productMapper;
