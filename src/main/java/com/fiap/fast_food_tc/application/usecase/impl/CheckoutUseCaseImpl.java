@@ -1,26 +1,27 @@
 package com.fiap.fast_food_tc.application.usecase.impl;
 
 import com.fiap.fast_food_tc.application.dto.checkout.out.MPPaymentResponse;
+import com.fiap.fast_food_tc.application.gateway.CheckoutGateway;
 import com.fiap.fast_food_tc.application.gateway.PaymentGateway;
+import com.fiap.fast_food_tc.application.usecase.CheckoutUseCase;
+import com.fiap.fast_food_tc.application.usecase.OrderProductUseCase;
+import com.fiap.fast_food_tc.application.usecase.OrdersUseCase;
+import com.fiap.fast_food_tc.application.usecase.ProductUseCase;
 import com.fiap.fast_food_tc.domain.entity.Checkout;
 import com.fiap.fast_food_tc.domain.entity.CheckoutOrder;
 import com.fiap.fast_food_tc.domain.entity.OrderProduct;
 import com.fiap.fast_food_tc.domain.entity.Orders;
 import com.fiap.fast_food_tc.domain.entity.Payment;
+import com.fiap.fast_food_tc.domain.entity.Product;
 import com.fiap.fast_food_tc.domain.enums.PaymentStatus;
 import com.fiap.fast_food_tc.domain.enums.StatusOrder;
-import com.fiap.fast_food_tc.domain.entity.Product;
-import com.fiap.fast_food_tc.application.gateway.CheckoutGateway;
-import com.fiap.fast_food_tc.application.usecase.CheckoutUseCase;
-import com.fiap.fast_food_tc.application.usecase.OrderProductUseCase;
-import com.fiap.fast_food_tc.application.usecase.OrdersUseCase;
-import com.fiap.fast_food_tc.application.usecase.ProductUseCase;
 import com.fiap.fast_food_tc.infrastructure.web.mapper.PaymentMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Component
 public class CheckoutUseCaseImpl implements CheckoutUseCase {
@@ -31,7 +32,6 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
     private final ProductUseCase productUseCase;
     private final PaymentGateway paymentGateway;
     private final PaymentMapper paymentMapper;
-
     @Autowired
     public CheckoutUseCaseImpl(CheckoutGateway checkoutGateway,
                                OrdersUseCase ordersUseCase,
@@ -103,10 +103,14 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
         if ("approved".equalsIgnoreCase(MPResponse.getStatus())) {
             payment.setPaymentStatus(PaymentStatus.APPROVED);
             paymentGateway.save(paymentMapper.toModel(payment));
-            if (order != null) {
-                ordersUseCase.updateStatusOrder(order.getOrderId(), StatusOrder.IN_PREPARATION);
+            if (order == null) {
+                return null;
             }
-            //TODO update product stock
+            ordersUseCase.updateStatusOrder(order.getOrderId(), StatusOrder.IN_PREPARATION);
+            List<OrderProduct> orderProductList = orderProductUseCase.getByOrderId(order.getOrderId());
+
+            orderProductList.forEach(orderProduct -> productUseCase.subtractQuantity(orderProduct.getProductId(), orderProduct.getProductQuantity()));
+
             return order;
         }
         if ("rejected".equalsIgnoreCase(MPResponse.getStatus())) {

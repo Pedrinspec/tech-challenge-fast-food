@@ -31,6 +31,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -129,12 +130,27 @@ class CheckoutUseCaseImplTest {
                 .customerId(1)
                 .build();
 
+        List<OrderProduct> orderProductList = new ArrayList<>();
+        OrderProduct orderProduct = new OrderProduct().builder()
+                .orderId(1)
+                .productId(1)
+                .productQuantity(1)
+                .productTotalAmount(BigDecimal.ONE)
+                .build();
+
+        orderProductList.add(orderProduct);
+
         Mockito.when(checkoutGateway.findMercadoPagoPaymentResponse(anyString())).thenReturn(mpPaymentResponse);
         Mockito.when(paymentGateway.findByMercadoPagoId(anyString())).thenReturn(paymentPersistenceEntity);
         Mockito.when(paymentMapper.toEntity(any(PaymentPersistenceEntity.class))).thenReturn(payment);
         Mockito.when(ordersUseCase.getById(anyInt())).thenReturn(orders);
         Mockito.when(paymentMapper.toModel(any(Payment.class))).thenReturn(paymentPersistenceEntity);
         Mockito.when(ordersUseCase.updateStatusOrder(anyInt(),any(StatusOrder.class))).thenReturn(orders);
+
+        if (input.equalsIgnoreCase("APPROVED")) {
+            Mockito.when(orderProductUseCase.getByOrderId(anyInt())).thenReturn(orderProductList);
+            Mockito.doNothing().when(productUseCase).subtractQuantity(anyInt(), anyInt());
+        }
 
         Orders actual = useCase.handleWebhook("123");
 

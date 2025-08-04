@@ -17,16 +17,16 @@ import java.util.List;
 @Component
 public class OrderProductUseCaseImpl implements OrderProductUseCase {
 
-    private final OrderProductGateway gateway;
-    private final OrderProductMapper mapper;
+    private final OrderProductGateway orderProductGateway;
+    private final OrderProductMapper orderProductMapper;
     private final ProductGateway productGateway;
     private final ProductMapper productMapper;
 
     @Autowired
-    public OrderProductUseCaseImpl(OrderProductGateway gateway, OrderProductMapper mapper,
+    public OrderProductUseCaseImpl(OrderProductGateway orderProductGateway, OrderProductMapper orderProductMapper,
                                    ProductGateway productGateway, ProductMapper productMapper) {
-        this.gateway = gateway;
-        this.mapper = mapper;
+        this.orderProductGateway = orderProductGateway;
+        this.orderProductMapper = orderProductMapper;
         this.productGateway = productGateway;
         this.productMapper = productMapper;
     }
@@ -37,29 +37,34 @@ public class OrderProductUseCaseImpl implements OrderProductUseCase {
         BigDecimal totalAmount =
                 product.getProductValue().multiply(BigDecimal.valueOf(orderProduct.getProductQuantity()));
         orderProduct.setProductTotalAmount(totalAmount);
-        return mapper.toEntity(gateway.create(mapper.toModel(orderProduct)));
+        return orderProductMapper.toEntity(orderProductGateway.create(orderProductMapper.toModel(orderProduct)));
     }
 
     @Override
     public List<OrderProduct> getAll() {
-        return mapper.toEntityList(gateway.getAll());
+        return orderProductMapper.toEntityList(orderProductGateway.getAll());
     }
 
     @Override
     public OrderProduct getById(Integer orderId, Integer productId) {
         OrderProductPk pk = new OrderProductPk(orderId, productId);
-        return mapper.toEntity(gateway.getById(pk));
+        return orderProductMapper.toEntity(orderProductGateway.getById(pk));
     }
 
     @Override
     public OrderProduct update(Integer orderId, Integer productId, OrderProduct orderProduct) {
         orderProduct.setOrderId(orderId);
         orderProduct.setProductId(productId);
-        return mapper.toEntity(gateway.update(mapper.toModel(orderProduct)));
+        return orderProductMapper.toEntity(orderProductGateway.update(orderProductMapper.toModel(orderProduct)));
     }
 
     @Override
     public void delete(Integer orderId, Integer productId) {
-        gateway.delete(new OrderProductPk(orderId, productId));
+        orderProductGateway.delete(new OrderProductPk(orderId, productId));
+    }
+
+    @Override
+    public List<OrderProduct> getByOrderId(Integer orderId) {
+        return orderProductMapper.toEntityList(orderProductGateway.findByOrderId(orderId));
     }
 }
