@@ -17,6 +17,7 @@ import com.fiap.fast_food_tc.domain.enums.PaymentStatus;
 import com.fiap.fast_food_tc.domain.enums.StatusOrder;
 import com.fiap.fast_food_tc.infrastructure.web.mapper.PaymentMapper;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +25,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Component
+@Slf4j
 public class CheckoutUseCaseImpl implements CheckoutUseCase {
 
     private final CheckoutGateway checkoutGateway;
@@ -95,34 +97,56 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
 
 
     @Override
+    @Transactional
     public Orders handleWebhook(String paymentId) {
 
-        MPPaymentResponse MPResponse = checkoutGateway.findMercadoPagoPaymentResponse(paymentId);
-        Payment payment = paymentMapper.toEntity(paymentGateway.findByMercadoPagoId(MPResponse.getExternal_reference()));
+        MPPaymentResponse mpResponse = checkoutGateway.findMercadoPagoPaymentResponse(paymentId);
+        Payment payment = paymentMapper.toEntity(paymentGateway.findByMercadoPagoId(mpResponse.getExternal_reference()));
         Orders order = ordersUseCase.getById(payment.getOrderId());
-        if ("approved".equalsIgnoreCase(MPResponse.getStatus())) {
-            payment.setPaymentStatus(PaymentStatus.APPROVED);
-            paymentGateway.save(paymentMapper.toModel(payment));
-            if (order == null) {
-                return null;
-            }
-            ordersUseCase.updateStatusOrder(order.getOrderId(), StatusOrder.IN_PREPARATION);
-            List<OrderProduct> orderProductList = orderProductUseCase.getByOrderId(order.getOrderId());
 
-            orderProductList.forEach(orderProduct -> productUseCase.subtractQuantity(orderProduct.getProductId(), orderProduct.getProductQuantity()));
+        String status = mpResponse.getStatus().toLowerCase();
+        switch (status) {
+            case "approved":
+                processApprovedPayment(payment, order);
+                break;
+            case "rejected":
+                processRejectedPayment(payment, order);
+                break;
+            default:
+                log.info("Payment status '{}' founded to order {}. No action needed.", status, order.getOrderId());
+                break;
+        }
 
-            return order;
-        }
-        if ("rejected".equalsIgnoreCase(MPResponse.getStatus())) {
-            payment.setPaymentStatus(PaymentStatus.REJECTED);
-            paymentGateway.save(paymentMapper.toModel(payment));
-            if (order != null) {
-                ordersUseCase.updateStatusOrder(order.getOrderId(), StatusOrder.CANCELED);
-            }
-            return order;
-        }
         return order;
+    }
 
+    private void processApprovedPayment(Payment payment, Orders order) {
+        log.info("Processing payment APPROVED for order {}", order.getOrderId());
+
+        payment.setPaymentStatus(PaymentStatus.APPROVED);
+        paymentGateway.save(paymentMapper.toModel(payment));
+
+        ordersUseCase.updateStatusOrder(order.getOrderId(), StatusOrder.IN_PREPARATION);
+        order.setStatusOrder(StatusOrder.IN_PREPARATION);
+
+        List<OrderProduct> orderProductList = orderProductUseCase.getByOrderId(order.getOrderId());
+        orderProductList.forEach(orderProduct ->
+                productUseCase.subtractQuantity(orderProduct.getProductId(), orderProduct.getProductQuantity())
+        );
+
+        log.info("Order {} status changed to 'IN PREPARATION' and stock updated successfully.", order.getOrderId());
+    }
+
+    private void processRejectedPayment(Payment payment, Orders order) {
+        log.info("Processing payment REJECTED for order {}", order.getOrderId());
+
+        payment.setPaymentStatus(PaymentStatus.REJECTED);
+        paymentGateway.save(paymentMapper.toModel(payment));
+
+        ordersUseCase.updateStatusOrder(order.getOrderId(), StatusOrder.CANCELED);
+        order.setStatusOrder(StatusOrder.CANCELED);
+
+        log.info("Order {} status changed to 'CANCELED'.", order.getOrderId());
     }
 
 }
