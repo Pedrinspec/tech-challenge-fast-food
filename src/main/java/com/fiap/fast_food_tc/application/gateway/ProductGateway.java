@@ -17,6 +17,4 @@ public interface ProductGateway {
 
     List<ProductPersistenceEntity> findByCategoryId(Integer categoryId);
 
-    void substractQuantity(Integer id, Integer newQuantity);
-
 }

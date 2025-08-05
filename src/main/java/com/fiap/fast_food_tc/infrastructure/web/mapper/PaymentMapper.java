@@ -12,7 +12,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface PaymentMapper {
 
-    @Mapping(target = "paymentId", ignore = true)
     @Mapping(target = "ordersPersistenceEntity.orderId", source = "orderId")
     PaymentPersistenceEntity toModel(Payment entity);
 

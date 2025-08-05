@@ -12,43 +12,36 @@ import com.fiap.fast_food_tc.domain.entity.OrderProduct;
 import com.fiap.fast_food_tc.domain.entity.Orders;
 import com.fiap.fast_food_tc.domain.entity.Payment;
 import com.fiap.fast_food_tc.domain.entity.Product;
-import com.fiap.fast_food_tc.domain.enums.PaymentMethod;
 import com.fiap.fast_food_tc.domain.enums.PaymentStatus;
 import com.fiap.fast_food_tc.domain.enums.StatusOrder;
-import com.fiap.fast_food_tc.infrastructure.persistence.entity.CustomerPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.PaymentPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.web.mapper.PaymentMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class CheckoutUseCaseImplTest {
 
     @Mock
-    private CheckoutGateway checkoutGateway;
-    @Mock
-    private OrdersUseCase ordersUseCase;
+     private ProductUseCase productUseCase;
     @Mock
     private OrderProductUseCase orderProductUseCase;
     @Mock
-    private ProductUseCase productUseCase;
+    private CheckoutGateway checkoutGateway;
+    @Mock
+    private OrdersUseCase ordersUseCase;
     @Mock
     private PaymentGateway paymentGateway;
     @Mock
@@ -56,111 +49,93 @@ class CheckoutUseCaseImplTest {
     @InjectMocks
     private CheckoutUseCaseImpl useCase;
 
-    @ParameterizedTest
-    @ValueSource(strings = {"APPROVED", "REJECTED"})
-    void handleWebhook(String input) {
+    private MPPaymentResponse mpPaymentResponse;
+    private PaymentPersistenceEntity paymentPersistenceEntity;
+    private Payment payment;
+    private Orders initialOrder;
+    private Orders updatedOrder;
 
-        MPPaymentResponse.Payer payer = new MPPaymentResponse.Payer().builder()
-                .email("email")
-                .first_name("nome")
-                .last_name("sobrenome")
-                .build();
+    @BeforeEach
+    void setUp() {
 
-        MPPaymentResponse.Order order = new MPPaymentResponse.Order().builder()
-                .id("id")
-                .build();
+        mpPaymentResponse = new MPPaymentResponse();
+        mpPaymentResponse.setId(1L);
+        mpPaymentResponse.setPayment_type_id("PIX");
+        mpPaymentResponse.setPayment_method_id("PIX");
+        mpPaymentResponse.setTransaction_amount(BigDecimal.ONE);
+        mpPaymentResponse.setExternal_reference("external-ref-123");
 
-        MPPaymentResponse.TransactionDetails transactionDetails =
-                new MPPaymentResponse.TransactionDetails().builder()
-                        .total_paid_amount(BigDecimal.ONE)
-                        .net_received_amount(BigDecimal.ONE)
-                        .build();
+        paymentPersistenceEntity = new PaymentPersistenceEntity();
+        paymentPersistenceEntity.setPaymentId(1);
+        paymentPersistenceEntity.setMercadoPagoId("external-ref-123");
 
-        MPPaymentResponse mpPaymentResponse = new MPPaymentResponse().builder()
-                .id(1L)
-                .status(input)
-                .payment_type_id("PIX")
-                .payment_method_id("PIX")
-                .transaction_amount(BigDecimal.ONE)
-                .external_reference("external")
-                .payer(payer)
-                .order(order)
-                .transaction_details(transactionDetails)
-                .build();
+        OrdersPersistenceEntity ordersPersistenceEntity = new OrdersPersistenceEntity();
+        ordersPersistenceEntity.setOrderId(1);
+        paymentPersistenceEntity.setOrdersPersistenceEntity(ordersPersistenceEntity);
 
-        OrdersPersistenceEntity ordersPersistenceEntity = new OrdersPersistenceEntity().builder()
-                .orderId(1)
-                .orderDatetime(LocalDateTime.now())
-                .statusOrder(StatusOrder.FINISHED)
-                .orderCode(Short.MAX_VALUE)
-                .totalAmount(BigDecimal.ONE)
-                .customerPersistenceEntity(new CustomerPersistenceEntity())
-                .orderProductPersistenceEntities(new ArrayList<>())
-                .paymentPersistenceEntity(new PaymentPersistenceEntity())
-                .build();
+        payment = new Payment();
+        payment.setPaymentId(1);
+        payment.setOrderId(1);
+        payment.setMercadoPagoId("external-ref-123");
 
-        PaymentPersistenceEntity paymentPersistenceEntity = new PaymentPersistenceEntity().builder()
-                .paymentId(1)
-                .paymentMethod(PaymentMethod.PIX)
-                .paymentStatus(PaymentStatus.APPROVED)
-                .createdAt(LocalDateTime.now())
-                .paymentValue(BigDecimal.ONE)
-                .mercadoPagoId("1")
-                .customerId(1)
-                .ordersPersistenceEntity(ordersPersistenceEntity)
-                .build();
+        initialOrder = new Orders();
+        initialOrder.setOrderId(1);
+        initialOrder.setStatusOrder(StatusOrder.PAYMENT_PENDING);
 
-        Payment payment = new Payment().builder()
-                .paymentId(1)
-                .paymentMethod(PaymentMethod.PIX)
-                .paymentStatus(PaymentStatus.APPROVED)
-                .createdAt(LocalDateTime.now())
-                .paymentValue(BigDecimal.ONE)
-                .mercadoPagoId("1")
-                .customerId(1)
-                .orderId(1)
-                .build();
+        updatedOrder = new Orders();
+        updatedOrder.setOrderId(1);
+    }
 
-        Orders orders = new Orders().builder()
-                .orderId(1)
-                .orderDatetime(LocalDateTime.now())
-                .statusOrder(StatusOrder.PAYMENT_PENDING)
-                .orderCode(Short.MAX_VALUE)
-                .totalAmount(BigDecimal.ONE)
-                .customerId(1)
-                .build();
+    @Test
+    void checkoutWebhookApproved() {
+        mpPaymentResponse.setStatus("approved");
+        updatedOrder.setStatusOrder(StatusOrder.RECEIVED);
 
-        List<OrderProduct> orderProductList = new ArrayList<>();
-        OrderProduct orderProduct = new OrderProduct().builder()
-                .orderId(1)
-                .productId(1)
-                .productQuantity(1)
-                .productTotalAmount(BigDecimal.ONE)
-                .build();
+        payment.setPaymentStatus(PaymentStatus.APPROVED);
 
-        orderProductList.add(orderProduct);
+        PaymentPersistenceEntity expectedSavedEntity = new PaymentPersistenceEntity();
+        expectedSavedEntity.setPaymentStatus(PaymentStatus.APPROVED);
 
-        Mockito.when(checkoutGateway.findMercadoPagoPaymentResponse(anyString())).thenReturn(mpPaymentResponse);
-        Mockito.when(paymentGateway.findByMercadoPagoId(anyString())).thenReturn(paymentPersistenceEntity);
-        Mockito.when(paymentMapper.toEntity(any(PaymentPersistenceEntity.class))).thenReturn(payment);
-        Mockito.when(ordersUseCase.getById(anyInt())).thenReturn(orders);
-        Mockito.when(paymentMapper.toModel(any(Payment.class))).thenReturn(paymentPersistenceEntity);
-        Mockito.when(ordersUseCase.updateStatusOrder(anyInt(),any(StatusOrder.class))).thenReturn(orders);
+        when(checkoutGateway.findMercadoPagoPaymentResponse("payment-123")).thenReturn(mpPaymentResponse);
+        when(paymentGateway.findByMercadoPagoId("external-ref-123")).thenReturn(paymentPersistenceEntity);
+        when(paymentMapper.toEntity(paymentPersistenceEntity)).thenReturn(payment);
+        when(paymentMapper.toModel(payment)).thenReturn(expectedSavedEntity);
+        when(ordersUseCase.getById(1)).thenReturn(initialOrder);
+        when(ordersUseCase.updateStatusOrder(1, StatusOrder.RECEIVED)).thenReturn(updatedOrder);
 
-        if (input.equalsIgnoreCase("APPROVED")) {
-            Mockito.when(orderProductUseCase.getByOrderId(anyInt())).thenReturn(orderProductList);
-            Mockito.doNothing().when(productUseCase).subtractQuantity(anyInt(), anyInt());
-        }
+        Orders actualOrder = useCase.handleWebhook("payment-123");
 
-        Orders actual = useCase.handleWebhook("123");
+        assertEquals(updatedOrder, actualOrder);
+        assertEquals(StatusOrder.RECEIVED, actualOrder.getStatusOrder());
 
-        Mockito.verify(checkoutGateway,Mockito.times(1)).findMercadoPagoPaymentResponse(anyString());
-        Mockito.verify(paymentGateway,Mockito.times(1)).findByMercadoPagoId(anyString());
-        Mockito.verify(paymentMapper,Mockito.times(1)).toEntity(any(PaymentPersistenceEntity.class));
-        Mockito.verify(ordersUseCase,Mockito.times(1)).getById(anyInt());
-        Mockito.verify(paymentMapper,Mockito.times(1)).toModel(any(Payment.class));
-        Mockito.verify(ordersUseCase,Mockito.times(1)).updateStatusOrder(anyInt(), any(StatusOrder.class));
-        assertEquals(orders, actual);
+        verify(paymentGateway).save(expectedSavedEntity);
+        verify(ordersUseCase).updateStatusOrder(1, StatusOrder.RECEIVED);
+    }
+
+    @Test
+    void checkoutWebhookRejected() {
+        mpPaymentResponse.setStatus("rejected");
+        updatedOrder.setStatusOrder(StatusOrder.CANCELED);
+
+        payment.setPaymentStatus(PaymentStatus.REJECTED);
+
+        PaymentPersistenceEntity expectedSavedEntity = new PaymentPersistenceEntity();
+        expectedSavedEntity.setPaymentStatus(PaymentStatus.REJECTED);
+
+        when(checkoutGateway.findMercadoPagoPaymentResponse("payment-123")).thenReturn(mpPaymentResponse);
+        when(paymentGateway.findByMercadoPagoId("external-ref-123")).thenReturn(paymentPersistenceEntity);
+        when(paymentMapper.toEntity(paymentPersistenceEntity)).thenReturn(payment);
+        when(paymentMapper.toModel(payment)).thenReturn(expectedSavedEntity);
+        when(ordersUseCase.getById(1)).thenReturn(initialOrder);
+        when(ordersUseCase.updateStatusOrder(1, StatusOrder.CANCELED)).thenReturn(updatedOrder);
+
+        Orders actualOrder = useCase.handleWebhook("payment-123");
+
+        assertEquals(updatedOrder, actualOrder);
+        assertEquals(StatusOrder.CANCELED, actualOrder.getStatusOrder());
+
+        verify(paymentGateway).save(expectedSavedEntity);
+        verify(ordersUseCase).updateStatusOrder(1, StatusOrder.CANCELED);
     }
 
     @Test
@@ -174,12 +149,12 @@ class CheckoutUseCaseImplTest {
                 .items(java.util.List.of(item))
                 .build();
 
-        Mockito.when(ordersUseCase.getNextOrderCode()).thenReturn((short)1);
-        Mockito.when(ordersUseCase.create(Mockito.any(Orders.class))).thenReturn(Orders.builder().orderId(1).build());
-        Mockito.when(productUseCase.findById(Mockito.anyInt())).thenReturn(Product.builder().productId(1).productValue(java.math.BigDecimal.ONE).build());
-        Mockito.when(orderProductUseCase.create(Mockito.any(OrderProduct.class))).thenReturn(OrderProduct.builder().build());
-        Mockito.when(ordersUseCase.update(Mockito.anyInt(), Mockito.any(Orders.class))).thenReturn(Orders.builder().orderId(1).build());
-        Mockito.when(checkoutGateway.getPaymentLink(1)).thenReturn("link");
+        when(ordersUseCase.getNextOrderCode()).thenReturn((short)1);
+        when(ordersUseCase.create(Mockito.any(Orders.class))).thenReturn(Orders.builder().orderId(1).build());
+        when(productUseCase.findById(Mockito.anyInt())).thenReturn(Product.builder().productId(1).productValue(java.math.BigDecimal.ONE).build());
+        when(orderProductUseCase.create(Mockito.any(OrderProduct.class))).thenReturn(OrderProduct.builder().build());
+        when(ordersUseCase.update(Mockito.anyInt(), Mockito.any(Orders.class))).thenReturn(Orders.builder().orderId(1).build());
+        when(checkoutGateway.getPaymentLink(1)).thenReturn("link");
 
         var result = useCase.checkoutAndCreateOrder(request);
 

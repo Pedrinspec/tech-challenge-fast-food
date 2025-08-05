@@ -16,6 +16,4 @@ public interface ProductUseCase {
     List<Product> findByCategoryId(Integer categoryId);
 
     Product findById(Integer id);
-
-    void subtractQuantity(Integer id, Integer quantityToRemove);
 }

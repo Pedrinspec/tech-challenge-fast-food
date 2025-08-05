@@ -53,10 +53,4 @@ public class ProductUseCaseImpl implements ProductUseCase {
         productGateway.delete(id);
     }
 
-    @Override
-    public void subtractQuantity(Integer id, Integer quantityToRemove) {
-        Product product = productMapper.toEntity(productGateway.findById(id));
-        Integer newQuantity = product.getQuantity()-quantityToRemove;
-        productGateway.substractQuantity(id, newQuantity);
-    }
 }

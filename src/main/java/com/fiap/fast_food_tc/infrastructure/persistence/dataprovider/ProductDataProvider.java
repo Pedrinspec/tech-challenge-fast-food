@@ -49,9 +49,4 @@ public class ProductDataProvider implements ProductGateway {
         return productRepository.findByCategoryPersistenceEntityCategoryId(categoryId);
     }
 
-    @Override
-    public void substractQuantity(Integer id, Integer newQuantity) {
-        productRepository.substractQuantity(id, newQuantity);
-    }
-
 }

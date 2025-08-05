@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Component
 @Slf4j
@@ -34,6 +33,7 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
     private final ProductUseCase productUseCase;
     private final PaymentGateway paymentGateway;
     private final PaymentMapper paymentMapper;
+
     @Autowired
     public CheckoutUseCaseImpl(CheckoutGateway checkoutGateway,
                                OrdersUseCase ordersUseCase,
@@ -46,7 +46,6 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
         this.paymentGateway = paymentGateway;
         this.paymentMapper = paymentMapper;
     }
-
 
     @Override
     @Transactional
@@ -105,48 +104,37 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
         Orders order = ordersUseCase.getById(payment.getOrderId());
 
         String status = mpResponse.getStatus().toLowerCase();
-        switch (status) {
-            case "approved":
-                processApprovedPayment(payment, order);
-                break;
-            case "rejected":
-                processRejectedPayment(payment, order);
-                break;
-            default:
+        return switch (status) {
+            case "approved" -> processApprovedPayment(payment, order);
+            case "rejected" -> processRejectedPayment(payment, order);
+            default -> {
                 log.info("Payment status '{}' founded to order {}. No action needed.", status, order.getOrderId());
-                break;
-        }
+                yield order;
+            }
+        };
 
-        return order;
     }
 
-    private void processApprovedPayment(Payment payment, Orders order) {
+    private Orders processApprovedPayment(Payment payment, Orders order) {
         log.info("Processing payment APPROVED for order {}", order.getOrderId());
 
         payment.setPaymentStatus(PaymentStatus.APPROVED);
         paymentGateway.save(paymentMapper.toModel(payment));
 
-        ordersUseCase.updateStatusOrder(order.getOrderId(), StatusOrder.IN_PREPARATION);
-        order.setStatusOrder(StatusOrder.IN_PREPARATION);
+        log.info("Order {} status changed to 'RECEIVED'.", order.getOrderId());
 
-        List<OrderProduct> orderProductList = orderProductUseCase.getByOrderId(order.getOrderId());
-        orderProductList.forEach(orderProduct ->
-                productUseCase.subtractQuantity(orderProduct.getProductId(), orderProduct.getProductQuantity())
-        );
-
-        log.info("Order {} status changed to 'IN PREPARATION' and stock updated successfully.", order.getOrderId());
+        return ordersUseCase.updateStatusOrder(order.getOrderId(), StatusOrder.RECEIVED);
     }
 
-    private void processRejectedPayment(Payment payment, Orders order) {
+    private Orders processRejectedPayment(Payment payment, Orders order) {
         log.info("Processing payment REJECTED for order {}", order.getOrderId());
 
         payment.setPaymentStatus(PaymentStatus.REJECTED);
         paymentGateway.save(paymentMapper.toModel(payment));
 
-        ordersUseCase.updateStatusOrder(order.getOrderId(), StatusOrder.CANCELED);
-        order.setStatusOrder(StatusOrder.CANCELED);
-
         log.info("Order {} status changed to 'CANCELED'.", order.getOrderId());
+
+        return ordersUseCase.updateStatusOrder(order.getOrderId(), StatusOrder.CANCELED);
     }
 
 }
