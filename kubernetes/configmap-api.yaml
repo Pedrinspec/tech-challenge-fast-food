@@ -12,3 +12,4 @@ data:
   SPRING_JPA_SHOW_SQL: "true"
   SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
   SERVER_PORT: "8080"
+  WEBHOOK_MERCADOPAGO_BASE_URL: "https://huge-musician-87.webhook.cool"

@@ -22,3 +22,5 @@ server:
 mercadopago:
   access:
     token: ${MERCADOPAGO_ACCESS_TOKEN}
+  webhook:
+    base-url: ${WEBHOOK_MERCADOPAGO_BASE_URL}

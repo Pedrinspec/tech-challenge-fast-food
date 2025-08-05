@@ -1,17 +1,18 @@
 package com.fiap.fast_food_tc.infrastructure.persistence.dataprovider;
 
+import com.fiap.fast_food_tc.application.dto.checkout.in.PreferenceRequest;
 import com.fiap.fast_food_tc.application.dto.checkout.out.MPPaymentResponse;
+import com.fiap.fast_food_tc.application.dto.checkout.out.PreferenceResponse;
+import com.fiap.fast_food_tc.application.gateway.CheckoutGateway;
+import com.fiap.fast_food_tc.domain.enums.PaymentMethod;
+import com.fiap.fast_food_tc.domain.enums.PaymentStatus;
+import com.fiap.fast_food_tc.infrastructure.client.MercadoPagoClient;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.OrdersPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.PaymentPersistenceEntity;
 import com.fiap.fast_food_tc.infrastructure.persistence.entity.ProductPersistenceEntity;
-import com.fiap.fast_food_tc.application.dto.checkout.in.PreferenceRequest;
-import com.fiap.fast_food_tc.application.dto.checkout.out.PreferenceResponse;
-import com.fiap.fast_food_tc.infrastructure.client.MercadoPagoClient;
-import com.fiap.fast_food_tc.domain.enums.PaymentMethod;
-import com.fiap.fast_food_tc.domain.enums.PaymentStatus;
-import com.fiap.fast_food_tc.application.gateway.CheckoutGateway;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -24,13 +25,17 @@ public class CheckoutDataProvider implements CheckoutGateway {
     private final PaymentDataProvider paymentDataProvider;
     private final OrdersDataProvider ordersDataProvider;
     private final OrderProductDataProvider orderProductDataProvider;
+    private final String webhookBaseUrl;
 
     @Autowired
-    public CheckoutDataProvider(MercadoPagoClient mercadoPagoClient, PaymentDataProvider paymentDataProvider, OrdersDataProvider ordersDataProvider, OrderProductDataProvider orderProductDataProvider) {
+    public CheckoutDataProvider(MercadoPagoClient mercadoPagoClient, PaymentDataProvider paymentDataProvider,
+                                OrdersDataProvider ordersDataProvider,
+                                OrderProductDataProvider orderProductDataProvider, @Value("${mercadopago.webhook.base-url}") String webhookBaseUrl) {
         this.mercadoPagoClient = mercadoPagoClient;
         this.paymentDataProvider = paymentDataProvider;
         this.ordersDataProvider = ordersDataProvider;
         this.orderProductDataProvider = orderProductDataProvider;
+        this.webhookBaseUrl = webhookBaseUrl;
     }
 
     @Override
@@ -74,21 +79,22 @@ public class CheckoutDataProvider implements CheckoutGateway {
             return item;
         }).toList();
 
-        return buildRequest(order, items);
+        return buildRequest(order, items, webhookBaseUrl);
     }
 
-    private static PreferenceRequest buildRequest(OrdersPersistenceEntity order, List<PreferenceRequest.Item> items) {
+    private static PreferenceRequest buildRequest(OrdersPersistenceEntity order, List<PreferenceRequest.Item> items,
+                                                  String webhookBaseUrl) {
         PreferenceRequest.BackUrls urls = new PreferenceRequest.BackUrls();
-        urls.setSuccess("https://huge-musician-87.webhook.cool/pagamento/aprovado");
-        urls.setFailure("https://huge-musician-87.webhook.cool/pagamento/falha");
-        urls.setPending("https://huge-musician-87.webhook.cool/pagamento/pendente");
+        urls.setSuccess(String.format("%s/pagamento/aprovado", webhookBaseUrl));
+        urls.setFailure(String.format("%s/pagamento/falha", webhookBaseUrl));
+        urls.setPending(String.format("%s/pagamento/pendente", webhookBaseUrl));
 
         PreferenceRequest request = new PreferenceRequest();
         request.setItems(items);
         request.setExternalReference("PEDIDO_" + order.getOrderId());
         request.setBackUrls(urls);
         request.setAutoReturn("approved");
-        request.setNotificationUrl("https://huge-musician-87.webhook.cool/pagamento");
+        request.setNotificationUrl(String.format("%s/pagamento", webhookBaseUrl));
         return request;
     }
 }

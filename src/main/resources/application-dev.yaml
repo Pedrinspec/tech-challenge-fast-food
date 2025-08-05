@@ -5,12 +5,12 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/fastfoodtc # usado para ambiente local
     username: root
-    password: admin
+    password:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: drop-and-create
     show-sql: true
     properties:
       hibernate:
@@ -22,3 +22,5 @@ server:
 mercadopago:
   access:
     token: TEST-2693522035727463-051111-593221a6b3646669f028b3794e8b639c-534690741
+  webhook:
+    base-url: https://huge-musician-87.webhook.cool
