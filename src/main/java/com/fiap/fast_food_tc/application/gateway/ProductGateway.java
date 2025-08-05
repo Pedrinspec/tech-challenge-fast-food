@@ -16,4 +16,5 @@ public interface ProductGateway {
     ProductPersistenceEntity findById(Integer id);
 
     List<ProductPersistenceEntity> findByCategoryId(Integer categoryId);
+
 }

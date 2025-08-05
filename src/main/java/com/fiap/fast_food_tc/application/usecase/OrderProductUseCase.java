@@ -10,4 +10,5 @@ public interface OrderProductUseCase {
     OrderProduct getById(Integer orderId, Integer productId);
     OrderProduct update(Integer orderId, Integer productId, OrderProduct orderProduct);
     void delete(Integer orderId, Integer productId);
+    List<OrderProduct> getByOrderId(Integer orderId);
 }

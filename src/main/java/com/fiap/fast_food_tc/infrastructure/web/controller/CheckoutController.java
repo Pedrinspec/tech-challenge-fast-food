@@ -33,10 +33,8 @@ public class CheckoutController {
 
     @PostMapping("/webhook/mercadoPago")
     public ResponseEntity<Orders> handleWebhook(@Valid @RequestBody CheckoutWebhookRequest payload) {
-
         if ("payment".equals(payload.getType()) && payload.getData() != null) {
             String paymentId = payload.getData().getId();
-
             if (paymentId != null && !paymentId.isEmpty()) {
                 return ResponseEntity.ok(checkoutService.handleWebhook(paymentId));
             }

@@ -1,28 +1,30 @@
 package com.fiap.fast_food_tc.application.usecase.impl;
 
 import com.fiap.fast_food_tc.application.dto.checkout.out.MPPaymentResponse;
+import com.fiap.fast_food_tc.application.gateway.CheckoutGateway;
 import com.fiap.fast_food_tc.application.gateway.PaymentGateway;
+import com.fiap.fast_food_tc.application.usecase.CheckoutUseCase;
+import com.fiap.fast_food_tc.application.usecase.OrderProductUseCase;
+import com.fiap.fast_food_tc.application.usecase.OrdersUseCase;
+import com.fiap.fast_food_tc.application.usecase.ProductUseCase;
 import com.fiap.fast_food_tc.domain.entity.Checkout;
 import com.fiap.fast_food_tc.domain.entity.CheckoutOrder;
 import com.fiap.fast_food_tc.domain.entity.OrderProduct;
 import com.fiap.fast_food_tc.domain.entity.Orders;
 import com.fiap.fast_food_tc.domain.entity.Payment;
+import com.fiap.fast_food_tc.domain.entity.Product;
 import com.fiap.fast_food_tc.domain.enums.PaymentStatus;
 import com.fiap.fast_food_tc.domain.enums.StatusOrder;
-import com.fiap.fast_food_tc.domain.entity.Product;
-import com.fiap.fast_food_tc.application.gateway.CheckoutGateway;
-import com.fiap.fast_food_tc.application.usecase.CheckoutUseCase;
-import com.fiap.fast_food_tc.application.usecase.OrderProductUseCase;
-import com.fiap.fast_food_tc.application.usecase.OrdersUseCase;
-import com.fiap.fast_food_tc.application.usecase.ProductUseCase;
 import com.fiap.fast_food_tc.infrastructure.web.mapper.PaymentMapper;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
 @Component
+@Slf4j
 public class CheckoutUseCaseImpl implements CheckoutUseCase {
 
     private final CheckoutGateway checkoutGateway;
@@ -44,7 +46,6 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
         this.paymentGateway = paymentGateway;
         this.paymentMapper = paymentMapper;
     }
-
 
     @Override
     @Transactional
@@ -95,30 +96,45 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
 
 
     @Override
+    @Transactional
     public Orders handleWebhook(String paymentId) {
 
-        MPPaymentResponse MPResponse = checkoutGateway.findMercadoPagoPaymentResponse(paymentId);
-        Payment payment = paymentMapper.toEntity(paymentGateway.findByMercadoPagoId(MPResponse.getExternal_reference()));
+        MPPaymentResponse mpResponse = checkoutGateway.findMercadoPagoPaymentResponse(paymentId);
+        Payment payment = paymentMapper.toEntity(paymentGateway.findByMercadoPagoId(mpResponse.getExternal_reference()));
         Orders order = ordersUseCase.getById(payment.getOrderId());
-        if ("approved".equalsIgnoreCase(MPResponse.getStatus())) {
-            payment.setPaymentStatus(PaymentStatus.APPROVED);
-            paymentGateway.save(paymentMapper.toModel(payment));
-            if (order != null) {
-                ordersUseCase.updateStatusOrder(order.getOrderId(), StatusOrder.IN_PREPARATION);
-            }
-            //TODO update product stock
-            return order;
-        }
-        if ("rejected".equalsIgnoreCase(MPResponse.getStatus())) {
-            payment.setPaymentStatus(PaymentStatus.REJECTED);
-            paymentGateway.save(paymentMapper.toModel(payment));
-            if (order != null) {
-                ordersUseCase.updateStatusOrder(order.getOrderId(), StatusOrder.CANCELED);
-            }
-            return order;
-        }
-        return order;
 
+        String status = mpResponse.getStatus().toLowerCase();
+        return switch (status) {
+            case "approved" -> processApprovedPayment(payment, order);
+            case "rejected" -> processRejectedPayment(payment, order);
+            default -> {
+                log.info("Payment status '{}' founded to order {}. No action needed.", status, order.getOrderId());
+                yield order;
+            }
+        };
+
+    }
+
+    private Orders processApprovedPayment(Payment payment, Orders order) {
+        log.info("Processing payment APPROVED for order {}", order.getOrderId());
+
+        payment.setPaymentStatus(PaymentStatus.APPROVED);
+        paymentGateway.save(paymentMapper.toModel(payment));
+
+        log.info("Order {} status changed to 'RECEIVED'.", order.getOrderId());
+
+        return ordersUseCase.updateStatusOrder(order.getOrderId(), StatusOrder.RECEIVED);
+    }
+
+    private Orders processRejectedPayment(Payment payment, Orders order) {
+        log.info("Processing payment REJECTED for order {}", order.getOrderId());
+
+        payment.setPaymentStatus(PaymentStatus.REJECTED);
+        paymentGateway.save(paymentMapper.toModel(payment));
+
+        log.info("Order {} status changed to 'CANCELED'.", order.getOrderId());
+
+        return ordersUseCase.updateStatusOrder(order.getOrderId(), StatusOrder.CANCELED);
     }
 
 }
