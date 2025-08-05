@@ -167,8 +167,9 @@ Isola todos os recursos do projeto (Pods, Services, ConfigMaps, Secrets etc.) de
 - **Secret:** tokens e senhas sensíveis (como o token do Mercado Pago).
 - **HPA:** monitora uso de CPU (50%) e memória (60%) para escalar horizontalmente.
 - **ReplicaSet:** gerenciado pelo Deployment, garante alta disponibilidade.
-
-
+- **`livenessProbe`**: Verifica se o app ainda está vivo. Se falhar, o Pod é reiniciado.
+- **`readinessProbe`**: Verifica se o app está pronto para receber tráfego.
+- **`strategy.rollingUpdate`**: Garante atualização suave com no máximo 1 pod fora do ar e 1 pod novo sendo criado por vez.
 
 ### 🗄 MySQL (Banco de Dados)
 - **Tipo:** StatefulSet

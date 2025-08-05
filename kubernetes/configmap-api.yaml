@@ -8,7 +8,8 @@ data:
   SPRING_APPLICATION_NAME: fast-food-tc
   SPRING_DATASOURCE_URL: jdbc:mysql://mysql.desafio-fiap.svc.cluster.local:3306/fastfood?useSSL=false&allowPublicKeyRetrieval=true
   SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
-  SPRING_JPA_HIBERNATE_DDL_AUTO: drop-and-create
+  SPRING_JPA_HIBERNATE_DDL_AUTO: update
   SPRING_JPA_SHOW_SQL: "true"
   SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
   SERVER_PORT: "8080"
+  WEBHOOK_MERCADOPAGO_BASE_URL: "https://huge-musician-87.webhook.cool"

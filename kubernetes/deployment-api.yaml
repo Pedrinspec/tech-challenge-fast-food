@@ -8,6 +8,11 @@ spec:
   selector:
     matchLabels:
       app: fastfood-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   template:
     metadata:
       labels:
@@ -15,7 +20,7 @@ spec:
     spec:
       containers:
         - name: fastfood-app
-          image: gustavohaj/fastfood-app:v1
+          image: gustavohaj/fastfood-app:latest
           ports:
             - containerPort: 8080
           envFrom:
@@ -23,6 +28,20 @@ spec:
                 name: fastfood-app-config
             - secretRef:
                 name: fastfood-app-secret
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
           resources:
             requests:
               memory: "512Mi"
