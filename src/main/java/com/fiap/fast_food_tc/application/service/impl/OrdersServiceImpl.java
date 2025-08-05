@@ -33,22 +33,14 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public List<OrdersResponseDto> getAllOrderUnfinished() {
        return mapper.toResponseList(ordersUseCase.getAllOrders()).stream()
-                .filter(order -> order.getStatusOrder() != StatusOrder.FINISHED)
-                .sorted(Comparator.comparingInt((OrdersResponseDto o) -> getPriority(o.getStatusOrder()))
+                .filter(order -> order.getStatusOrder() != StatusOrder.FINISHED
+                        && order.getStatusOrder() != StatusOrder.CANCELED
+                        && order.getStatusOrder() != StatusOrder.PAYMENT_REFUSED
+                        && order.getStatusOrder() != StatusOrder.PAYMENT_PENDING)
+                .sorted(Comparator.comparingInt((OrdersResponseDto o) -> o.getStatusOrder().getPriority())
+                        .thenComparing(OrdersResponseDto::getOrderDatetime)
                         .thenComparing(OrdersResponseDto::getOrderDatetime))
                 .toList();
-    }
-
-    private int getPriority(StatusOrder status) {
-        return switch (status) {
-            case PAYMENT_REFUSED -> 0;
-            case PAYMENT_PENDING -> 1;
-            case RECEIVED -> 2;
-            case READY_FOR_PICKUP -> 3;
-            case IN_PREPARATION -> 4;
-            case FINISHED -> 5;
-            case CANCELED -> 6;
-        };
     }
 
     @Override
