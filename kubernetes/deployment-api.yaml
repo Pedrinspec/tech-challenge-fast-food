@@ -28,20 +28,6 @@ spec:
                 name: fastfood-app-config
             - secretRef:
                 name: fastfood-app-secret
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8080
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            failureThreshold: 3
-          readinessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8080
-            initialDelaySeconds: 10
-            periodSeconds: 5
-            failureThreshold: 3
           resources:
             requests:
               memory: "512Mi"
