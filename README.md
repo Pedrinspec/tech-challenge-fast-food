@@ -196,7 +196,50 @@ A aplicação Fastfood se comunica com a API externa do Mercado Pago, utilizando
 
 ---
 
+## 🧭 Guia de como usar a aplicação
 
+Após iniciar a aplicação, para que ela funcione corretamente, precisamos seguir algumas etapas:
+
+1. Cadastrar as 4 categorias Lanche, Acompanhamento, Bebida e sobremesa, respectivamente. 
+   - Exemplo de cadastro de categoria: ![Exemplo Cadastro Categoria](files/useguide/exemplo_cadastro_categoria.png)
+2. Cadastrar os produtos.
+   - Exemplo de cadastro de produto: ![Exemplo Cadastro Produto](./files/useguide/exemplo_cadastro_produto.png)
+
+Agora com a aplicação populada, podemos começar o fluxo de realização de pedido.
+1. primeiro realizamos um pedido: (Para cliente não identificados, utilizar id 0) 
+![Exemplo Pedido](./files/useguide/exemplo_pedido.png)
+   - Resposta da requisição:
+      ```json 
+      {
+        "orderId": 2,
+        "paymentLink": "https://sandbox.mercadopago.com.br/checkout/v1/redirect?pref_id=534690741-8fea4a6d-9e9a-48e1-bd88-c30c51554862",
+        "statusOrder": "PAYMENT_PENDING",
+        "orderCode": 4,
+        "totalAmount": 113,
+        "orderRequest": {
+          "customerId": 2,
+          "items": [
+            {
+              "productId": 1,
+              "quantity": 1
+            },
+            {
+              "productId": 2,
+              "quantity": 1
+            },
+            {
+              "productId": 3,
+              "quantity": 2
+            }
+          ]
+        }
+      }
+      ```
+2. Fazemos o pagamento desse pedido pelo sandbox do MercadoPago.
+3. A cozinha atualiza status do pedido.
+   ![Exemplo Pedido](./files/useguide/exemplo_atualiza_pedido.png)
+
+---
 
 
 ## 📄 Documentação da API
