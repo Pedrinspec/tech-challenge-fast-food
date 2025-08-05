@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: fastfood-app
-          image: gustavohaj/fastfood-app:v1
+          image: gustavohaj/fastfood-app:latest
           ports:
             - containerPort: 8080
           envFrom:
