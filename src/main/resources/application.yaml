@@ -24,3 +24,21 @@ mercadopago:
     token: ${MERCADOPAGO_ACCESS_TOKEN}
   webhook:
     base-url: ${WEBHOOK_MERCADOPAGO_BASE_URL}
+
+management:
+  endpoint:
+    health:
+      show-details: "ALWAYS"
+      probes:
+        enabled: true
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+
+probe:
+  path: /actuator/health
+  port: http
+  initialDelaySecondsLiveness: 120
+  initialDelaySecondsReadness: 120
