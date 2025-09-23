@@ -44,3 +44,15 @@ jobs:
           context: .
           push: true
           tags: ${{ env.IMAGE_NAME }}:latest
+
+      - name: 🚀 Disparar Workflow de CD no repositório de Infra
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          # O nome do arquivo do workflow orquestrador no outro repositório
+          workflow: ci-trigger-handler.yml
+          # O token com permissão para acionar actions em outros repositórios
+          token: ${{ secrets.ACTIONS_PAT }}
+          # O repositório de destino (CD/Infra)
+          repo: gustavohaj/tech-challenge-fast-food-Infra
+          # A branch onde o workflow se encontra
+          ref: main # ou a branch principal do seu repositório de infra
