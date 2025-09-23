@@ -1,4 +1,4 @@
-name: Java CI with Gradle and Docker
+name: Java CI 
 on:
   push:
     branches: 
