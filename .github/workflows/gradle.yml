@@ -45,6 +45,7 @@ jobs:
           push: true
           tags: ${{ env.IMAGE_NAME }}:latest
 
+          
       - name: 🚀 Disparar Workflow de CD no repositório de Infra
         uses: benc-uk/workflow-dispatch@v1
         with:
