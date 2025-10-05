@@ -171,14 +171,14 @@ Isola todos os recursos do projeto (Pods, Services, ConfigMaps, Secrets etc.) de
 
 ### 🗄 MySQL (Banco de Dados)
 - **Tipo:** StatefulSet
-- **Função:** Executa o container do banco de dados MySQL com persistência.
-- **PVC (PersistentVolumeClaim):** Garante que os dados não sejam perdidos entre reinicializações.
-- **Service:** Interno (ClusterIP) para uso da API Fastfood.
+- **Função:** Responsável por executar o container do banco de dados MySQL, garantindo persistência dos dados através de volumes persistentes. O uso de um StatefulSet assegura a manutenção da identidade da instância e facilita a gestão de armazenamento persistente.
+- **PVC (PersistentVolumeClaim):** Utiliza um volume persistente para assegurar que os dados armazenados no banco não sejam perdidos mesmo após reinicializações ou falhas do pod. Esse mecanismo é essencial para garantir a durabilidade das informações.
+- **Service:** É exposto internamente no cluster Kubernetes por meio de um serviço do tipo ClusterIP, permitindo que apenas componentes internos — como a API da aplicação Fastfood — possam se conectar ao banco de dados de forma segura e eficiente.
 
 #### 🛠 Recursos associados:
-- **Secret:** credenciais do banco.
-- **ConfigMap:** configurações do MySQL (opcional).
-- **PVC:** volume persistente associado ao StatefulSet.
+- **Secret:** Armazena de forma segura as credenciais (usuário e senha) de acesso ao banco de dados.
+- **ConfigMap (opcional):** Utilizado para definir parâmetros e configurações adicionais do MySQL, como tamanho de buffer, limite de conexões, entre outros.
+- **PVC:** Volume de armazenamento persistente associado ao StatefulSet, responsável por manter os dados salvos entre reinicializações ou recriações do pod.
 
 
 
