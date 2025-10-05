@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,23 +27,27 @@ public class PaymentController {
         this.service = service;
     }
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PaymentResponseDto> create(@RequestBody @Valid PaymentRequestDto dto) {
         var created = service.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<PaymentResponseDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<PaymentResponseDto> findById(@PathVariable Integer id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
-    @GetMapping("/status/{orderId}")
+    @GetMapping(path = "/status/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<PaymentStatusResponseDto> getStatusByOrder(@PathVariable Integer orderId) {
         return ResponseEntity.ok(service.getStatusByOrderId(orderId));
     }

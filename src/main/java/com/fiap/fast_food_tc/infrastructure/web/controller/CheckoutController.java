@@ -8,11 +8,10 @@ import com.fiap.fast_food_tc.domain.entity.Orders;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Checkout", description = "Endpoints de checkout")
 @RestController
@@ -26,12 +25,14 @@ public class CheckoutController {
         this.checkoutService = checkoutService;
     }
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<CheckoutResponseDto> checkout(@RequestBody CheckoutOrderRequest request) {
         return ResponseEntity.ok(checkoutService.checkoutAndCreateOrder(request));
     }
 
-    @PostMapping("/webhook/mercadoPago")
+    @PostMapping(path = "/webhook/mercadoPago", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Orders> handleWebhook(@Valid @RequestBody CheckoutWebhookRequest payload) {
         if ("payment".equals(payload.getType()) && payload.getData() != null) {
             String paymentId = payload.getData().getId();

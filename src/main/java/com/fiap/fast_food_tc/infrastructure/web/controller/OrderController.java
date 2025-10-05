@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,42 +27,49 @@ public class OrderController {
         this.ordersService = ordersService;
     }
 
-    @GetMapping("/all")
+    @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<OrdersResponseDto>> getAllOrders() {
         var response = ordersService.getAllOrders();
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/allOrderUnfinished")
+    @GetMapping(path = "/allOrderUnfinished", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<OrdersResponseDto>> getAllOrderUnfinished() {
         var response = ordersService.getAllOrderUnfinished();
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<OrdersResponseDto> getById(@PathVariable Integer id) {
         return ResponseEntity.ok(ordersService.getOrderById(id));
     }
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<OrdersResponseDto> createOrder(@RequestBody @Valid OrdersRequestDto order) {
         var ordersCreated = ordersService.create(order);
         return ResponseEntity.status(HttpStatus.CREATED).body(ordersCreated);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<OrdersResponseDto> update(@PathVariable Integer id, @RequestBody @Valid OrdersRequestDto dto) {
         var updated = ordersService.update(id, dto);
         return ResponseEntity.ok(updated);
     }
 
-    @PatchMapping("/{id}/status")
+    @PatchMapping(path = "/{id}/status", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<OrdersResponseDto> updateStatus(@PathVariable Integer id, @RequestBody UpdateStatusOrderRequest status) {
         var updated = ordersService.updateStatus(id, status.getNewStatusOrder());
         return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         ordersService.delete(id);
         return ResponseEntity.noContent().build();

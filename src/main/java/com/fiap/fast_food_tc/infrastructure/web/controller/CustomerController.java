@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,36 +26,42 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<CustomerResponseDto> createCustomer(@RequestBody @Valid CustomerRequestDto customer) {
         var customerCreated = customerService.create(customer);
         return ResponseEntity.status(HttpStatus.CREATED).body(customerCreated);
     }
 
-    @GetMapping("/{documentNumber}")
+    @GetMapping(path = "/{documentNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<CustomerResponseDto> getCustomerByDocument(@PathVariable("documentNumber") String documentNumber) {
         var customer = customerService.getByDoc(documentNumber);
         return ResponseEntity.ok(customer);
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping(path = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<CustomerResponseDto> getCustomerById(@PathVariable Integer id) {
         var customer = customerService.getById(id);
         return ResponseEntity.ok(customer);
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<CustomerResponseDto>> getAllCustomers() {
         return ResponseEntity.ok(customerService.getAll());
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(path = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<CustomerResponseDto> updateCustomer(@PathVariable Integer id,
                                                               @RequestBody @Valid CustomerRequestDto dto) {
         return ResponseEntity.ok(customerService.update(id, dto));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(path = "/id/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Void> deleteCustomer(@PathVariable Integer id) {
         customerService.delete(id);
         return ResponseEntity.noContent().build();

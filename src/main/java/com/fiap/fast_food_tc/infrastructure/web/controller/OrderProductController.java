@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,28 +25,33 @@ public class OrderProductController {
         this.service = service;
     }
 
-    @GetMapping("/all")
+    @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<OrderProductResponseDto>> getAll() {
         return ResponseEntity.ok(service.getAll());
     }
 
-    @GetMapping("/{orderId}/{productId}")
+    @GetMapping(path = "/{orderId}/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<OrderProductResponseDto> getById(@PathVariable Integer orderId, @PathVariable Integer productId) {
         return ResponseEntity.ok(service.getById(orderId, productId));
     }
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<OrderProductResponseDto> create(@RequestBody @Valid OrderProductRequestDto dto) {
         var created = service.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @PutMapping("/{orderId}/{productId}")
+    @PutMapping(path = "/{orderId}/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<OrderProductResponseDto> update(@PathVariable Integer orderId, @PathVariable Integer productId, @RequestBody @Valid OrderProductRequestDto dto) {
         return ResponseEntity.ok(service.update(orderId, productId, dto));
     }
 
     @DeleteMapping("/{orderId}/{productId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Void> delete(@PathVariable Integer orderId, @PathVariable Integer productId) {
         service.delete(orderId, productId);
         return ResponseEntity.noContent().build();
