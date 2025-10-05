@@ -320,15 +320,15 @@ acessar o dashboard do Minikube e verificar os logs do pod da API, e todos os da
 
 | Resource   | Method | Route                             | Description                        |
 | ---------- | ------ |-----------------------------------|------------------------------------|
-| Customer   | POST   | `/customerPersistenceEntities`                      | Register new customerPersistenceEntity              |
-| Customer   | GET    | `/customerPersistenceEntities/{documentNumber}`     | Get customerPersistenceEntity by CPF                |
+| Customer   | POST   | `/customers`                      | Register new customerPersistenceEntity              |
+| Customer   | GET    | `/customers/{documentNumber}`     | Get customerPersistenceEntity by CPF                |
 | Product    | POST   | `/products`                       | Register new productPersistenceEntity               |
 | Product    | GET    | `/products`                       | List all products                  |
-| Product    | GET    | `/products/categoryPersistenceEntity/{categoryId}` | List all products by categoryPersistenceEntity      |
+| Product    | GET    | `/products/category/{categoryId}` | List all products by categoryPersistenceEntity      |
 | Product    | PUT    | `/products/{id}`                  | Update productPersistenceEntity                     |
 | Product    | DELETE | `/products/{id}`                  | Remove productPersistenceEntity                     |
 | Category   | GET    | `/categories`                     | List categories                    |
-| Order      | POST   | `/ordersPersistenceEntity`                         | Create new order                   |
+| Order      | POST   | `/orders`                         | Create new order                   |
 | Checkout   | POST   | `/checkout`                       | Generate Mercado Pago paymentPersistenceEntity link |
 
 💳 Integração com Mercado Pago

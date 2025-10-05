@@ -16,6 +16,12 @@ spring:
       hibernate:
         dialect: ${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT}
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.sa-east-1.amazonaws.com/${COGNITO_USER_POOL_ID}
+
 server:
   port: ${SERVER_PORT}
 
