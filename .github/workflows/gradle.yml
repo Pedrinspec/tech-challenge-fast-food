@@ -45,7 +45,13 @@ jobs:
           push: true
           tags: ${{ env.IMAGE_NAME }}:latest
 
-          
+  confirmar-cd:
+    name: Confirmar para seguir para o CD
+    needs: build-test-and-docker
+    runs-on: ubuntu-latest
+    environment: 
+      name: Confirmar-Deploy
+    steps:
       - name: 🚀 Disparar Workflow de CD no repositório de Infra
         uses: benc-uk/workflow-dispatch@v1
         with:
