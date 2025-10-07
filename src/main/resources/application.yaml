@@ -31,6 +31,11 @@ mercadopago:
   webhook:
     base-url: ${WEBHOOK_MERCADOPAGO_BASE_URL}
 
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+
 management:
   endpoint:
     health:
